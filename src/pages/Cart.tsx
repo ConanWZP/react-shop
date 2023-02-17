@@ -2,8 +2,15 @@ import React from 'react';
 
 const Cart = () => {
     return (
-        <div>
-            Cart page
+        <div className={'flex-auto'}>
+            Cart pageasdasd
+            ad
+            s
+            asd
+            ads
+            asd
+            asd
+
         </div>
     );
 };

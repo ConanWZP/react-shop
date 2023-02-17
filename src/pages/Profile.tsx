@@ -1,11 +1,11 @@
 import React from 'react';
 
-const OrdersPage = () => {
+const Profile = () => {
     return (
         <div className={'flex-auto'}>
-            Orders Page
+            Profile
         </div>
     );
 };
 
-export default OrdersPage;
+export default Profile;
