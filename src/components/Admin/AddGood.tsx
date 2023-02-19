@@ -9,7 +9,6 @@ import Loader from "../Loader";
 import {useNavigate} from "react-router-dom";
 
 
-
 const AddGood = () => {
 
     const navigate = useNavigate()
@@ -41,6 +40,7 @@ const AddGood = () => {
             console.log(categories)
         }
         getCategories()
+        console.log(Number('250$'))
     }, [])
 
     const {name, image, price, category, brand, description, images} = product
@@ -65,7 +65,6 @@ const AddGood = () => {
     }
 
 
-
     const createProduct = async (e: FormEvent) => {
         e.preventDefault()
 
@@ -75,7 +74,6 @@ const AddGood = () => {
 
             const collectImage = async (image: any) => {
                 return new Promise((resolve, reject) => {
-
 
 
                     const storageRef = ref(storage, `images/${auth.currentUser?.uid} - ${image.name} - ${uuidv4()}`)
@@ -208,9 +206,13 @@ const AddGood = () => {
                 </div>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Price</span>
-                    <input required name={'price'} type={'number'} placeholder={'Product Name'} value={price}
-                           onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                    <div className={'relative'}>
+                        <input required name={'price'} type={'number'} placeholder={'Product Price'} value={price}
+                               onChange={handleChange} className={`w-[15vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none`}/>
+                        <div className={'text-[22px] absolute top-[14px] left-[228px]'}>$</div>
+                    </div>
+
                 </div>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Category</span>

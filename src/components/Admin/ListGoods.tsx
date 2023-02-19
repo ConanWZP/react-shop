@@ -1,8 +1,12 @@
-import {collection, onSnapshot, orderBy, query} from 'firebase/firestore';
+import {collection, deleteDoc, doc, onSnapshot, orderBy, query} from 'firebase/firestore';
 import React, {useEffect, useState} from 'react';
 import {AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import {toast} from "react-toastify";
-import {database} from "../../firebaseConfig";
+import {database, storage} from "../../firebaseConfig";
+import {Link} from "react-router-dom";
+import Loader from "../Loader";
+import {deleteObject, ref} from 'firebase/storage';
+import Notiflix from 'notiflix';
 
 
 interface IProduct {
@@ -58,14 +62,54 @@ const ListGoods = () => {
         getProducts()
     }, [])
 
-    // console.log(products[0].imageURLs[0])
+    const confirmRemove = (id: string, imageURLs: string[]) => {
+        Notiflix.Confirm.show(
+            'Remove the product',
+            'Do you really want to remove the product?',
+            'Remove',
+            'Cancel',
+            function okCb() {
+                deleteGood(id, imageURLs)
+            },
+            function cancelCb() {
+
+            },
+            {
+                width: '320px',
+                borderRadius: '8px',
+                titleColor: 'rgb(59,130,246)',
+                okButtonBackground: 'rgb(59,130,246)'
+                // etc...
+            },
+        );
+    }
+
+    const deleteGood = async (id: string, imageURLs: string[]) => {
+        try {
+            await deleteDoc(doc(database, 'products', id))
+
+           await imageURLs.forEach((imageUrl) => {
+               deleteObject(ref(storage, imageUrl))
+            })
+
+            toast.success('The product was delete')
+
+
+        } catch (e: any) {
+            toast.error(e.message)
+        }
+    }
+
+    if (loading) {
+        return  <Loader />
+    }
 
 
     return (
         <div className={'overflow-x-auto'}>
             <h2 className={'text-[44px] text-center font-bold'}>Product List</h2>
             {products.length === 0 ?
-                <div>Products wasn't found</div>
+                <div className={'text-[22px] font-medium'}>Products wasn't found</div>
                 :
                 <>
 
@@ -88,11 +132,14 @@ const ListGoods = () => {
                                          alt={product?.name}/></td>
                                 <td >{product?.name.length > 40 ? `${product.name.slice(0, 40)}...` : product.name }</td>
                                 <td className={'text-center'}>{product?.category}</td>
-                                <td className={'text-center'}>{product?.price}</td>
+                                <td className={'text-center'}>{product?.price}$</td>
                                 <td >
                                     <div className={'flex justify-center gap-3'}>
-                                        <AiFillEdit className={'text-blue-500 '} />
-                                        <AiFillDelete className={'text-red-500'} />
+                                        <Link to={'/admin/add-good'}>
+                                            <AiFillEdit size={22} className={'text-blue-500 '} />
+                                        </Link>
+                                        <AiFillDelete size={22} className={'text-red-500'}
+                                                      onClick={() => confirmRemove(product.id, product?.imageURLs)} />
                                     </div>
 
 
