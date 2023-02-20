@@ -7,6 +7,8 @@ import {Link} from "react-router-dom";
 import Loader from "../Loader";
 import {deleteObject, ref} from 'firebase/storage';
 import Notiflix from 'notiflix';
+import {useAppDispatch} from "../../hooks/customHooks";
+import {saveProducts} from "../../redux/slices/productSlice";
 
 
 interface IProduct {
@@ -24,6 +26,7 @@ const ListGoods = () => {
 
     const [products, setProducts] = useState<any>([])
     const [loading, setLoading] = useState(false)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         const getProducts = () => {
@@ -45,6 +48,7 @@ const ListGoods = () => {
                     console.log(goods)
                     setProducts(goods)
                     setLoading(false)
+                    dispatch(saveProducts(goods))
 
 
                     /*await querySnapshot.forEach((doc) => {
@@ -135,7 +139,7 @@ const ListGoods = () => {
                                 <td className={'text-center'}>{product?.price}$</td>
                                 <td >
                                     <div className={'flex justify-center gap-3'}>
-                                        <Link to={'/admin/add-good'}>
+                                        <Link to={`/admin/add-good/${product.id}`}>
                                             <AiFillEdit size={22} className={'text-blue-500 '} />
                                         </Link>
                                         <AiFillDelete size={22} className={'text-red-500'}

@@ -38,7 +38,7 @@ const AdminNavbar = () => {
                         </div>
                         <div className={'h-[1px] w-full bg-gray-400 px-4'}></div>
                     </Link>
-                    <Link to={'/admin/add-good'} className={location.pathname === '/admin/add-good' ? 'text-blue-500' : ''}>
+                    <Link to={'/admin/add-good/add'} className={location.pathname === '/admin/add-good/add' ? 'text-blue-500' : ''}>
                         <div className={`flex items-center gap-2 `}>
                             <AiFillFileAdd size={18} />
                             <span className={'hover:text-[18px] transition-all duration-300 ease-in-out'}>Add Product</span>

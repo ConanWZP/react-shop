@@ -1,16 +1,18 @@
 import React, {FormEvent, useEffect, useState} from 'react';
-import {addDoc, collection, getDocs, query, Timestamp} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs, query, Timestamp} from "firebase/firestore";
 import {auth, database, storage} from "../../firebaseConfig";
 import {AiOutlineArrowDown} from 'react-icons/ai';
 import {v4 as uuidv4} from 'uuid'
 import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 import {toast} from "react-toastify";
 import Loader from "../Loader";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 const AddGood = () => {
 
+    const params = useParams()
+    console.log(params)
     const navigate = useNavigate()
     const [product, setProduct] = useState<any>({
         name: '',
@@ -19,7 +21,8 @@ const AddGood = () => {
         category: '',
         brand: '',
         description: '',
-        images: []
+        images: [],
+        imageURLsPrev: []
     })
 
     const [loading, setLoading] = useState(true)
@@ -40,10 +43,28 @@ const AddGood = () => {
             console.log(categories)
         }
         getCategories()
-        console.log(Number('250$'))
+
+        if (params.id !== 'ADD' && params.id !== undefined) {
+                const getProductData = async (id: string) => {
+                   let docData = await getDoc(doc(database, 'products', id))
+                    if (docData.exists()) {
+                        console.log(docData.data())
+                        setProduct({
+                            name: docData.data().name,
+                            price: docData.data().price,
+                            brand: docData.data().brand,
+                            description: docData.data().description,
+                            category: docData.data().category,
+                            imageURLsPrev: docData.data().imageURLs
+
+                        })
+                    }
+                }
+                getProductData(params.id)
+        }
     }, [])
 
-    const {name, image, price, category, brand, description, images} = product
+    const {name, image, price, category, brand, description, images, imageURLsPrev} = product
 
     const handleChange = (e: any) => {
 
@@ -114,9 +135,16 @@ const AddGood = () => {
                 return
             })
 
+
+           /* if (imageURLsPrev.length > 0) {*/
+                imageURLsPrev.push(imageURLs)
+            // } else {
+            //
+            // }
+
             let copyFormData = {
                 ...product,
-                imageURLs,
+                imageURLs: imageURLsPrev,
                 createdAt: Timestamp.fromDate(new Date())
             }
 
@@ -139,7 +167,8 @@ const AddGood = () => {
                 category: '',
                 brand: '',
                 description: '',
-                images: []
+                images: [],
+                imageURLs: []
             })
             setUploadingFile(0)
             setCreatingProduct(false)
@@ -160,7 +189,7 @@ const AddGood = () => {
 
     return (
         <>
-            <h2 className={'text-[44px] font-bold text-center'}>Add New Good</h2>
+            <h2 className={'text-[44px] font-bold text-center'}>{params.id === 'ADD' ? 'Add New Good' : 'Edit Product'}</h2>
             <form className={'shadow-xl p-8 mb-5'} onSubmit={createProduct}>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Name</span>
@@ -200,6 +229,14 @@ const AddGood = () => {
                                        onChange={handleChange} disabled className={`w-[50vw] rounded-[10px] p-3 border-2 
                                border-gray-300 text-[22px] focus:border-blue-500 outline-none`}/>
                         }
+                        {
+                            imageURLsPrev?.length > 0 ?
+                                imageURLsPrev.map((imageURL: string) =>
+                                    <img key={imageURL} className={'w-[100px] h-[100px]'} src={imageURL} alt={''} />
+                                )
+                                :
+                                null
+                        }
 
                     </div>
 
@@ -208,9 +245,9 @@ const AddGood = () => {
                     <span className={'mb-1 text-[22px]'}>Price</span>
                     <div className={'relative'}>
                         <input required name={'price'} type={'number'} placeholder={'Product Price'} value={price}
-                               onChange={handleChange} className={`w-[15vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                               onChange={handleChange} className={`w-[50%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none`}/>
-                        <div className={'text-[22px] absolute top-[14px] left-[228px]'}>$</div>
+                        <div className={'text-[22px] absolute top-[14px] left-[42%]'}>$</div>
                     </div>
 
                 </div>
