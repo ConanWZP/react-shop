@@ -1,12 +1,14 @@
 import React, {FormEvent, useEffect, useState} from 'react';
-import {addDoc, collection, doc, getDoc, getDocs, query, Timestamp} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs, query, Timestamp, updateDoc} from "firebase/firestore";
 import {auth, database, storage} from "../../firebaseConfig";
 import {AiOutlineArrowDown} from 'react-icons/ai';
 import {v4 as uuidv4} from 'uuid'
-import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
+import {deleteObject, getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 import {toast} from "react-toastify";
 import Loader from "../Loader";
 import {useNavigate, useParams} from "react-router-dom";
+import {RiDeleteBinLine} from 'react-icons/ri'
+import  './AddGood.module.scss'
 
 
 const AddGood = () => {
@@ -32,6 +34,10 @@ const AddGood = () => {
 
     const [categories, setCategories] = useState<any>([])
 
+    // сюда записываем урлы удаленных, и потом этот массив в сабмите формы проверяется на наличие строк, если строка есть, то фотка с таким урлом удалется из стораджа
+    const [deletedImages, setDeletedImages] = useState<string[]>([])
+
+
     useEffect(() => {
         setCategories([])
         setLoading(true)
@@ -44,7 +50,7 @@ const AddGood = () => {
         }
         getCategories()
 
-        if (params.id !== 'ADD' && params.id !== undefined) {
+        if (params.id !== 'add' && params.id !== undefined) {
                 const getProductData = async (id: string) => {
                    let docData = await getDoc(doc(database, 'products', id))
                     if (docData.exists()) {
@@ -55,7 +61,8 @@ const AddGood = () => {
                             brand: docData.data().brand,
                             description: docData.data().description,
                             category: docData.data().category,
-                            imageURLsPrev: docData.data().imageURLs
+                            imageURLsPrev: docData.data().imageURLs,
+                            images: []
 
                         })
                     }
@@ -85,6 +92,26 @@ const AddGood = () => {
         console.log(product)
     }
 
+    const deleteImage = (image: string) => {
+        console.log(image)
+        let newAr = imageURLsPrev.filter((imageURL: string) => {
+            if(imageURL !== image) {
+                return true
+            } else {
+                setDeletedImages([...deletedImages, image])
+            }
+        })
+        setProduct({
+            ...product,
+            imageURLsPrev: newAr
+        })
+
+        console.log(deletedImages)
+
+        //console.log(newAr)
+
+
+    }
 
     const createProduct = async (e: FormEvent) => {
         e.preventDefault()
@@ -92,6 +119,15 @@ const AddGood = () => {
         setCreatingProduct(true)
 
         try {
+
+            //let testIngArray = ['1f', '2d']
+
+            if (images.length + imageURLsPrev.length > 6) {
+                setCreatingProduct(false)
+                toast.error('Maximum 6 images')
+                return
+            }
+
 
             const collectImage = async (image: any) => {
                 return new Promise((resolve, reject) => {
@@ -121,6 +157,11 @@ const AddGood = () => {
                                     ...product,
                                     image: downloadURL
                                 })
+
+                                // using for update existed doc, for new product it doesn't matter
+                                imageURLsPrev.push(downloadURL)
+                                //
+
                                 toast.success('Image was uploaded')
                             });
                         }
@@ -128,37 +169,54 @@ const AddGood = () => {
                 })
             }
 
-            const imageURLs = await Promise.all(
-                [...images].map(image => collectImage(image))
-            ).catch(() => {
-                toast.error(`Files weren't uploaded`)
-                return
-            })
+            console.log(product)
+                const imageURLs = await Promise.all(
+
+                    [...images].map(image => collectImage(image))
+                ).catch(() => {
+                    toast.error(`Files weren't uploaded`)
+                    return
+                })
 
 
-           /* if (imageURLsPrev.length > 0) {*/
-                imageURLsPrev.push(imageURLs)
-            // } else {
-            //
-            // }
+
+
 
             let copyFormData = {
                 ...product,
                 imageURLs: imageURLsPrev,
-                createdAt: Timestamp.fromDate(new Date())
             }
 
             delete copyFormData.price
             delete copyFormData.image
             delete copyFormData.images
+            delete copyFormData.imageURLsPrev
 
             copyFormData = {
                 ...copyFormData,
                 price: Number(price)
             }
 
-            const docRef = await addDoc(collection(database, 'products'), copyFormData)
-            console.log(docRef)
+            if (params.id !== 'add' && params.id !== undefined) {
+                await deletedImages.forEach((imageUrl) => {
+                    deleteObject(ref(storage, imageUrl))
+                })
+                copyFormData = {
+                    ...copyFormData,
+                    editedAt: Timestamp.fromDate(new Date())
+                }
+                await updateDoc(doc(database, 'products', params.id), copyFormData)
+            } else {
+
+                copyFormData = {
+                    ...copyFormData,
+                    createdAt: Timestamp.fromDate(new Date())
+                }
+                const docRef = await addDoc(collection(database, 'products'), copyFormData)
+                console.log(docRef)
+            }
+
+
 
             setProduct({
                 name: '',
@@ -168,11 +226,16 @@ const AddGood = () => {
                 brand: '',
                 description: '',
                 images: [],
-                imageURLs: []
+                imageURLsPrev: []
             })
             setUploadingFile(0)
             setCreatingProduct(false)
-            toast.success('The product was add')
+            if (params.id !== 'add' && params.id !== undefined) {
+                toast.success('The product was edit')
+            } else {
+                toast.success('The product was add')
+            }
+
             navigate('/admin/list-goods')
 
         } catch (e: any) {
@@ -189,7 +252,7 @@ const AddGood = () => {
 
     return (
         <>
-            <h2 className={'text-[44px] font-bold text-center'}>{params.id === 'ADD' ? 'Add New Good' : 'Edit Product'}</h2>
+            <h2 className={'text-[44px] font-bold text-center'}>{params.id === 'add' ? 'Add New Good' : 'Edit Product'}</h2>
             <form className={'shadow-xl p-8 mb-5'} onSubmit={createProduct}>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Name</span>
@@ -216,24 +279,33 @@ const AddGood = () => {
                         }
 
                         <span className={'mb-1 text-[22px]'}>Image</span>
-                        <input required name={'imageFile'} type={'file'} placeholder={'Product Image'}
+                        <input required={params.id === 'add'} name={'imageFile'} type={'file'} placeholder={'Product Image'}
                                accept={'image/*'} multiple
                                onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none mb-2`}/>
 
                         {
-                            product.image === '' ?
+                            image === '' ?
                                 null
                                 :
                                 <input required name={'imageFile'} type={'text'} value={image}
                                        onChange={handleChange} disabled className={`w-[50vw] rounded-[10px] p-3 border-2 
-                               border-gray-300 text-[22px] focus:border-blue-500 outline-none`}/>
+                               border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2`}/>
                         }
+
                         {
                             imageURLsPrev?.length > 0 ?
-                                imageURLsPrev.map((imageURL: string) =>
-                                    <img key={imageURL} className={'w-[100px] h-[100px]'} src={imageURL} alt={''} />
-                                )
+                                <div className={'grid grid-cols-3 '}>
+                                    {imageURLsPrev.map((imageURL: string) =>
+                                        <div key={imageURL} className={'w-full relative h-[220px] border border-black p-2 rounded-[10px]'}>
+                                            <img className={'w-full object-contain h-full'} src={imageURL} alt={''} />
+                                            <RiDeleteBinLine size={22} color={'red'}
+                                              className={'absolute top-2 right-2 cursor-pointer'} onClick={()=>deleteImage(imageURL)} />
+                                        </div>
+
+                                    )}
+                                </div>
+
                                 :
                                 null
                         }
@@ -246,8 +318,8 @@ const AddGood = () => {
                     <div className={'relative'}>
                         <input required name={'price'} type={'number'} placeholder={'Product Price'} value={price}
                                onChange={handleChange} className={`w-[50%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none`}/>
-                        <div className={'text-[22px] absolute top-[14px] left-[42%]'}>$</div>
+                           focus:border-blue-500 outline-none pr-10`}/>
+                        <div className={'text-[22px] absolute top-[14px] left-[46%]'}>$</div>
                     </div>
 
                 </div>
@@ -290,7 +362,7 @@ const AddGood = () => {
                            focus:border-blue-500 outline-none`}/>
                 </div>
                 <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 
-                transition-all duration-300 ease-in-out`}>Add product
+                transition-all duration-300 ease-in-out`}>{params.id === 'add' ? 'Add Product' : 'Edit Product'}
                 </button>
             </form>
         </>

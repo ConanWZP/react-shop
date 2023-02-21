@@ -142,7 +142,7 @@ const ListGoods = () => {
                                         <Link to={`/admin/add-good/${product.id}`}>
                                             <AiFillEdit size={22} className={'text-blue-500 '} />
                                         </Link>
-                                        <AiFillDelete size={22} className={'text-red-500'}
+                                        <AiFillDelete size={22} className={'text-red-500 cursor-pointer'}
                                                       onClick={() => confirmRemove(product.id, product?.imageURLs)} />
                                     </div>
 
