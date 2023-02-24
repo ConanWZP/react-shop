@@ -1,12 +1,12 @@
 import React, {FormEvent, useState} from 'react';
 import resetPicture from "../assets/img/password.jpg";
-import ShadowWrapper from "../components/ShadowWrapper";
+import ShadowWrapper from "../components/MiniComponents/ShadowWrapper";
 import {Link, useNavigate} from "react-router-dom";
 import AuthWithGoogle from "../components/AuthWithGoogle";
 import {auth} from "../firebaseConfig";
 import { sendPasswordResetEmail } from 'firebase/auth';
 import {toast} from "react-toastify";
-import Loader from "../components/Loader";
+import Loader from "../components/MiniComponents/Loader";
 
 const ForgotPassword = () => {
 

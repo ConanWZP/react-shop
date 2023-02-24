@@ -1,13 +1,13 @@
 import React, {FormEvent, useState} from 'react';
 import registerPicture from "../assets/img/register.jpg";
-import ShadowWrapper from "../components/ShadowWrapper";
-import ShowPassword from "../components/ShowPassword";
+import ShadowWrapper from "../components/MiniComponents/ShadowWrapper";
+import ShowPassword from "../components/MiniComponents/ShowPassword";
 import {Link, useNavigate} from "react-router-dom";
 import AuthWithGoogle from "../components/AuthWithGoogle";
 import {toast} from "react-toastify";
 import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import {auth, database} from '../firebaseConfig';
-import Loader from "../components/Loader";
+import Loader from "../components/MiniComponents/Loader";
 import {doc, setDoc, Timestamp} from 'firebase/firestore';
 import {useAppDispatch} from "../hooks/customHooks";
 import {setCurrentUser} from "../redux/slices/authSlice";

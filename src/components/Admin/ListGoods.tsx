@@ -4,14 +4,16 @@ import {AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import {toast} from "react-toastify";
 import {database, storage} from "../../firebaseConfig";
 import {Link} from "react-router-dom";
-import Loader from "../Loader";
+import Loader from "../MiniComponents/Loader";
 import {deleteObject, ref} from 'firebase/storage';
 import Notiflix from 'notiflix';
-import {useAppDispatch} from "../../hooks/customHooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {saveProducts} from "../../redux/slices/productSlice";
+import useFetchCollection from "../../hooks/useFetchCollection";
+import {log} from "util";
 
 
-interface IProduct {
+export interface IProduct {
     brand: string,
     category: string,
     createdAt: any,
@@ -24,11 +26,21 @@ interface IProduct {
 
 const ListGoods = () => {
 
-    const [products, setProducts] = useState<any>([])
-    const [loading, setLoading] = useState(false)
+    const {data, loading} = useFetchCollection('products')
+    const {products} = useAppSelector(state => state.product)
+
+
+
+
+  //  const [products, setProducts] = useState<any>([])
+  //  const [loading, setLoading] = useState(false)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        dispatch(saveProducts(data))
+    }, [data, dispatch])
+
+  /*  useEffect(() => {
         const getProducts = () => {
             setLoading(true)
 
@@ -51,9 +63,9 @@ const ListGoods = () => {
                     dispatch(saveProducts(goods))
 
 
-                    /*await querySnapshot.forEach((doc) => {
+                    /!*await querySnapshot.forEach((doc) => {
                         products.push(doc.data().name);
-                    });*/
+                    });*!/
                     // console.log("Current cities in CA: ", cities.join(", "));
                 });
 
@@ -64,7 +76,7 @@ const ListGoods = () => {
             }
         }
         getProducts()
-    }, [])
+    }, [])*/
 
     const confirmRemove = (id: string, imageURLs: string[]) => {
         Notiflix.Confirm.show(

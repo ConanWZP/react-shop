@@ -5,7 +5,7 @@ import {AiOutlineArrowDown} from 'react-icons/ai';
 import {v4 as uuidv4} from 'uuid'
 import {deleteObject, getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 import {toast} from "react-toastify";
-import Loader from "../Loader";
+import Loader from "../MiniComponents/Loader";
 import {useNavigate, useParams} from "react-router-dom";
 import {RiDeleteBinLine} from 'react-icons/ri'
 import  './AddGood.module.scss'
@@ -26,6 +26,19 @@ const AddGood = () => {
         images: [],
         imageURLsPrev: []
     })
+
+    useEffect(() => {
+        setProduct({
+            name: '',
+            image: '',
+            price: 0,
+            category: '',
+            brand: '',
+            description: '',
+            images: [],
+            imageURLsPrev: []
+        })
+    }, [params.id])
 
     const [loading, setLoading] = useState(true)
     const [uploadingFile, setUploadingFile] = useState<any>(0)
@@ -69,7 +82,7 @@ const AddGood = () => {
                 }
                 getProductData(params.id)
         }
-    }, [])
+    }, [params.id])
 
     const {name, image, price, category, brand, description, images, imageURLsPrev} = product
 
@@ -125,6 +138,12 @@ const AddGood = () => {
             if (images.length + imageURLsPrev.length > 6) {
                 setCreatingProduct(false)
                 toast.error('Maximum 6 images')
+                return
+            }
+
+            if (images.length + imageURLsPrev.length === 0) {
+                setCreatingProduct(false)
+                toast.error('Minimum 1 image')
                 return
             }
 
@@ -295,7 +314,7 @@ const AddGood = () => {
 
                         {
                             imageURLsPrev?.length > 0 ?
-                                <div className={'grid grid-cols-3 '}>
+                                <div className={'grid grid-cols-3'}>
                                     {imageURLsPrev.map((imageURL: string) =>
                                         <div key={imageURL} className={'w-full relative h-[220px] border border-black p-2 rounded-[10px]'}>
                                             <img className={'w-full object-contain h-full'} src={imageURL} alt={''} />

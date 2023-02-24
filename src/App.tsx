@@ -16,7 +16,7 @@ import Profile from "./pages/Profile";
 import AdminPage from "./pages/AdminPage";
 import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
 
-import Loader from "./components/Loader";
+import Loader from "./components/MiniComponents/Loader";
 import DenyAccess from "./components/Admin/DenyAccess";
 
 

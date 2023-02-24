@@ -46,7 +46,7 @@ const CreateCategory = () => {
             <h2 className={'text-[44px] font-bold text-center'}>Create Category</h2>
             <form className={'shadow-xl p-4 rounded-[10px] flex flex-col'} onSubmit={handleSubmit}>
                 <div className={'text-[22px] mb-1'}>Category Name:</div>
-                <input type="text" placeholder={'Example: phones'} value={categoryName}
+                <input type="text" placeholder={'Example: Phones'} value={categoryName}
                        onChange={(e) => setCategoryName(e.target.value)} className={`w-[50vw] rounded-[10px]
                         p-3 border-2 border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2`}/>
                 <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 

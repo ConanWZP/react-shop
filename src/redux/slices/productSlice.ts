@@ -1,20 +1,24 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IProduct} from "../../components/Admin/ListGoods";
 
 
-interface IProducts {
-    products: any[]
+export interface ProductSlice {
+    products: IProduct[]
 }
 
-let initialState: IProducts = {
-    products: [],
+
+let initialState: ProductSlice = {
+    products: []
 }
+
 
 export const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        saveProducts: (state, action:PayloadAction<any[]>) => {
+        saveProducts: (state, action:PayloadAction<IProduct[]>) => {
             console.log(action.payload)
+            state.products = action.payload
         }
     }
 })

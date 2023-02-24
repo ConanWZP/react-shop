@@ -1,10 +1,10 @@
 import React, {FormEvent, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import loginPicture from '../assets/img/login.png'
-import ShowPassword from '../components/ShowPassword';
-import ShadowWrapper from "../components/ShadowWrapper";
+import ShowPassword from '../components/MiniComponents/ShowPassword';
+import ShadowWrapper from "../components/MiniComponents/ShadowWrapper";
 import AuthWithGoogle from "../components/AuthWithGoogle";
-import Loader from "../components/Loader";
+import Loader from "../components/MiniComponents/Loader";
 import {toast} from "react-toastify";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from "../firebaseConfig";
