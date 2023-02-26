@@ -18,6 +18,7 @@ import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
 
 import Loader from "./components/MiniComponents/Loader";
 import DenyAccess from "./components/Admin/DenyAccess";
+import Product from "./components/Products/Product/Product";
 
 
 const App = () => {
@@ -54,6 +55,8 @@ const App = () => {
                         <AdminPage/>
                         : <DenyAccess/>
                 }/>
+
+                <Route path={'/product/:id'} element={<Product/>}/>
 
 
             </Routes>

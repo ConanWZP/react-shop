@@ -4,6 +4,7 @@ import ProductsList from "./ProductsList";
 import useFetchCollection from "../../hooks/useFetchCollection";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {saveProducts} from "../../redux/slices/productSlice";
+import Loader from '../MiniComponents/Loader';
 
 const Products = () => {
 
@@ -20,10 +21,20 @@ const Products = () => {
         <section className={'w-full pt-5 bg-gray-50'}>
             <div className={'max-w-[1280px] mx-auto flex'}>
                 <aside className={'w-1/5 transition-all duration-300 ease-in-out'}>
-                    <ProductsFilters />
+                    {
+                        loading ?
+                            null
+                            :
+                            <ProductsFilters />
+                    }
                 </aside>
                 <div className={'w-4/5 pl-2'}>
-                    <ProductsList products={products} />
+                    {loading ?
+                        <Loader />
+                        :
+                        <ProductsList products={products} />
+                    }
+
                 </div>
             </div>
         </section>

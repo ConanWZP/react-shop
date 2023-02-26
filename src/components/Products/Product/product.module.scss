@@ -1,0 +1,55 @@
+/*
+.appearingImage {
+  @keyframes 0% {
+    opacity: 0%;
+  }
+}*/
+
+
+/*@keyframes appearingImage {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+
+}*/
+
+/*
+.appearing {
+  animation: appearingImage 1s ease-in-out 0.5s;
+  will-change: opacity
+}*/
+
+
+@keyframes fadeInFromNone {
+  0% {
+    position: absolute;
+    opacity: 0;
+    transform: translateX(-999px);
+  }
+
+  1% {
+    position: relative;
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  100% {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.draftsContent {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+  animation: fadeInFromNone 1s ease-in;
+  will-change: opacity, transform;
+
+}
