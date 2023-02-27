@@ -25,14 +25,15 @@ const Products = () => {
                         loading ?
                             null
                             :
-                            <ProductsFilters />
+                            <ProductsFilters/>
                     }
                 </aside>
                 <div className={'w-4/5 pl-2'}>
-                    {loading ?
-                        <Loader />
-                        :
-                        <ProductsList products={products} />
+                    {
+                        loading ?
+                            <Loader/>
+                            :
+                            <ProductsList products={products}/>
                     }
 
                 </div>
