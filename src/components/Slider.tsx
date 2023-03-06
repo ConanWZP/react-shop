@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import styles from './slider.module.scss'
 
+interface SliderProps {
+    scrollToList: () => void
+}
 
-const Slider = () => {
+const Slider:FC<SliderProps> = ({scrollToList}) => {
 
     const [slidesData, setSlidesData] = useState([
         {
@@ -64,13 +67,15 @@ const Slider = () => {
 
 
     return (
-        <div className={`w-full overflow-hidden relative bg-blue-200 h-[calc(100vh_-_128px)]`}>
+        <div className={`w-full overflow-hidden relative bg-blue-200 h-[calc(100vh_-_64px)]`}>
             <AiOutlineArrowLeft className={`border-2 border-orange-600 rounded-full w-12 h-12 cursor-pointer 
             bg-transparent absolute top-1/2 left-2 text-white z-50 max-[470px]:w-10 max-[470px]:h-10
             transition-all duration-200 ease-in-out ${styles.removeHover}`} onClick={swipePrevious}/>
+
             <AiOutlineArrowRight className={`border-2 border-orange-600 rounded-full w-12 h-12 cursor-pointer 
             bg-transparent absolute top-1/2 right-2 text-white z-50 max-[470px]:w-10 max-[470px]:h-10
             transition-all duration-200 ease-in-out ${styles.removeHover}`} onClick={swipeNext}/>
+
             {slidesData.map((slide, index) => (
                 <div key={index} className={currentSlide === index ?
                     `absolute top-0 left-0 w-full h-full transition-all duration-500 easy-in-out ${styles.current} `
@@ -84,10 +89,10 @@ const Slider = () => {
                                     <h2 className={'text-white mb-4 text-[72px] max-[470px]:text-[56px] max-[400px]:text-[48px]'}>{slide.title}</h2>
                                     <p className={'text-white mb-4'}>{slide.description}</p>
                                     <hr className={'text-white mb-4 h-1 w-full'} />
-                                    <NavLink to={'#product'}
+                                    <Link to={'/#product-list'} onClick={scrollToList}
                                              className={`bg-blue-500 px-[50px] py-[8px] rounded text-white 
                                              cursor-pointer text-[24px] hover:bg-blue-600 transition-all duration-300 ease-in-out
-                                             max-[470px]:text-[22px] max-[400px]:text-[20px]`}>Check</NavLink>
+                                             max-[470px]:text-[22px] max-[400px]:text-[20px]`}>Check</Link>
                                 </div>
 
                             </>

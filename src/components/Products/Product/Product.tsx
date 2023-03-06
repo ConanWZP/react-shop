@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import { BiArrowBack } from 'react-icons/bi';
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 import {AiOutlineClose, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
+import {useDebounce} from "../../../hooks/useDebounce";
 
 const Product = () => {
 
@@ -67,11 +68,14 @@ const Product = () => {
 
           /*await  extrFunc(ind)*/
             setAddClass(true)
-            setTimeout(() => {
+            /*setTimeout(() => {
                 setAddClass(false)
                 setCurInd(ind)
 
-            }, 350)
+            }, 350)*/
+            fundWithDeb(ind)
+
+
         }
 
       //  }
@@ -79,6 +83,14 @@ const Product = () => {
        // }
 
     }
+
+    const fundWithDeb = useDebounce((ind: number) => {
+        setTimeout(() => {
+            setAddClass(false)
+            setCurInd(ind)
+
+        }, 350)
+    }, 300)
 
     const extrFunc = (ind: number) => {
         setAddClass(true)
@@ -127,14 +139,14 @@ const Product = () => {
 
     if (imageIsShow) {
         return (
-            <div className={`w-full flex`}>
-                <button className={`h-[80vh] bg-gray-200 w-1/6 flex items-center justify-center my-auto 
+            <div className={`flex-auto flex`}>
+                <button className={`h-[calc(100vh_-_128px)] bg-gray-200 w-1/6 flex items-center justify-center my-auto 
                 hover:bg-gray-100 transition-all duration-300 ease-in-out`}
                         onClick={swipeNext}>
                     <FaArrowLeft size={40}/>
                 </button>
-                <img src={productData?.imageURLs[curInd]} alt="" className={`w-4/6 h-[80vh] object-contain`}/>
-                <button className={`h-[80vh] bg-gray-200 w-1/6 flex items-center justify-center my-auto relative 
+                <img src={productData?.imageURLs[curInd]} alt="" className={`w-4/6 h-[calc(100vh_-_128px)] object-contain`}/>
+                <button className={`h-[calc(100vh_-_128px)] bg-gray-200 w-1/6 flex items-center justify-center my-auto relative 
                 hover:bg-gray-100 transition-all duration-300 ease-in-out`}
                         onClick={swipePrevious}>
                     <AiOutlineClose onClick={() => showImage(false)} size={50} className={`absolute top-2 right-2`} />
@@ -149,7 +161,7 @@ const Product = () => {
 
             <div className={'max-w-[1280px] mx-auto pt-5'}>
                 <h2 className={`font-bold text-2xl mb-3`}>{productData?.name}</h2>
-                <Link to={`/`}>
+                <Link to={`/#product-list`}>
                     <button className={`flex gap-1 bg-blue-400 px-5 py-1 items-center rounded mb-4
                     hover:bg-blue-600 transition-all duration-300 ease-in-out active:bg-blue-700`}>
                         <BiArrowBack color={'white'} size={22}/>

@@ -1,13 +1,15 @@
 import {combineReducers, configureStore } from '@reduxjs/toolkit'
 import authSlice from './slices/authSlice'
 import productSlice from "./slices/productSlice";
+import filtersSlice from "./slices/filtersSlice";
 
 
 
 
 const  rootReduce = combineReducers({
     auth: authSlice,
-    product: productSlice
+    product: productSlice,
+    filters: filtersSlice,
 })
 
 
