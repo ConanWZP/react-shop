@@ -17,16 +17,22 @@ interface IProductsListProps {
     //setCurrentCategory: (e: string) => void,
     currentCategory: string,
    // setCurrentBrand: (e: string) => void,
-    currentBrand: string
+    currentBrand: string,
+    setCurrentPrice: (e: any) => void,
+    currentPrice: any
 
 }
 
-const ProductsList:FC<IProductsListProps> = ({products, sortValue, setSortValue, setSearchValue, searchValue, currentCategory, currentBrand}) => {
+const ProductsList:FC<IProductsListProps> = ({products, sortValue,
+                                                 setSortValue, setSearchValue,
+                                                 searchValue, currentCategory,
+                                                 currentBrand, setCurrentPrice, currentPrice}) => {
 
     const dispatch = useAppDispatch()
 
     const [isGrid, setIsGrid] = useState(true)
     const { filteredResults } = useAppSelector(state => state.filters)
+    const {maxPrice} = useAppSelector(state => state.product)
 
 
 
@@ -34,9 +40,17 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue, setSortValue,
 
     useEffect(() => {
 
+        let filteredByPriceProducts: any[]
+        debugger
+       // if (searchValue !== '') {
+            filteredByPriceProducts =  products.filter((product) => product.price <= currentPrice)
+       // } else {
+         //   filteredByPriceProducts = products
+       // }
 
 
-        const {productsArray} = conditionalProducts(products, currentBrand, currentCategory)
+        const {productsArray} = conditionalProducts(filteredByPriceProducts, currentBrand, currentCategory)
+        setSortValue('last')
             dispatch(searchProducts({
                 products: productsArray,
                 searchValue

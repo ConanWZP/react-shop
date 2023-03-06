@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {savePriceRange, saveProducts} from "../../redux/slices/productSlice";
 import SkeletonLoader from "../MiniComponents/SkeletonLoader";
 import conditionalProducts from "./conditionalProducts";
+import {IProduct} from "../Admin/ListGoods";
 
 
 interface ProductsProps {
@@ -21,6 +22,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
     const [sortValue, setSortValue] = useState('last')
     const [currentCategory, setCurrentCategory] = useState('All')
     const [currentBrand, setCurrentBrand] = useState('All')
+    const [currentPrice, setCurrentPrice] = useState<any>(200)
     const {filteredResults} = useAppSelector(state => state.filters)
 
 
@@ -33,14 +35,33 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
     useEffect(() => {
 
-        const {productsArray} = conditionalProducts(products, currentBrand, currentCategory)
+        let filteredBySearchValueProducts: any[] = []
 
-
+        if (searchValue !== '') {
+            filteredBySearchValueProducts = products.filter((product: IProduct) => {
+                return (
+                    product?.name.toLowerCase().includes(searchValue.toLowerCase())
+                    ||
+                    product?.category.toLowerCase().includes(searchValue.toLowerCase())
+                    ||
+                    product?.brand.toLowerCase().includes(searchValue.toLowerCase())
+                )
+            })
+        } else {
+            filteredBySearchValueProducts = products
+        }
+        debugger
+        const {productsArray} = conditionalProducts(filteredBySearchValueProducts, currentBrand, currentCategory)
         dispatch(savePriceRange({
             products: productsArray
         }))
 
-    }, [dispatch, products, currentBrand, currentCategory])
+
+
+
+
+
+    }, [dispatch, products, currentBrand, currentCategory, searchValue])
 
 
 
@@ -56,10 +77,14 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                             :
                             <ProductsFilters setSortValue={setSortValue}
                                              setSearchValue={setSearchValue}
+                                             searchValue={searchValue}
                                              setCurrentCategory={setCurrentCategory}
                                              currentCategory={currentCategory}
                                              setCurrentBrand={setCurrentBrand}
-                                             currentBrand={currentBrand}/>
+                                             currentBrand={currentBrand}
+                                             setCurrentPrice={setCurrentPrice}
+                                             currentPrice={currentPrice}
+                            />
                     }
                 </aside>
                 <div className={'w-4/5 pl-2'} ref={productListRef}>
@@ -77,7 +102,9 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                                           searchValue={searchValue}
                                           sortValue={sortValue}
                                           currentCategory={currentCategory}
-                                          currentBrand={currentBrand} />
+                                          currentBrand={currentBrand}
+                                          setCurrentPrice={setCurrentPrice}
+                                          currentPrice={currentPrice} />
                     }
 
                 </div>
