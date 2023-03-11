@@ -12,7 +12,7 @@ const conditionalProducts = (products: any[], currentBrand: string, currentCateg
 
             productsArray.push(...products)
 
-            debugger
+
 
 
 

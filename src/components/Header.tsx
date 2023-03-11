@@ -23,7 +23,7 @@ const CartComponent: FC<CartProps> = ({border, closeMenu, linkIsActive}) => {
                             <NavLink to={'/cart'}
                                      className={(state) => linkIsActive(state) + ' ' +
                                          `mr-2 flex items-center hover:text-green-400 transition-all duration-300 ease-in-out 
-                                 hover:text-[1.3rem] ${border ? 'max-[768px]:border-b' : ''} border-slate-400 max-[768px]:mr-0`}>
+                                 hover:text-[1.3rem] ${border ? 'max-[970px]:border-b' : ''} border-slate-400 max-[970px]:mr-0`}>
                                 Cart
                                 <div className={'relative'}>
                                     <BiCart size={18}/>
@@ -127,16 +127,16 @@ const Header = () => {
         <header className={'w-full text-white bg-[#406bad]'}>
             <div className={'flex items-center justify-between h-[64px] w-full p-4 mx-auto text-[18px] '}>
                 <Logo/>
-                <nav className={`w-3/4 flex justify-between max-[768px]:block max-[768px]:absolute max-[768px]:top-0 max-[768px]:left-0 max-[768px]:w-1/2 max-[768px]:h-[100vh] 
-                max-[768px]:bg-[#406bad] max-[768px]:z-50 max-[768px]:transform max-[768px]:transition max-[768px]:duration-300 max-[768px]:px-[15px] pt-[6px]
-                ${menuIsShow ? 'max-[768px]:transform max-[768px]:translate-x-0' : 'max-[768px]:transform max-[768px]:translate-x-[-200%]'}`}>
+                <nav className={`w-3/4 flex justify-between max-[970px]:block max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0 max-[970px]:w-1/2 max-[970px]:h-[100vh] 
+                max-[970px]:bg-[#406bad] max-[970px]:z-50 max-[970px]:transform max-[970px]:transition max-[970px]:duration-300 max-[970px]:px-[15px] pt-[6px]
+                ${menuIsShow ? 'max-[970px]:transform max-[970px]:translate-x-0' : 'max-[970px]:transform max-[970px]:translate-x-[-200%]'}`}>
 
-                    <div className={`max-[768px]:absolute max-[768px]:top-0 max-[768px]:right-0 max-[768px]:w-full max-[768px]:h-[100vh] max-[768px]:bg-[#00000080] max-[768px]:transform max-[768px]:translate-x-0
-                    max-[768px]:transition max-[768px]:duration-300 ${menuIsShow ? `max-[768px]:translate-x-[100%] ` : ''}`}
+                    <div className={`max-[970px]:absolute max-[970px]:top-0 max-[970px]:right-0 max-[970px]:w-full max-[970px]:h-[100vh] max-[970px]:bg-[#00000080] max-[970px]:transform max-[970px]:translate-x-0
+                    max-[970px]:transition max-[970px]:duration-300 ${menuIsShow ? `max-[970px]:translate-x-[100%] ` : ''}`}
                          onClick={closeMenu}>
                     </div>
 
-                    <div className={'flex justify-between gap-[12px] max-[768px]:flex-col max-[768px]:mb-[8px]'}
+                    <div className={'flex justify-between gap-[12px] max-[970px]:flex-col max-[970px]:mb-[8px]'}
                          onClick={closeMenu}>
                         <div className={'min-[769px]:hidden flex items-center justify-between'}>
                             <Logo/>
@@ -155,37 +155,37 @@ const Header = () => {
 
                         <NavLink to={'/'}
                                  className={(state) => linkIsActive(state) + ' ' +
-                                     `hover:text-green-400 transition-all duration-300 ease-in-out max-[768px]:border-b border-slate-400 hover:text-[1.3rem]`}>Home</NavLink>
+                                     `hover:text-green-400 transition-all duration-300 ease-in-out max-[970px]:border-b border-slate-400 hover:text-[1.3rem]`}>Home</NavLink>
 
 
                         <NavLink className={(state) => linkIsActive(state) + ' ' +
-                            'hover:text-green-400 transition-all duration-300 ease-in-out max-[768px]:border-b border-slate-400 hover:text-[1.3rem]'}
+                            'hover:text-green-400 transition-all duration-300 ease-in-out max-[970px]:border-b border-slate-400 hover:text-[1.3rem]'}
                                  to={'/contact'}>Contact us</NavLink>
 
                     </div>
 
-                    <div className={'flex max-[768px]:flex-col max-[768px]:gap-[8px]'}>
+                    <div className={'flex max-[970px]:flex-col max-[970px]:gap-[8px]'}>
                         {
                             loading ?
                                 <div>Loading...</div>
                                 :
                                 <span onClick={closeMenu}
-                                      className={'mr-2 max-[768px]:flex max-[768px]:flex-col max-[768px]:gap-[8px] max-[768px]:mr-0'}>
+                                      className={'mr-2 max-[970px]:flex max-[970px]:flex-col max-[970px]:gap-[8px] max-[970px]:mr-0'}>
                             {userName ?
                                 <NavLink to={'/profile'}
                                          className={(state) => linkIsActive(state) + ' ' +
                                              'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                             'max-[768px]:border-b border-slate-400 max-[768px]:mr-0 hover:text-[1.3rem]'}>Hi, {userName}</NavLink>
+                                             'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Hi, {userName}</NavLink>
                                 :
                                 <>
                                     <NavLink to={'/login'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                                 'max-[768px]:border-b border-slate-400 max-[768px]:mr-0 hover:text-[1.3rem]'}>Login</NavLink>
+                                                 'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Login</NavLink>
                                     <NavLink to={'/register'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                                 'max-[768px]:border-b border-slate-400 max-[768px]:mr-0 hover:text-[1.3rem]'}>Sign up</NavLink>
+                                                 'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Sign up</NavLink>
                                 </>
 
                             }
@@ -193,11 +193,11 @@ const Header = () => {
                                     <NavLink to={'/order'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                                 'max-[768px]:border-b border-slate-400 max-[768px]:mr-0 hover:text-[1.3rem]'}>My orders</NavLink>
+                                                 'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>My orders</NavLink>
                                     {userName ?
                                         <span onClick={logout}
                                               className={'cursor-pointer hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                                  'max-[768px]:border-b border-slate-400 max-[768px]:mr-0 hover:text-[1.3rem]'}>Logout</span>
+                                                  'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Logout</span>
                                         : null
 
                                     }
@@ -212,7 +212,7 @@ const Header = () => {
 
                 </nav>
 
-                <div className={'hidden max-[768px]:flex max-[768px]:items-center gap-2'}>
+                <div className={'hidden max-[970px]:flex max-[970px]:items-center gap-2'}>
                     <CartComponent border={false} linkIsActive={linkIsActive}/>
                     <BiMenu size={26} className={'cursor-pointer'} onClick={changeMenuStatus}/>
                 </div>

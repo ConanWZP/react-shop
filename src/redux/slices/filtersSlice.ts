@@ -23,7 +23,7 @@ export const filtersSlice = createSlice({
 
             const {products, searchValue} = action.payload
            // const searchValue = extraDispatchArg
-            debugger
+
             state.filteredResults = products.filter((product: IProduct) => {
                 return (
                     product?.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -141,7 +141,7 @@ export const filtersSlice = createSlice({
         },
         setProductsByPrice: (state, action) => {
             const {products, price} = action.payload
-            debugger
+
             state.filteredResults = products.filter((product: IProduct) => product.price <= price)
         }
 

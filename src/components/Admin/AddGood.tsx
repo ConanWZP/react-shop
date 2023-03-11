@@ -332,13 +332,13 @@ const AddGood = () => {
                     </div>
 
                 </div>
-                <div className={'flex flex-col mb-4'}>
+                <div className={'flex flex-col mb-4 '}>
                     <span className={'mb-1 text-[22px]'}>Price</span>
-                    <div className={'relative'}>
+                    <div className={'relative '}>
                         <input required name={'price'} type={'number'} placeholder={'Product Price'} value={price}
                                onChange={handleChange} className={`w-[50%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none pr-10`}/>
-                        <div className={'text-[22px] absolute top-[14px] left-[46%]'}>$</div>
+                        <div className={'text-[22px] absolute top-[14px] left-[46%] '}>$</div>
                     </div>
 
                 </div>

@@ -7,6 +7,7 @@ import {savePriceRange, saveProducts} from "../../redux/slices/productSlice";
 import SkeletonLoader from "../MiniComponents/SkeletonLoader";
 import conditionalProducts from "./conditionalProducts";
 import {IProduct} from "../Admin/ListGoods";
+import { FaCogs } from 'react-icons/fa';
 
 
 interface ProductsProps {
@@ -25,6 +26,8 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
     const [currentPrice, setCurrentPrice] = useState<any>(200)
     const {filteredResults} = useAppSelector(state => state.filters)
 
+    const [hideFilters, setHideFilters] = useState(true)
+
 
     useEffect(() => {
         dispatch(saveProducts(data))
@@ -36,6 +39,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
     useEffect(() => {
 
         let filteredBySearchValueProducts: any[] = []
+      // let  filteredByPriceProducts =  products.filter((product) => product.price <= currentPrice)
 
         if (searchValue !== '') {
             filteredBySearchValueProducts = products.filter((product: IProduct) => {
@@ -50,16 +54,11 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
         } else {
             filteredBySearchValueProducts = products
         }
-        debugger
+
         const {productsArray} = conditionalProducts(filteredBySearchValueProducts, currentBrand, currentCategory)
         dispatch(savePriceRange({
             products: productsArray
         }))
-
-
-
-
-
 
     }, [dispatch, products, currentBrand, currentCategory, searchValue])
 
@@ -68,9 +67,15 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
 
     return (
-        <section className={'w-full pt-5 bg-gray-50 pb-40'} >
-            <div className={'max-w-[1280px] mx-auto flex '}>
-                <aside className={'w-1/5 transition-all duration-300 ease-in-out'}>
+        <section className={'w-full  bg-gray-50 pb-40'} >
+            <div className={'max-w-[1280px] mx-auto flex relative pt-8'}>
+                <aside
+                    className={hideFilters ?
+                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
+                        max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-10 pl-2`
+                        :
+                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
+                        max-[970px]:absolute max-[970px]:h-full max-[970px]:z-10 left-0 pl-2`}>
                     {
                         loading ?
                             null
@@ -87,7 +92,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                             />
                     }
                 </aside>
-                <div className={'w-4/5 pl-2'} ref={productListRef}>
+                <div className={'w-4/5 pl-2 max-[970px]:w-full'} ref={productListRef}>
                     {
                         loading ?
                             <div className={'grid grid-cols-3 gap-3'}>
@@ -106,6 +111,12 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                                           setCurrentPrice={setCurrentPrice}
                                           currentPrice={currentPrice} />
                     }
+                    <div onClick={() => setHideFilters(!hideFilters)}
+                        className={`hidden justify-center items-center absolute right-0 top-0 
+                        cursor-pointer max-[970px]:flex`}>
+                        <FaCogs size={`20`} className={`text-green-500`}/>
+                        <span>{hideFilters ? `Show Filters` : `Hide Filters`}</span>
+                    </div>
 
                 </div>
             </div>

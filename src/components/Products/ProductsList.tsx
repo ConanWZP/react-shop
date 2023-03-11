@@ -7,6 +7,7 @@ import ProductItem from "./ProductItem";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import { searchProducts, sortProductsBy } from '../../redux/slices/filtersSlice';
 import conditionalProducts from "./conditionalProducts";
+import Pagination from "../Pagination/Pagination";
 
 interface IProductsListProps {
    products: IProduct[],
@@ -30,9 +31,20 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
 
     const dispatch = useAppDispatch()
 
-    const [isGrid, setIsGrid] = useState(true)
+
     const { filteredResults } = useAppSelector(state => state.filters)
-    const {maxPrice} = useAppSelector(state => state.product)
+    // const {maxPrice} = useAppSelector(state => state.product)
+
+    const [isGrid, setIsGrid] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [numberDisplayedProducts, setNumberDisplayedProducts] = useState(3)
+
+    const lastProductIndexOfCurrentPage = currentPage * numberDisplayedProducts
+    const firstProductIndexOfCurrentPage = lastProductIndexOfCurrentPage - numberDisplayedProducts
+
+    const productsResult = filteredResults.slice(firstProductIndexOfCurrentPage, lastProductIndexOfCurrentPage)
+
+
 
 
 
@@ -41,11 +53,11 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
     useEffect(() => {
 
         let filteredByPriceProducts: any[]
-        debugger
-       // if (searchValue !== '') {
+
+     //   if (searchValue !== '') {
             filteredByPriceProducts =  products.filter((product) => product.price <= currentPrice)
-       // } else {
-         //   filteredByPriceProducts = products
+      //  } else {
+       //     filteredByPriceProducts = products
        // }
 
 
@@ -56,7 +68,7 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
                 searchValue
             }))
 
-    }, [searchValue, dispatch])
+    }, [searchValue, dispatch, currentPrice])
 
 
 
@@ -75,9 +87,12 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
         <div className={'w-full'} id={'product'}>
             <div className={'w-full border-b-2 border-slate-400 flex justify-between items-center mb-6'}>
 
-                <div className={'flex gap-3 mb-1 items-center'}>
-                    <FaThList size={22} className={`cursor-pointer ${!isGrid ? 'text-green-500' : ''}`} onClick={() => setIsGrid(false)} />
-                    <BsGridFill size={22} className={`cursor-pointer ${isGrid ? 'text-green-500' : ''}`} onClick={() => setIsGrid(true)} />
+                <div className={'flex gap-3 mb-1 items-center max-[720px]:flex-col-reverse'}>
+                    <div className={`flex gap-3 items-center`}>
+                        <FaThList size={22} className={`cursor-pointer ${!isGrid ? 'text-green-500' : ''}`} onClick={() => setIsGrid(false)} />
+                        <BsGridFill size={22} className={`cursor-pointer ${isGrid ? 'text-green-500' : ''}`} onClick={() => setIsGrid(true)} />
+                    </div>
+
                     <div>
                         <span>{filteredResults?.length}</span> products were found
                     </div>
@@ -102,12 +117,12 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
             </div>
 
 
-            <div className={isGrid ? `grid grid-cols-3 gap-2 mb-4 ` : `flex flex-col gap-4 mb-4`}>
+            <div className={isGrid ? `grid grid-cols-3 gap-2 mb-4 max-[720px]:grid-cols-2` : `flex flex-col gap-4 mb-4`}>
 
 
                 {
-                    filteredResults?.length > 0 ?
-                        filteredResults?.map((product) => (
+                    productsResult?.length > 0 ?
+                        productsResult?.map((product) => (
                                /* <div key={product.id}>*/
                                     <ProductItem key={product.id} product={product} isGrid={isGrid} />
                                /* </div>*/
@@ -116,6 +131,8 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
                         <span>There are no goods</span>
                 }
             </div>
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
+                        numberDisplayedProducts={numberDisplayedProducts} totalCountProducts={filteredResults.length} />
         </div>
     );
 };

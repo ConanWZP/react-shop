@@ -11,15 +11,16 @@ const ProductItem:FC<ProductItemProps> = ({product, isGrid}) => {
     return (
         <div className={`shadow-md px-6 py-2 bg-white rounded-[10px] transition-all duration-300 ease-in-out
         ${!isGrid ? `flex justify-between mb-1 hover:shadow-lg ` : 
-            'flex flex-col items-center mb-4 hover:shadow-blue-400'}`}>
+            'flex flex-col items-center mb-4 hover:shadow-blue-400 max-[580px]:px-1 py-1'}`}>
             <Link to={`/product/${product.id}`} className={isGrid ? `mb-4` : ''}>
                 <div>
-                    <img className={'w-[150px] h-[150px] object-contain'} src={product.imageURLs[0]} alt=""/>
+                    <img className={'w-[150px] h-[150px] object-contain max-[450px]:w-[120px] max-[450px]:h-[120px]'}
+                         src={product.imageURLs[0]} alt=""/>
                 </div>
             </Link>
             <div className={`px-2 flex-auto ${!isGrid ? `max-w-[65%]` : ''}`}>
                     <Link to={`/product/${product.id}`} className={'hover:text-blue-500 transition-all duration-200 ease-in-out'}>
-                    <span className={'font-bold text-[22px]'}>{product.name}</span>
+                    <span className={'font-bold text-[22px] max-[580px]:text-[16px]'}>{product.name}</span>
                     </Link>
                     {isGrid ?
                         null

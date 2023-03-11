@@ -1,6 +1,6 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
-import {setProductsByBrand, setProductsByCategory, setProductsByPrice } from '../../redux/slices/filtersSlice';
+import {setProductsByBrand, setProductsByCategory, setProductsByPrice} from '../../redux/slices/filtersSlice';
 import {IProduct} from "../Admin/ListGoods";
 import conditionalProducts from "./conditionalProducts";
 import {savePriceRange} from "../../redux/slices/productSlice";
@@ -17,16 +17,18 @@ interface ProductsFiltersProps {
     currentPrice: any
 }
 
-const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue, searchValue,
+const ProductsFilters: FC<ProductsFiltersProps> = ({
+                                                       setSortValue, setSearchValue, searchValue,
                                                        setCurrentBrand, setCurrentCategory,
                                                        currentCategory, currentBrand,
-                                                       setCurrentPrice, currentPrice}) => {
+                                                       setCurrentPrice, currentPrice
+                                                   }) => {
 
     const dispatch = useAppDispatch()
 
 
     const {products, maxPrice, minPrice} = useAppSelector(state => state.product)
-   // const {filteredResults, filteredByCategory} = useAppSelector(state => state.filters)
+    // const {filteredResults, filteredByCategory} = useAppSelector(state => state.filters)
     const {filteredResults} = useAppSelector(state => state.filters)
 
     const categoriesList = [
@@ -49,34 +51,33 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue
     }
 
 
-
-
     const chooseCategory = (category: string) => {
         setCurrentCategory(category)
         setSortValue('last')
         setSearchValue('')
-        dispatch(setProductsByCategory({products, category}))
         setCurrentBrand('All')
-        setCurrentPrice(maxPrice)
-
-
+        const {productsArray} = conditionalProducts(products, currentBrand, category)
+        const mP = Math.max(...productsArray.map((product) => product.price))
+        setCurrentPrice(mP)
+        dispatch(setProductsByCategory({products, category}))
     }
 
     useEffect(() => {
         dispatch(setProductsByCategory({products, category: 'All'}))
     }, [products, dispatch])
 
-  /*  useEffect(() => {
-        console.log(currentCategory)
-        console.log(products)
-        dispatch(setProductsByCategory({products, currentCategory}))
-    }, [currentCategory, dispatch, products])*/
-
     useEffect(() => {
-       // console.log(filteredByCategory)
+        // console.log(filteredByCategory)
         setSortValue('last')
         setSearchValue('')
-        setCurrentPrice(maxPrice)
+        //setCurrentPrice(maxPrice)
+        const {productsArray} = conditionalProducts(products, currentBrand, currentCategory)
+        const mP = Math.max(...productsArray.map((product) => product.price))
+        setCurrentPrice(mP)
+
+       // let filteredByPriceProducts: any[]
+      //  filteredByPriceProducts = products.filter((product) => product.price <= currentPrice)
+      //  console.log(currentPrice)
 
         if (currentCategory === 'All') {
             dispatch(setProductsByBrand({
@@ -90,31 +91,32 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue
             }))
         }
 
-    }, [currentBrand, dispatch])
-/*
 
-    const chooseBrand = (brand: string) => {
-        setCurrentBrand(brand)
-        dispatch(setProductsByBrand({products: filteredResults, brand}))
-    }*/
+    }, [currentBrand, dispatch])
+    /*
+
+        const chooseBrand = (brand: string) => {
+            setCurrentBrand(brand)
+            dispatch(setProductsByBrand({products: filteredResults, brand}))
+        }*/
 
     const choosePrice = (price: any) => {
         setCurrentPrice(price)
         setSortValue('last')
         let filteredBySearchValueProducts: any[]
-      //  if (searchValue !== '') {
-            filteredBySearchValueProducts = products.filter((product: IProduct) => {
-                return (
-                    product?.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ||
-                    product?.category.toLowerCase().includes(searchValue.toLowerCase())
-                    ||
-                    product?.brand.toLowerCase().includes(searchValue.toLowerCase())
-                )
-            })
-      //  } else {
+        //  if (searchValue !== '') {
+        filteredBySearchValueProducts = products.filter((product: IProduct) => {
+            return (
+                product?.name.toLowerCase().includes(searchValue.toLowerCase())
+                ||
+                product?.category.toLowerCase().includes(searchValue.toLowerCase())
+                ||
+                product?.brand.toLowerCase().includes(searchValue.toLowerCase())
+            )
+        })
+        //  } else {
         //    filteredBySearchValueProducts = products
-       // }
+        // }
 
         const {productsArray} = conditionalProducts(filteredBySearchValueProducts, currentBrand, currentCategory)
         dispatch(setProductsByPrice({products: productsArray, price}))
@@ -132,12 +134,12 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue
         setCurrentBrand('All')
 
 
-
         setSortValue('last')
-     /*   dispatch(savePriceRange({
-            products
-        }))*/
-        setCurrentPrice(maxPrice)
+        /*   dispatch(savePriceRange({
+               products
+           }))*/
+        const mP = Math.max(...products.map((product) => product.price))
+        setCurrentPrice(mP)
     }
 
     useEffect(() => {
@@ -153,25 +155,31 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue
         }
 
 
-
     }, [maxPrice, minPrice])
 
     useEffect(() => {
-        setCurrentPrice(maxPrice)
-    }, [currentBrand, currentCategory])
 
-    useEffect(() => {
-       // setCurrentPrice(99999999)
+        //setCurrentPrice()
+        /*setCurrentPrice((prevCurrentPrice: number) => {
+            if (prevCurrentPrice !== maxPrice) {
+                return maxPrice
+            }
+        })*/
+        setCurrentPrice(maxPrice)
     }, [])
 
-   /* useEffect(() => {
+    useEffect(() => {
+        // setCurrentPrice(99999999)
+    }, [])
 
-   /!*     if (maxPrice === -Infinity) {
-            setCurrentPrice(maxPrice)
+    /* useEffect(() => {
 
-        }
-        console.log(maxPrice)*!/
-    }, [])*/
+    /!*     if (maxPrice === -Infinity) {
+             setCurrentPrice(maxPrice)
+
+         }
+         console.log(maxPrice)*!/
+     }, [])*/
 
 
     return (
@@ -200,18 +208,28 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({setSortValue, setSearchValue
                 </select>
             </div>
             <h2 className={`text-[22px] font-medium`}>Price</h2>
-            <p>{currentPrice}$</p>
-            <div className={`mb-4`}>
-                {minPrice}
-                <input type="range" name={'price'} min={typeof minPrice === "number" ? minPrice : 1}
-                       max={typeof maxPrice === "number" ? maxPrice : 1500}
-                value={currentPrice} onChange={(e) => choosePrice(e.target.value)}/>
+            <div className={`flex flex-col `}>
+                <div className={`flex justify-between`}>
+                    <span>From: {minPrice}</span>
+                    <p>To: {currentPrice}$</p>
+                </div>
 
-                {maxPrice}
+                <div className={`mb-4 flex items-center justify-between`}>
+                   <span>Min: {minPrice}</span>
+                    <input type="range" name={'price'} min={typeof minPrice === "number" ? minPrice : 1}
+                           max={typeof maxPrice === "number" ? maxPrice : 1500}
+                           value={currentPrice} onChange={(e) => choosePrice(e.target.value)}
+                           className={`w-1/3`}
+                    />
+                    <span>Max: {maxPrice}</span>
+
+                </div>
             </div>
+
             <button onClick={() => clearFilters()}
-                className={`text-[22px] bg-blue-500 text-white px-4 py-1 rounded
-            hover:bg-blue-600 transition-all duration-300 ease-in-out`}>Clear Filter</button>
+                    className={`text-[22px] bg-blue-500 text-white px-4 py-1 rounded
+            hover:bg-blue-600 transition-all duration-300 ease-in-out`}>Clear Filter
+            </button>
         </div>
     );
 };
