@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {IProduct} from "../Admin/ListGoods";
 import {Link} from "react-router-dom";
+import {useAppDispatch} from "../../hooks/customHooks";
+import {addProductToCart} from "../../redux/slices/cartSlice";
 
 interface ProductItemProps {
     product: IProduct,
@@ -8,6 +10,13 @@ interface ProductItemProps {
 }
 
 const ProductItem:FC<ProductItemProps> = ({product, isGrid}) => {
+
+    const dispatch = useAppDispatch()
+
+    const addItemToCart = (item: IProduct) => {
+        dispatch(addProductToCart(item))
+    }
+
     return (
         <div className={`shadow-md px-6 py-2 bg-white rounded-[10px] transition-all duration-300 ease-in-out
         ${!isGrid ? `flex justify-between mb-1 hover:shadow-lg ` : 
@@ -36,7 +45,8 @@ const ProductItem:FC<ProductItemProps> = ({product, isGrid}) => {
             </div>
             <div className={'flex flex-col items-center py-2'}>
                 <p className={'text-[24px] font-medium mb-1'}>{product.price}$</p>
-                <button className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
+                <button onClick={() => addItemToCart(product)}
+                    className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
                 transition-all duration-300 ease-in-out hover:bg-green-600 active:bg-green-700`}>
                     Add to cart
                 </button>

@@ -123,9 +123,7 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
                 {
                     productsResult?.length > 0 ?
                         productsResult?.map((product) => (
-                               /* <div key={product.id}>*/
                                     <ProductItem key={product.id} product={product} isGrid={isGrid} />
-                               /* </div>*/
                             ))
                         :
                         <span>There are no goods</span>
