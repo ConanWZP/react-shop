@@ -26,7 +26,7 @@ const Home = () => {
 
     return (
         <div className={'flex-auto bg-gray-50'}>
-           {/* <Slider scrollToList={scrollToList} />*/}
+            <Slider scrollToList={scrollToList} />
             <Products productListRef={productListRef} />
         </div>
     );

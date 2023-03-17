@@ -13,7 +13,7 @@ const AdminPage = () => {
     const [hideAdminNavbar, setHideAdminNavbar] = useState(true)
 
     return (
-        <div className={'flex-auto min-[600px]:flex relative'}>
+        <div className={'flex-auto min-[600px]:flex relative mt-20'}>
             <div className={hideAdminNavbar ?
                 `w-1/4 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-white
                         max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-10 pl-2`

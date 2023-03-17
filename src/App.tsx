@@ -19,6 +19,8 @@ import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
 import Loader from "./components/MiniComponents/Loader";
 import DenyAccess from "./components/Admin/DenyAccess";
 import Product from "./components/Products/Product/Product";
+import CheckoutDetailsPage from "./pages/Checkout/CheckoutDetailsPage";
+import CheckoutPage from "./pages/Checkout/CheckoutPage";
 
 
 const App = () => {
@@ -57,6 +59,8 @@ const App = () => {
                 }/>
 
                 <Route path={'/product/:id'} element={<Product/>}/>
+                <Route path={'/checkout-details'} element={<CheckoutDetailsPage/>}/>
+                <Route path={`/checkout-page`} element={<CheckoutPage/>}/>
 
 
             </Routes>

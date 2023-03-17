@@ -6,12 +6,16 @@ import {auth, database} from "../firebaseConfig";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {setCurrentUser} from "../redux/slices/authSlice";
-import {useAppDispatch} from "../hooks/customHooks";
+import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
+import {useRedirectToCart} from "../hooks/useRedirectToCart";
 
 const AuthWithGoogle = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+
+    const redirectToCart = useRedirectToCart('/cart', '/cart')
 
     const authWithGoogle = async () => {
         try {
@@ -38,10 +42,11 @@ const AuthWithGoogle = () => {
             dispatch(setCurrentUser({
                 email: user.email,
                 userName: user.displayName,
-                userID: result.user.uid
+                userID: result.user.uid,
+                isAuth: true
             }))
+            redirectToCart()
 
-            navigate('/')
 
         } catch (e: any) {
             toast.error(e.message)

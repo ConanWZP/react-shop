@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import loginPicture from '../assets/img/login.png'
 import ShowPassword from '../components/MiniComponents/ShowPassword';
 import ShadowWrapper from "../components/MiniComponents/ShadowWrapper";
@@ -8,11 +8,15 @@ import Loader from "../components/MiniComponents/Loader";
 import {toast} from "react-toastify";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from "../firebaseConfig";
+import {useAppSelector} from "../hooks/customHooks";
+import {useRedirectToCart} from "../hooks/useRedirectToCart";
 
 const Login = () => {
 
-    const navigate = useNavigate()
+
     const [passwordIsShow, setPasswordIsShow] = useState(false)
+
+    const redirectToCart = useRedirectToCart('/cart', '/cart')
 
 
     const [formData, setFormData] = useState({
@@ -30,6 +34,7 @@ const Login = () => {
         })
     }
 
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         setFormData({
@@ -41,7 +46,7 @@ const Login = () => {
 
             if (result.user) {
                 toast.success('You signed in')
-                navigate('/')
+                redirectToCart()
             }
 
 
@@ -56,6 +61,11 @@ const Login = () => {
             })
         }
     }
+
+
+
+
+
 
 
     if (loading) {

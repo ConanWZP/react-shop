@@ -44,7 +44,9 @@ const ProductsList:FC<IProductsListProps> = ({products, sortValue,
 
     const productsResult = filteredResults.slice(firstProductIndexOfCurrentPage, lastProductIndexOfCurrentPage)
 
-
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [filteredResults])
 
 
 

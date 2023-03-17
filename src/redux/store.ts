@@ -3,6 +3,7 @@ import authSlice from './slices/authSlice'
 import productSlice from "./slices/productSlice";
 import filtersSlice from "./slices/filtersSlice";
 import cartSlice from "./slices/cartSlice";
+import checkoutSlice from "./slices/checkoutSlice";
 
 
 
@@ -12,6 +13,7 @@ const  rootReduce = combineReducers({
     product: productSlice,
     filters: filtersSlice,
     cart: cartSlice,
+    checkout: checkoutSlice,
 
 })
 

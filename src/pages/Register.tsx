@@ -9,8 +9,9 @@ import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import {auth, database} from '../firebaseConfig';
 import Loader from "../components/MiniComponents/Loader";
 import {doc, setDoc, Timestamp} from 'firebase/firestore';
-import {useAppDispatch} from "../hooks/customHooks";
+import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
 import {setCurrentUser} from "../redux/slices/authSlice";
+import {useRedirectToCart} from "../hooks/useRedirectToCart";
 
 
 const Register = () => {
@@ -19,6 +20,8 @@ const Register = () => {
     const [passwordIsShow, setPasswordIsShow] = useState(false)
     const [cpasswordIsShow, setCPasswordIsShow] = useState(false)
     const dispatch = useAppDispatch()
+
+    const redirectToCart = useRedirectToCart('/cart', '/cart')
 
 
     const [formData, setFormData] = useState({
@@ -70,11 +73,14 @@ const Register = () => {
             dispatch(setCurrentUser({
                 email,
                 userName: name,
-                userID: result.user.uid
+                userID: result.user.uid,
+                isAuth: true
             }))
 
             toast.success('You signed up')
-            navigate('/')
+
+            redirectToCart()
+           // useRedirectToCart('/cart', '/cart')
 
 
         } catch (e: any) {

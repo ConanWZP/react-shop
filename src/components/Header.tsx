@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
 import {setCurrentUser} from "../redux/slices/authSlice";
 import {doc, getDoc} from "firebase/firestore";
+import {calculateTotalCountOfProducts} from "../redux/slices/cartSlice";
 
 
 
@@ -18,6 +19,15 @@ interface CartProps {
 }
 
 const CartComponent: FC<CartProps> = ({border, closeMenu, linkIsActive}) => {
+
+    const dispatch = useAppDispatch()
+    const {itemsNumber, items} = useAppSelector(state => state.cart)
+
+
+    useEffect(() => {
+        dispatch(calculateTotalCountOfProducts())
+    }, [items])
+
     return (
         <span onClick={closeMenu}>
                             <NavLink to={'/cart'}
@@ -27,7 +37,7 @@ const CartComponent: FC<CartProps> = ({border, closeMenu, linkIsActive}) => {
                                 Cart
                                 <div className={'relative'}>
                                     <BiCart size={18}/>
-                                <p className={`absolute right-[2px] top-[-19px] rotate-[20deg] animate-spin text-green-400`}>4</p>
+                                <p className={`absolute right-[2px] top-[-19px] rotate-[20deg] animate-spin text-green-400`}>{itemsNumber}</p>
                                 </div>
 
                             </NavLink>
@@ -63,6 +73,8 @@ const Header = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useAppDispatch()
 
+
+
     const changeMenuStatus = () => {
         setMenuIsShow(!menuIsShow)
     }
@@ -80,7 +92,8 @@ const Header = () => {
             dispatch(setCurrentUser({
                 email: null,
                 userName: null,
-                userID: null
+                userID: null,
+                isAuth: false
             }))
             toast.success('You signed out')
             navigate('/')
@@ -103,7 +116,8 @@ const Header = () => {
                         dispatch(setCurrentUser({
                             email: docData.data().email,
                             userName: docData.data().name,
-                            userID: docData.data().uid
+                            userID: docData.data().uid,
+                            isAuth: true
                         }))
                         setLoading(false)
                     }
@@ -124,7 +138,7 @@ const Header = () => {
     }, [dispatch])
 
     return (
-        <header className={'w-full text-white bg-[#406bad]'}>
+        <header className={'w-full fixed z-50 text-white bg-[#406bad]'}>
             <div className={'flex items-center justify-between h-[64px] w-full p-4 mx-auto text-[18px] '}>
                 <Logo/>
                 <nav className={`w-3/4 flex justify-between max-[970px]:block max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0 max-[970px]:w-1/2 max-[970px]:h-[100vh] 
