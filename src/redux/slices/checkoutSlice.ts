@@ -1,14 +1,26 @@
 import {createSlice} from "@reduxjs/toolkit"
 
-
+type billingDataType = {
+    address: string,
+    name: string,
+    lat: number,
+    long: number,
+    phone: string
+}
 
 interface ICheckoutSlice {
-    billingData: any
+    billingData: billingDataType
 }
 
 
 const initialState: ICheckoutSlice = {
-    billingData: {}
+    billingData: {
+        address: '',
+        phone: '',
+        name: '',
+        lat: 0,
+        long: 0
+    }
 }
 
 
@@ -19,6 +31,7 @@ export const checkoutSlice = createSlice({
     reducers: {
         setBillingData: (state, action) => {
             console.log(action.payload)
+            state.billingData = action.payload
         },
     },
 })

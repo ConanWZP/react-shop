@@ -31,6 +31,11 @@ const CheckoutDetailsPage = () => {
 
     const [loadingMap, setLoadingMap] = useState(true)
 
+    let geolocation = {
+        lat: 0,
+        long: 0
+    }
+
     const checkAddress = async () => {
 
         if (address.length > 0) {
@@ -42,6 +47,8 @@ const CheckoutDetailsPage = () => {
                 lat: data.features[0]?.center[1] ?? 0,
                 long: data.features[0]?.center[0] ?? 0
             })
+            geolocation.lat = data.features[0]?.center[1] ?? 0
+            geolocation.long = data.features[0]?.center[0] ?? 0
             setLoadingMap(false)
         } else {
             toast.info('Fill in the address')
@@ -50,9 +57,15 @@ const CheckoutDetailsPage = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        await checkAddress()
-        console.log(formData)
-        dispatch(setBillingData(formData))
+        await checkAddress().then(() => {
+            dispatch(setBillingData({
+                ...formData,
+                lat: geolocation.lat,
+                long: geolocation.long
+            }))
+        })
+      //  console.log(formData)
+
         navigate('/checkout-page')
 
     }

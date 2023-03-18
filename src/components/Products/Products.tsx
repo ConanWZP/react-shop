@@ -64,10 +64,10 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
 
 
-
+    // min-h-[calc(100vh_-_196px)]
 
     return (
-        <section className={'w-full bg-gray-50 pb-40 min-h-[calc(100vh_-_128px)]'} >
+        <section className={'w-full bg-gray-50 min-h-[calc(100vh_-_128px)]'} >
             <div className={'max-w-[1280px] mx-auto flex relative pt-8'}>
                 <aside
                     className={hideFilters ?
