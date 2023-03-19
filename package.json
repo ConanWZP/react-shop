@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "firebase": "^9.16.0",
     "leaflet": "^1.9.3",
+    "nodemon": "^2.0.21",
     "notiflix": "^3.2.6",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.0",

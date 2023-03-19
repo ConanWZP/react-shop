@@ -6,7 +6,11 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {calculateTotalCountOfProducts, calculateTotalPrice} from "../../redux/slices/cartSlice";
 import PaymentForm from "../../components/Checkout/PaymentForm";
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHER_KEY}`);
+/*const stripePromise = loadStripe("pk_test_51MmsuvD2KA41zJ2N1wKCniEDfSOhjF7uFPMW0GCCZsW9iPVAF2MYo4ygdhHWKLDYsrFD9Nqhuj04raCXvHGgBBYa00Dl7YkuCy");*/
+
+
+
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHER_KEY}`);
 
 const CheckoutPage = () => {
 
@@ -44,12 +48,13 @@ const CheckoutPage = () => {
         })
             .then((res) => {
                 if (res.ok) {
-                    return res.json()
-                } else {
-                    return res.json().then((json) => Promise.reject(json))
+                    return res.json();
                 }
+                return res.json().then((json) => Promise.reject(json));
             })
-            .then((data) => setClientSecret(data.clientSecret))
+            .then((data) => {
+                setClientSecret(data.clientSecret);
+            })
             .catch((error) => {
                 setInitialMessage("Failed to initialize checkout");
                 toast.error("Something went wrong!");
@@ -59,7 +64,7 @@ const CheckoutPage = () => {
     const appearance = {
         theme: 'stripe',
     };
-    const options: any = {
+    const options = {
         clientSecret,
         appearance,
     };
@@ -68,15 +73,19 @@ const CheckoutPage = () => {
     return (
 
         <>
-            <div className={`flex-auto pt-26`}>
-                {!clientSecret ?
-                    <h3>{initialMessage}</h3>
-                    :
-                    null
-                }
-            </div>
+            {!clientSecret ?
+                <div className={`flex-auto pt-26`}>
+                    {!clientSecret ?
+                        <h3>{initialMessage}</h3>
+                        :
+                        null
+                    }
+                </div>
+                : null
+            }
+
             {clientSecret && (
-                <Elements options={options} stripe={stripePromise}>
+                <Elements options={options as any} stripe={stripePromise}>
                     <PaymentForm />
                 </Elements>
             )}

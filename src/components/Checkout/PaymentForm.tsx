@@ -5,12 +5,16 @@ import {
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
+import CheckoutInfo from "./CheckoutInfo";
+import Loader from "../MiniComponents/Loader";
+import {toast} from "react-toastify";
+import * as stripeJs from "@stripe/stripe-js";
 
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState<any>('');
     const [message, setMessage] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,54 +30,75 @@ const PaymentForm = () => {
         if (!clientSecret) {
             return;
         }
-
-        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-            switch (paymentIntent?.status) {
-                case "succeeded":
-                    setMessage("Payment succeeded!");
-                    break;
-                case "processing":
-                    setMessage("Your payment is processing.");
-                    break;
-                case "requires_payment_method":
-                    setMessage("Your payment was not successful, please try again.");
-                    break;
-                default:
-                    setMessage("Something went wrong.");
-                    break;
-            }
-        });
     }, [stripe]);
+
+
+    const saveOrder = () => {
+        console.log('Order was saved')
+    }
+
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setMessage(null)
+
 
         if (!stripe || !elements) {
-            // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
 
         setIsLoading(true);
 
-        const { error } = await stripe.confirmPayment({
+
+
+        /*const confirmPayment = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000",
+                return_url: "http://localhost:3000/checkout-successfully",
             },
-        });
+            redirect: 'if_required'
+        }).then((result) => {
+            // ok - paymentIntent, bad - error
+            if (result.error) {
+                toast.error(result.error.message)
+                setMessage(result.error.message)
+                return;
+            }
+            if (result.paymentIntent) {
+                if (result.paymentIntent.status === 'succeeded') {
+                    setIsLoading(false)
+                    toast.success('Payment successful')
+                    saveOrder()
+                }
+            }
+        });*/
+        const confirmPayment = await stripe
+            .confirmPayment({
+                elements,
+                confirmParams: {
+                    // Make sure to change this to your payment completion page
+                    return_url: "http://localhost:3000/checkout-success",
+                },
+                redirect: "if_required",
+            })
+            .then((result) => {
+                // ok - paymentIntent // bad - error
+                if (result.error) {
+                    toast.error(result.error.message);
+                    setMessage(result.error.message);
+                    return;
+                }
+                if (result?.paymentIntent) {
+                    if (result?.paymentIntent.status === "succeeded") {
+                        setIsLoading(false);
+                        toast.success("Payment successful");
+                        saveOrder();
+                    }
+                }
+            });
 
-        // This point will only be reached if there is an immediate error when
-        // confirming the payment. Otherwise, your customer will be redirected to
-        // your `return_url`. For some payment methods like iDEAL, your customer will
-        // be redirected to an intermediate site first to authorize the payment, then
-        // redirected to the `return_url`.
-        if (error.type === "card_error" || error.type === "validation_error") {
-            setMessage(error.message);
-        } else {
-            setMessage("An unexpected error occurred.");
-        }
+
 
         setIsLoading(false);
     };
@@ -83,20 +108,34 @@ const PaymentForm = () => {
     }
 
     return (
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <LinkAuthenticationElement
-                id="link-authentication-element"
-                onChange={(e: any) => setEmail(e.target.value)}
-            />
-            <PaymentElement id="payment-element" options={paymentElementOptions as any} />
-            <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-            </button>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-        </form>
+        <section className={`w-full bg-gray-50 flex-auto`}>
+            <div className={`mx-auto max-w-[1280px] px-5 pt-24`}>
+                <h2 className={`text-[40px] font-bold`}>Checkout</h2>
+                <div className={`flex gap-3 justify-between`}>
+                    <CheckoutInfo/>
+                    <form onSubmit={handleSubmit}>
+                        <div className={`shadow-xl p-2 max-w-[800px]`}>
+                            <h3>Payment info</h3>
+                            <LinkAuthenticationElement
+                                id="link-authentication-element"
+                                onChange={(e) => setEmail(e.value)}
+                            />
+                            <PaymentElement id="payment-element" options={paymentElementOptions as any}/>
+                            <button disabled={isLoading || !stripe || !elements} id="submit"
+                                    className={`bg-green-500 text-white rounded px-4 py-2 font-semibold cursor-pointer 
+                                    shadow-lg transition-all duration-300 ease-in w-full relative hover:bg-green-600 mt-3
+                                    ${isLoading || !stripe || !elements ? 'opacity-50 cursor-default' : ''}`}>
+                                <span id="button-text">
+                                  {isLoading ? <div className={`w-[20px] h-[20px] bg-blue-500 rounded-full`}></div> : "Pay now"}
+                                </span>
+                            </button>
+                            {/* Show any error or success messages */}
+                            {message && <div id="payment-message">{message}</div>}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
     );
 }
 

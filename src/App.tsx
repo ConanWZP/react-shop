@@ -21,6 +21,7 @@ import DenyAccess from "./components/Admin/DenyAccess";
 import Product from "./components/Products/Product/Product";
 import CheckoutDetailsPage from "./pages/Checkout/CheckoutDetailsPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
+import CheckoutSuccessfully from "./pages/Checkout/CheckoutSuccessfully";
 
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
                 <Route path={'/product/:id'} element={<Product/>}/>
                 <Route path={'/checkout-details'} element={<CheckoutDetailsPage/>}/>
                 <Route path={`/checkout-page`} element={<CheckoutPage/>}/>
+                <Route path={`/checkout-successfully`} element={<CheckoutSuccessfully />}/>
 
 
             </Routes>

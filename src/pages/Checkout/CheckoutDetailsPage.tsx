@@ -42,6 +42,7 @@ const CheckoutDetailsPage = () => {
             setLoadingMap(true)
             const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${process.env.REACT_APP_GEOCODE_API_KEY}`)
             const data = await response.data
+            console.log(response.data.features[0])
             setFormData({
                 ...formData,
                 lat: data.features[0]?.center[1] ?? 0,

@@ -11,6 +11,7 @@ const Home = () => {
     const scrollToList = () => {
         productListRef.current?.scrollIntoView({behavior: 'smooth'})
     }
+
 /*
     const scrollToProductList = () => {
         const url = window.location.href

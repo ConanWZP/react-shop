@@ -1,31 +1,42 @@
-require('dotenv').config() // ~ import
 
+require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 
-const cors = require('cors')
-
-const stripe = require("stripe")('sk_test_51MmsuvD2KA41zJ2NbCBUxBHz11Ok14ijFr0AIpk6w33PUTJ4vZxmRU8IxzwGdy8RYU1toI8qsv2X3n3KkXRr6Aof00OHkE2gbC');
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 const app = express();
-// This is your test secret API key.
-
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.send('Welcome to our shop')
 })
 
-const PORT = process.env.PORT || 4242
 
-app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
 
+/*
 let totalAmount
 const calculateOrderAmount = (items) => {
     const initialValue = 0;
     totalAmount = items.reduce((previousValue, currentValue) => {
         return previousValue + (currentValue.price * currentValue.count)
     }, initialValue);
+    return totalAmount * 100;
+};
+*/
+
+const array = [];
+const calculateOrderAmount = (items) => {
+    items.map((item) => {
+        const { price, count } = item;
+        const cartItemAmount = price * count;
+        return array.push(cartItemAmount);
+    });
+    const totalAmount = array.reduce((a, b) => {
+        return a + b;
+    }, 0);
+
     return totalAmount * 100;
 };
 
@@ -42,9 +53,11 @@ app.post("/create-payment-intent", async (req, res) => {
         },
         shipping: {
             address: {
-                lat: shippingAddress.lat,
-                long: shippingAddress.long,
-                address: shippingAddress.address
+               /* lat: shippingAddress.lat,
+                long: shippingAddress.long,*/
+                postal_code: shippingAddress.address,
+
+
 
             },
             phone: shippingAddress.phone,
@@ -57,3 +70,6 @@ app.post("/create-payment-intent", async (req, res) => {
     });
 });
 
+const PORT = process.env.PORT || 4242
+
+app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
