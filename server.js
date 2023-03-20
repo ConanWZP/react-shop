@@ -56,9 +56,10 @@ app.post("/create-payment-intent", async (req, res) => {
                /* lat: shippingAddress.lat,
                 long: shippingAddress.long,*/
                 postal_code: shippingAddress.address,
-
-
-
+                country: shippingAddress.country,
+                state: shippingAddress.state,
+                city: shippingAddress.city,
+                line1: shippingAddress.line
             },
             phone: shippingAddress.phone,
             name: shippingAddress.name

@@ -9,14 +9,30 @@ import CheckoutInfo from "./CheckoutInfo";
 import Loader from "../MiniComponents/Loader";
 import {toast} from "react-toastify";
 import * as stripeJs from "@stripe/stripe-js";
+import {addDoc, collection, Timestamp} from "firebase/firestore";
+import {database} from "../../firebaseConfig";
+import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
+import {useNavigate} from "react-router-dom";
+import { clearCart } from "../../redux/slices/cartSlice";
 
 const PaymentForm = () => {
+
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const stripe = useStripe();
     const elements = useElements();
 
-    const [email, setEmail] = useState<any>('');
+    const {userID, email} = useAppSelector(state => state.auth)
+    const {items, itemsValue} = useAppSelector(state => state.cart)
+    const {billingData} = useAppSelector(state => state.checkout)
+
+    const [anotherEmail, setAnotherEmail] = useState<any>('');
     const [message, setMessage] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setAnotherEmail(email)
+    })
 
     useEffect(() => {
         if (!stripe) {
@@ -33,15 +49,40 @@ const PaymentForm = () => {
     }, [stripe]);
 
 
-    const saveOrder = () => {
+    const saveOrder = async () => {
         console.log('Order was saved')
+        const date = new Date();
+        const currentDate = date.toDateString()
+        const time = date.toLocaleTimeString();
+
+
+        const orderData = {
+            createdOrderData: currentDate,
+            createdOrderTime: time,
+            userID,
+            userEmail: email,
+            orderItems: items,
+            orderTotalAmount: itemsValue,
+            orderStatus: 'The order was created...',
+            shippingAddress: billingData.generalAddress,
+            createdAt: Timestamp.fromDate(new Date())
+
+        }
+
+        try {
+            await addDoc(collection(database, 'orders'), orderData)
+            toast.success('The order was created')
+            dispatch(clearCart())
+            navigate(`/checkout-successfully`)
+        } catch (e: any) {
+            toast.error(e.message)
+        }
     }
 
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setMessage(null)
-
 
         if (!stripe || !elements) {
             return;
@@ -50,29 +91,6 @@ const PaymentForm = () => {
         setIsLoading(true);
 
 
-
-        /*const confirmPayment = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000/checkout-successfully",
-            },
-            redirect: 'if_required'
-        }).then((result) => {
-            // ok - paymentIntent, bad - error
-            if (result.error) {
-                toast.error(result.error.message)
-                setMessage(result.error.message)
-                return;
-            }
-            if (result.paymentIntent) {
-                if (result.paymentIntent.status === 'succeeded') {
-                    setIsLoading(false)
-                    toast.success('Payment successful')
-                    saveOrder()
-                }
-            }
-        });*/
         const confirmPayment = await stripe
             .confirmPayment({
                 elements,
@@ -83,7 +101,7 @@ const PaymentForm = () => {
                 redirect: "if_required",
             })
             .then((result) => {
-                // ok - paymentIntent // bad - error
+                // ok - paymentIntent
                 if (result.error) {
                     toast.error(result.error.message);
                     setMessage(result.error.message);
@@ -97,7 +115,6 @@ const PaymentForm = () => {
                     }
                 }
             });
-
 
 
         setIsLoading(false);
@@ -118,7 +135,7 @@ const PaymentForm = () => {
                             <h3>Payment info</h3>
                             <LinkAuthenticationElement
                                 id="link-authentication-element"
-                                onChange={(e) => setEmail(e.value)}
+                                onChange={(e) => setAnotherEmail(e.value)}
                             />
                             <PaymentElement id="payment-element" options={paymentElementOptions as any}/>
                             <button disabled={isLoading || !stripe || !elements} id="submit"
@@ -126,7 +143,8 @@ const PaymentForm = () => {
                                     shadow-lg transition-all duration-300 ease-in w-full relative hover:bg-green-600 mt-3
                                     ${isLoading || !stripe || !elements ? 'opacity-50 cursor-default' : ''}`}>
                                 <span id="button-text">
-                                  {isLoading ? <div className={`w-[20px] h-[20px] bg-blue-500 rounded-full`}></div> : "Pay now"}
+                                  {isLoading ?
+                                      <div className={`w-[20px] h-[20px] bg-blue-500 rounded-full`}></div> : "Pay now"}
                                 </span>
                             </button>
                             {/* Show any error or success messages */}

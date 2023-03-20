@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrdersPage = () => {
+const OrdersHistoryPage = () => {
     return (
         <div className={'flex-auto pt-32'}>
             Orders Page
@@ -8,4 +8,4 @@ const OrdersPage = () => {
     );
 };
 
-export default OrdersPage;
+export default OrdersHistoryPage;

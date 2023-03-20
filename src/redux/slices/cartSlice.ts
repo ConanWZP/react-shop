@@ -37,7 +37,7 @@ export const cartSlice = createSlice({
             if (findItem && findItem.count) {
                 findItem.count++
                 toast.info(`${action.payload.name} was increased in cart`, {
-                    position: 'top-right'
+                    position: 'bottom-left'
                 })
             } else {
                 state.items.push({
@@ -45,7 +45,7 @@ export const cartSlice = createSlice({
                     count: 1
                 })
                 toast.success(`${action.payload.name} was added to cart`, {
-                    position: 'top-right'
+                    position: 'bottom-left'
                 })
 
             }
@@ -56,7 +56,7 @@ export const cartSlice = createSlice({
             if (findItem) {
                 findItem.count--
                 toast.info(`${action.payload.name} was decreased in cart`, {
-                    position: 'top-right'
+                    position: 'bottom-left'
                 })
             }
             localStorage.setItem('cartItems', JSON.stringify(state.items))

@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import Slider from "../components/Slider";
 import Products from "../components/Products/Products";
 import {useNavigate} from "react-router-dom";
+import {Timestamp} from "firebase/firestore";
 
 const Home = () => {
 
@@ -24,6 +25,9 @@ const Home = () => {
     useEffect(() => {
         scrollToProductList()
     }, [])*/
+
+
+
 
     return (
         <div className={'flex-auto bg-gray-50'}>

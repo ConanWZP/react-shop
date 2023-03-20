@@ -74,9 +74,9 @@ const CheckoutPage = () => {
 
         <>
             {!clientSecret ?
-                <div className={`flex-auto pt-26`}>
+                <div className={`flex-auto pt-24`}>
                     {!clientSecret ?
-                        <h3>{initialMessage}</h3>
+                        <h3 className={`text-xl font-bold`}>{initialMessage}</h3>
                         :
                         null
                     }

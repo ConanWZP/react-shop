@@ -1,11 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 type billingDataType = {
-    address: string,
+    country: string,
+    state: string,
+    city: string,
+    line: string,
+    zipCode?: string
     name: string,
     lat: number,
     long: number,
-    phone: string
+    phone: string,
+    generalAddress: string
 }
 
 interface ICheckoutSlice {
@@ -15,7 +20,12 @@ interface ICheckoutSlice {
 
 const initialState: ICheckoutSlice = {
     billingData: {
-        address: '',
+        country: '',
+        state: '',
+        city: '',
+        line: '',
+        generalAddress: '',
+        zipCode: '',
         phone: '',
         name: '',
         lat: 0,

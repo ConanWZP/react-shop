@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
-import OrdersPage from "./pages/OrdersPage";
+import OrdersHistoryPage from "./pages/Orders/OrdersHistoryPage";
 import Cart from "./pages/Cart";
 import HeaderTest from "./components/headerTest/HeaderTest";
 import Login from "./pages/Login";
@@ -22,6 +22,7 @@ import Product from "./components/Products/Product/Product";
 import CheckoutDetailsPage from "./pages/Checkout/CheckoutDetailsPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import CheckoutSuccessfully from "./pages/Checkout/CheckoutSuccessfully";
+import OrderDetailsPage from "./pages/Orders/OrderDetailsPage";
 
 
 const App = () => {
@@ -46,7 +47,7 @@ const App = () => {
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/contact'} element={<ContactPage/>}/>
-                <Route path={'/order'} element={<OrdersPage/>}/>
+                <Route path={'/orders-history'} element={<OrdersHistoryPage/>}/>
                 <Route path={'/cart'} element={<Cart/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
@@ -63,6 +64,7 @@ const App = () => {
                 <Route path={'/checkout-details'} element={<CheckoutDetailsPage/>}/>
                 <Route path={`/checkout-page`} element={<CheckoutPage/>}/>
                 <Route path={`/checkout-successfully`} element={<CheckoutSuccessfully />}/>
+                <Route path={`/order-details`} element={<OrderDetailsPage />}/>
 
 
             </Routes>
