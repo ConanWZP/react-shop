@@ -69,11 +69,11 @@ const Slider:FC<SliderProps> = ({scrollToList}) => {
     return (
         <div className={`w-full overflow-hidden relative bg-blue-200 h-[calc(100vh_-_0px)]`}>
             <AiOutlineArrowLeft className={`border-2 border-orange-600 rounded-full w-12 h-12 cursor-pointer 
-            bg-transparent absolute top-1/2 left-2 text-white z-50 max-[470px]:w-10 max-[470px]:h-10
+            bg-transparent absolute top-1/2 left-2 text-white z-20 max-[470px]:w-10 max-[470px]:h-10
             transition-all duration-200 ease-in-out ${styles.removeHover}`} onClick={swipePrevious}/>
 
             <AiOutlineArrowRight className={`border-2 border-orange-600 rounded-full w-12 h-12 cursor-pointer 
-            bg-transparent absolute top-1/2 right-2 text-white z-50 max-[470px]:w-10 max-[470px]:h-10
+            bg-transparent absolute top-1/2 right-2 text-white z-20 max-[470px]:w-10 max-[470px]:h-10
             transition-all duration-200 ease-in-out ${styles.removeHover}`} onClick={swipeNext}/>
 
             {slidesData.map((slide, index) => (

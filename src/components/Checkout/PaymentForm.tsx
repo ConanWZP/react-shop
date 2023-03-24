@@ -50,7 +50,6 @@ const PaymentForm = () => {
 
 
     const saveOrder = async () => {
-        console.log('Order was saved')
         const date = new Date();
         const currentDate = date.toDateString()
         const time = date.toLocaleTimeString();

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {doc, getDoc} from "firebase/firestore";
 import {database} from "../../../firebaseConfig";
 import Loader from "../../MiniComponents/Loader";
 import {toast} from "react-toastify";
 import {BiArrowBack} from 'react-icons/bi';
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
-import {AiOutlineClose, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
+import {AiOutlineClose, AiOutlineLeft, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import {useDebounce} from "../../../hooks/useDebounce";
 import {IProduct} from "../../Admin/ListGoods";
 import {
@@ -17,45 +17,18 @@ import {
 } from "../../../redux/slices/cartSlice";
 import {useAppDispatch, useAppSelector} from "../../../hooks/customHooks";
 import Notiflix from "notiflix";
+import useFetchDoc from "../../../hooks/useFetchDoc";
+import useFetchCollection from "../../../hooks/useFetchCollection";
+import StarsRating from "react-star-rate";
 
 const Product = () => {
 
     const params = useParams()
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
-    const [productData, setProductData] = useState<any>()
-    const [loading, setLoading] = useState(false)
-
-    const getProductData = async () => {
-        setLoading(true)
-        try {
-            if (params.id !== undefined) {
-
-                const docRef = doc(database, 'products', params.id)
-                const docData = await getDoc(docRef)
-
-                if (docData.exists()) {
-
-                    const dataObject = {
-                        id: params.id,
-                        ...docData.data()
-                    }
-                    setProductData(dataObject)
-                    console.log(dataObject)
-                } else {
-                    toast.error(`The product data weren't found`)
-                }
-
-            } else {
-                toast.error('Something went wrong')
-            }
-        } catch (e: any) {
-            toast.error(e.message)
-        } finally {
-            setLoading(false)
-        }
-    }
-
+    const {documentData, loading} = useFetchDoc('products', params?.id)
+    let productData = documentData
 
     const [bool, setBool] = useState(true)
     const [curInd, setCurInd] = useState<number>(0)
@@ -91,9 +64,10 @@ const Product = () => {
 
     useEffect(() => {
         showImage(false)
-        getProductData()
+        /*  getProductData()*/
 
     }, [params.id])
+
 
     const [imageIsShow, setImageIsShow] = useState(false)
 
@@ -158,6 +132,17 @@ const Product = () => {
         );
     }
 
+    // --- Reviews --- //
+
+    const [reviewData, setReviewData] = useState<any[]>([])
+    const {data} = useFetchCollection('reviews', 'productID', '==', params?.id)
+
+
+    useEffect(() => {
+        setReviewData(data)
+    }, [data])
+
+    console.log(reviewData)
 
     if (loading) {
         return <Loader/>
@@ -165,7 +150,7 @@ const Product = () => {
 
     if (imageIsShow) {
         return (
-            <div className={`flex-auto flex `}>
+            <div className={`flex-auto flex pt-16`}>
                 <button className={`h-[calc(100vh_-_128px)] bg-gray-200 w-1/6 flex items-center justify-center my-auto 
                 hover:bg-gray-100 transition-all duration-300 ease-in-out`}
                         onClick={swipeNext}>
@@ -188,16 +173,22 @@ const Product = () => {
 
             <div className={'max-w-[1280px] mx-auto pt-5'}>
                 <h2 className={`font-bold text-2xl mb-3`}>{productData?.name}</h2>
-                <Link to={`/#product-list`}>
-                    <button className={`flex gap-1 bg-blue-400 px-5 py-1 items-center rounded mb-4
-                    hover:bg-blue-600 transition-all duration-300 ease-in-out active:bg-blue-700`}>
+                {/*<Link to={'/#product-list'}>*/}
+                <div>
+
+                    <button onClick={() => navigate(-1)}
+                            className={`mb-6 py-1.5 px-5 bg-blue-500 transition-all duration-300 ease-in-out
+                                rounded-r-full rounded-l-full inline-flex items-center text-white 
+                                hover:bg-blue-600 gap-1`}>
                         <BiArrowBack color={'white'} size={22}/>
                         <span className={`text-[22px] text-white`}>Back to products page</span>
                     </button>
 
-                </Link>
-                <div
-                    className={`bg-white rounded-tl-[5px] rounded-tr-[5px] rounded-b-[15px] flex justify-between shadow-xl`}>
+
+                </div>
+                {/* </Link>*/}
+                <div className={`bg-white rounded-tl-[5px] border border-slate-200 p-2
+                rounded-tr-[5px] mb-8 rounded-b-[15px] flex justify-between shadow-xl`}>
                     <div className={'p-2 flex gap-10'}>
                         <div className={'flex flex-col'}>
                             {
@@ -224,9 +215,9 @@ const Product = () => {
                             <div className={`text-[22px] font-medium flex flex-col gap-4`}>
                                 {
                                     currentItem ?
-                                    <div>
-                                        Total price: {currentItem.count*currentItem.price}$
-                                    </div>
+                                        <div>
+                                            Total price: {currentItem.count * currentItem.price}$
+                                        </div>
                                         : null
                                 }
 
@@ -257,13 +248,43 @@ const Product = () => {
                                 }
 
                                 <button onClick={() => addItemToCart(productData)}
-                                    className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
+                                        className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
                                 transition-all duration-300 ease-in-out hover:bg-green-600 active:bg-green-700`}>
                                     Add to Cart
                                 </button>
                             </div>
 
                         </div>
+                    </div>
+                </div>
+                <div className={`bg-white mb-8 rounded-[15px] p-3 shadow-xl border border-slate-200`}>
+                    <h2 className={`text-[28px] font-bold`}>Product reviews</h2>
+                    <div>
+                        {
+                            reviewData.length > 0 ?
+                                reviewData.map((review, index) =>
+                                    <div key={index} className={`mt-14`}>
+                                        <div className={`flex justify-between border-slate-200 border-t-2 pt-2 items-center`}>
+                                            <span className={`text-[22px]`}>
+                                                <b>Created by: {review.userName}</b>
+                                            </span>
+                                            <span className={`text-gray-500`}>
+                                                <b>{review.reviewDate}</b>
+                                            </span>
+                                        </div>
+
+                                        <StarsRating value={review.rate} disabled/>
+                                        <div className={`flex flex-col gap-2 text-[18px]`}>
+                                            <b>Comment:</b>
+                                            <p>{review.reviewText}</p>
+                                        </div>
+
+
+                                    </div>
+                                )
+                                :
+                                <div></div>
+                        }
                     </div>
                 </div>
             </div>

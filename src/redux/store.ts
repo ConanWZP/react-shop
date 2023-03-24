@@ -4,6 +4,7 @@ import productSlice from "./slices/productSlice";
 import filtersSlice from "./slices/filtersSlice";
 import cartSlice from "./slices/cartSlice";
 import checkoutSlice from "./slices/checkoutSlice";
+import orderSlice from "./slices/orderSlice";
 
 
 
@@ -14,6 +15,7 @@ const  rootReduce = combineReducers({
     filters: filtersSlice,
     cart: cartSlice,
     checkout: checkoutSlice,
+    order: orderSlice,
 
 })
 

@@ -61,7 +61,7 @@ const Cart = () => {
     }
 
     return (
-        <div className={'flex-auto max-w-[900px] mx-auto w-[90%] my-32'}>
+        <div className={'flex-auto max-w-[1080px] mx-auto w-[90%] my-32'}>
             {
                 items.length > 0 ?
                     <div>

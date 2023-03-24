@@ -1,4 +1,4 @@
-import {collection, onSnapshot, orderBy, query} from "firebase/firestore";
+import {collection, onSnapshot, orderBy, query, where, WhereFilterOp} from "firebase/firestore";
 import {database} from "../firebaseConfig";
 import {saveProducts} from "../redux/slices/productSlice";
 import {toast} from "react-toastify";
@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {useAppDispatch} from "./customHooks";
 
 
-const useFetchCollection = (collectionName: string) => {
+const useFetchCollection = (collectionName: string, filterFiled?: string, filterSign?: WhereFilterOp, filterValue?: string | null) => {
 
     const [data, setData] = useState<any>([])
     const [loading, setLoading] = useState(false)
@@ -21,7 +21,15 @@ const useFetchCollection = (collectionName: string) => {
 
             const docRef = collection(database, collectionName)
 
-            const q = query(docRef, orderBy('createdAt', 'desc'));
+            let q
+
+            if (filterFiled && filterSign && filterValue) {
+                q = query(docRef, orderBy('createdAt', 'desc'), where(filterFiled, filterSign, filterValue ));
+            } else {
+               q = query(docRef, orderBy('createdAt', 'desc'));
+            }
+
+
             onSnapshot(q, async (querySnapshot) => {
                 // const cities = [];
                 console.log(querySnapshot)

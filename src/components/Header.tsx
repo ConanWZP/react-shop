@@ -6,7 +6,7 @@ import {onAuthStateChanged, signOut} from 'firebase/auth';
 import {auth, database} from "../firebaseConfig";
 import {toast} from "react-toastify";
 import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
-import {setCurrentUser} from "../redux/slices/authSlice";
+import {setAuthLoading, setCurrentUser} from "../redux/slices/authSlice";
 import {doc, getDoc} from "firebase/firestore";
 import {calculateTotalCountOfProducts} from "../redux/slices/cartSlice";
 
@@ -103,8 +103,9 @@ const Header = () => {
     }
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         setLoading(true)
+        dispatch(setAuthLoading(true))
         onAuthStateChanged(auth, (user) => {
             if (user) {
 
@@ -120,6 +121,7 @@ const Header = () => {
                             isAuth: true
                         }))
                         setLoading(false)
+                        dispatch(setAuthLoading(false))
                     }
 
                 }
@@ -129,13 +131,14 @@ const Header = () => {
                 console.log('no user')
                 console.log(user)
                 setLoading(false)
+                dispatch(setAuthLoading(false))
                 //setUserName(null)
             }
 
 
             //setLoading(false)
         })
-    }, [dispatch])
+    }, [dispatch])*/
 
     return (
         <header className={'w-full fixed z-50 text-white bg-[#406bad]'}>
@@ -204,7 +207,7 @@ const Header = () => {
 
                             }
 
-                                    <NavLink to={'/order'}
+                                    <NavLink to={'/orders-history'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
                                                  'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>My orders</NavLink>

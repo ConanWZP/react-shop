@@ -23,6 +23,11 @@ import CheckoutDetailsPage from "./pages/Checkout/CheckoutDetailsPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import CheckoutSuccessfully from "./pages/Checkout/CheckoutSuccessfully";
 import OrderDetailsPage from "./pages/Orders/OrderDetailsPage";
+import {setAuthLoading, setCurrentUser} from "./redux/slices/authSlice";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth, database} from "./firebaseConfig";
+import {doc, getDoc} from "firebase/firestore";
+import CreatingReviewPage from "./pages/CreatingReviewPage";
 
 
 const App = () => {
@@ -33,12 +38,46 @@ const App = () => {
     /*useEffect(() => {
 
         dispatch(changeStateOnAuth())
+    }, [])*/
+
+
+    useEffect(() => {
+        dispatch(setAuthLoading(true))
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+
+                const getData = async () => {
+                    const docRef = doc(database, 'users', user.uid)
+                    const docData = await getDoc(docRef)
+                    if (docData.exists()) {
+                        console.log(docData.data())
+                        dispatch(setCurrentUser({
+                            email: docData.data().email,
+                            userName: docData.data().name,
+                            userID: docData.data().uid,
+                            isAuth: true
+                        }))
+
+                        dispatch(setAuthLoading(false))
+                    }
+
+                }
+                getData()
+            } else {
+                console.log('no user')
+                console.log(user)
+
+                dispatch(setAuthLoading(false))
+                //setUserName(null)
+            }
+            //setLoading(false)
+        })
     }, [])
+
 
     if (loading) {
         return <Loader />
-    }*/
-
+    }
 
     return (
         <BrowserRouter>
@@ -64,7 +103,8 @@ const App = () => {
                 <Route path={'/checkout-details'} element={<CheckoutDetailsPage/>}/>
                 <Route path={`/checkout-page`} element={<CheckoutPage/>}/>
                 <Route path={`/checkout-successfully`} element={<CheckoutSuccessfully />}/>
-                <Route path={`/order-details`} element={<OrderDetailsPage />}/>
+                <Route path={`/order-details/:id`} element={<OrderDetailsPage />}/>
+                <Route path={`/creating-review/:id`} element={<CreatingReviewPage/>}/>
 
 
             </Routes>
