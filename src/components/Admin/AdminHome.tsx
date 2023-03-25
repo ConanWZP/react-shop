@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BsCart3} from 'react-icons/bs';
 import {GrMoney} from 'react-icons/gr'
 import {IoCartOutline} from 'react-icons/io5';
 import AdminInfoBlock from "../MiniComponents/AdminInfoBlock";
+import useFetchCollection from "../../hooks/useFetchCollection";
+import { collection, getCountFromServer } from 'firebase/firestore';
+import {database} from "../../firebaseConfig";
 
 
 const productIcon = <BsCart3 size={22} color={'#4066ad'}/>
@@ -11,6 +14,20 @@ const orderIcon = <IoCartOutline size={22} color={'#ad7140'}/>
 
 
 const AdminHome = () => {
+
+    const {data, loading} = useFetchCollection('orders')
+
+
+    const fetchLengthProductsCollection = async () => {
+        const coll = collection(database, "products");
+        const snapshot = await getCountFromServer(coll);
+        console.log('count: ', snapshot.data().count);
+    }
+
+    useEffect(() => {
+        fetchLengthProductsCollection()
+    }, [])
+
 
     return (
         <div className={`w-full 

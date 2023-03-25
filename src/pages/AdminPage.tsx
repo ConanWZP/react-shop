@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AdminNavbar from "../components/Admin/AdminNavbar";
 import {Route, Routes} from "react-router-dom";
 import AdminHome from "../components/Admin/AdminHome";
@@ -7,10 +7,19 @@ import AddGood from "../components/Admin/AddGood";
 import CheckOrders from "../components/Admin/CheckOrders";
 import CreateCategory from "../components/Admin/CreateCategory";
 import {FaCogs} from "react-icons/fa";
+import useFetchCollection from "../hooks/useFetchCollection";
+import {useAppDispatch} from "../hooks/customHooks";
 
 const AdminPage = () => {
 
     const [hideAdminNavbar, setHideAdminNavbar] = useState(true)
+
+    /*const dispatch = useAppDispatch()
+    const {data, loading} = useFetchCollection('products')
+
+    useEffect(() => {
+
+    }, [data])*/
 
     return (
         <div className={'flex-auto min-[600px]:flex relative pt-16  '}>
