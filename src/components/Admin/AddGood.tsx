@@ -309,7 +309,7 @@ const AddGood = () => {
                                 :
                                 <input required name={'imageFile'} type={'text'} value={image}
                                        onChange={handleChange} disabled className={`w-[50vw] rounded-[10px] p-3 border-2 
-                               border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2 max-[970px]:w-full`}/>
+                               border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2 max-[970px]:w-full `}/>
                         }
 
                         {

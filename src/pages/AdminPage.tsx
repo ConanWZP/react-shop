@@ -28,7 +28,7 @@ const AdminPage = () => {
                 <FaCogs size={`20`} className={`text-green-500`}/>
                 <span>{hideAdminNavbar ? `Show Admin Navbar` : `Hide Admin Navbar`}</span>
             </div>
-            <div className={'flex mx-auto flex-col pt-5 w-3/4 pb-40 px-2 max-[970px]:w-full'}>
+            <div className={'flex mx-auto flex-col pt-5 w-3/4 pb-40 px-2 max-[970px]:w-full '}>
                 <Routes>
                     <Route path={'home'} element={<AdminHome/>}/>
                     <Route path={'list-goods'} element={<ListGoods/>}/>
