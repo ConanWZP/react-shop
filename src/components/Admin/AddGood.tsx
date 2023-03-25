@@ -277,7 +277,7 @@ const AddGood = () => {
                     <span className={'mb-1 text-[22px]'}>Name</span>
                     <input required name={'name'} type={'text'} placeholder={'Product Name'} value={name}
                            onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none`}/>
+                           focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
                 <div className={'border-2 border-black p-2 rounded-[8px] mb-4'}>
                     <div className={'flex flex-col'}>
@@ -301,7 +301,7 @@ const AddGood = () => {
                         <input required={params.id === 'add'} name={'imageFile'} type={'file'} placeholder={'Product Image'}
                                accept={'image/*'} multiple
                                onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none mb-2`}/>
+                           focus:border-blue-500 outline-none mb-2 max-[970px]:w-full`}/>
 
                         {
                             image === '' ?
@@ -309,7 +309,7 @@ const AddGood = () => {
                                 :
                                 <input required name={'imageFile'} type={'text'} value={image}
                                        onChange={handleChange} disabled className={`w-[50vw] rounded-[10px] p-3 border-2 
-                               border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2`}/>
+                               border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2 max-[970px]:w-full`}/>
                         }
 
                         {
@@ -347,7 +347,7 @@ const AddGood = () => {
                     <div className={'relative'}>
                         <select required name={'category'} value={category} onChange={handleChange}
                                 className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none appearance-none cursor-pointer`}>
+                           focus:border-blue-500 outline-none appearance-none cursor-pointer max-[970px]:w-full`}>
                             {loading ?
                                 <option value={''} disabled>Loading...</option>
                                 :
@@ -372,13 +372,13 @@ const AddGood = () => {
                     <span className={'mb-1 text-[22px]'}>Brand</span>
                     <input required name={'brand'} type={'text'} placeholder={'Product Brand'} value={brand}
                            onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none`}/>
+                           focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Description</span>
                     <textarea required name={'description'} placeholder={'Description'} value={description}
                               onChange={handleChange} rows={8} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none`}/>
+                           focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
                 <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 
                 transition-all duration-300 ease-in-out`}>{params.id === 'add' ? 'Add Product' : 'Edit Product'}
