@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 interface OrderItemProps {
@@ -9,10 +9,19 @@ interface OrderItemProps {
 
 const OrderItem:FC<OrderItemProps> = ({order, index}) => {
 
+    const location = useLocation()
     const navigate = useNavigate()
 
+   // console.log(location)
     const redirectToOrder = (id: string) => {
-        navigate(`/order-details/${id}`)
+
+        if (location.pathname === '/admin/check-orders') {
+            navigate(`/admin/order-details/${id}`)
+        } else {
+            navigate(`/order-details/${id}`)
+        }
+
+
     }
 
     return (

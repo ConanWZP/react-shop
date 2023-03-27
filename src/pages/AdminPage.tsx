@@ -9,6 +9,7 @@ import CreateCategory from "../components/Admin/CreateCategory";
 import {FaCogs} from "react-icons/fa";
 import useFetchCollection from "../hooks/useFetchCollection";
 import {useAppDispatch} from "../hooks/customHooks";
+import AdminOrderDetails from "../components/Admin/orders/AdminOrderDetails";
 
 const AdminPage = () => {
 
@@ -42,8 +43,9 @@ const AdminPage = () => {
                     <Route path={'home'} element={<AdminHome/>}/>
                     <Route path={'list-goods'} element={<ListGoods/>}/>
                     <Route path={'add-good/:id'} element={<AddGood/>}/>
-                    <Route path={'check-order'} element={<CheckOrders/>}/>
+                    <Route path={'check-orders'} element={<CheckOrders/>}/>
                     <Route path={'create-category'} element={<CreateCategory/>}/>
+                    <Route path={'order-details/:id'} element={<AdminOrderDetails/>}/>
                 </Routes>
             </div>
         </div>

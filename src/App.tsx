@@ -28,6 +28,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import {auth, database} from "./firebaseConfig";
 import {doc, getDoc} from "firebase/firestore";
 import CreatingReviewPage from "./pages/CreatingReviewPage";
+import OrdersHistoryPageContainer from "./pages/Orders/OrdersHistoryPageContainer";
 
 
 const App = () => {
@@ -86,7 +87,7 @@ const App = () => {
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/contact'} element={<ContactPage/>}/>
-                <Route path={'/orders-history'} element={<OrdersHistoryPage/>}/>
+                <Route path={'/orders-history'} element={<OrdersHistoryPageContainer/>}/>
                 <Route path={'/cart'} element={<Cart/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>

@@ -123,7 +123,7 @@ const ListGoods = () => {
 
     return (
         <div className={'overflow-x-auto'}>
-            <h2 className={'text-[44px] text-center font-bold'}>Product List</h2>
+            <h2 className={'text-[40px] text-center font-bold'}>Product List</h2>
             {products.length === 0 ?
                 <div className={'text-[22px] font-medium'}>Products wasn't found</div>
                 :

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import useFetchDoc from "../../hooks/useFetchDoc";
 import OrderDetailItem from "../../components/OrderDetailItem";
 import {AiOutlineLeft} from "react-icons/ai";
@@ -7,6 +7,7 @@ import {AiOutlineLeft} from "react-icons/ai";
 const OrderDetailsPage = () => {
 
     const params = useParams()
+    const location = useLocation()
     const [orderData, setOrderData] = useState<any>()
 
     const {documentData, loading} = useFetchDoc('orders', params?.id)
@@ -15,18 +16,35 @@ const OrderDetailsPage = () => {
         setOrderData(documentData)
     }, [documentData])
 
-    console.log(orderData)
+    const existedStatus: string[] = [
+        'The order was created',
+        'Proceeded',
+        'On the way',
+        'Delivered'
+    ]
+
+    const [status, setStatus] = useState<any>()
+
+    const changeStatus = (e: any) => {
+        setStatus(e.target.value)
+        console.log(status)
+    }
 
     return (
         <section className={`w-full flex-auto`}>
-            <div className={`pt-24 max-w-[1280px] mx-auto flex flex-col pb-6`}>
+            <div className={`max-w-[1280px] mx-auto flex flex-col pb-6 
+            ${location.pathname === `/admin/order-details/${params?.id}` ? '' : 'pt-24'}`}>
                 {
                     orderData ?
                         <>
                             <div className={'mb-10'}>
                                 <h2 className={`text-[32px] font-bold`}>Order details</h2>
 
-                                <Link to={'/orders-history'} className={`mb-6 py-1.5 px-5 border border-slate-400 transition-all duration-300 ease-in-out
+                                <Link to={location.pathname === `/admin/order-details/${params?.id}` ?
+                                    '/admin/check-orders'
+                                    :
+                                    '/orders-history'}
+                                      className={`mb-6 py-1.5 px-5 border border-slate-400 transition-all duration-300 ease-in-out
                                 rounded-r-full rounded-l-full inline-flex items-center text-slate-500 
                                 hover:bg-black hover:text-white hover:border-black`}>
                                     <AiOutlineLeft size={20}/>
@@ -47,6 +65,15 @@ const OrderDetailsPage = () => {
                                         <span className={`font-medium`}>Order status: </span>
                                         <span>{orderData.orderStatus}</span>
                                     </div>
+                                    {
+                                        location.pathname === `/admin/order-details/${params?.id}` ?
+                                            <div>
+                                                <span className={`font-medium`}>Shipping address: </span>
+                                                <span>{orderData.shippingAddress}</span>
+                                            </div>
+                                            :
+                                            null
+                                    }
                                 </div>
                             </div>
 
@@ -77,6 +104,32 @@ const OrderDetailsPage = () => {
                                     )
                                 }
                             </div>
+                            {
+                                location.pathname === `/admin/order-details/${params?.id}` ?
+                                    <div className={`pt-4`}>
+                                        <select required name={'category'} value={status} onChange={changeStatus}
+                                                className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                           focus:border-blue-500 outline-none appearance-none cursor-pointer max-[970px]:w-full`}>
+                                            {loading ?
+                                                <option value={''} disabled>Loading...</option>
+                                                :
+                                                <>
+                                                    <option value={''} disabled>
+                                                        -- empty --
+                                                    </option>
+                                                    {existedStatus.map((status: any, index: number) =>
+                                                        <option key={index} value={status}>
+                                                            {status}
+                                                        </option>
+                                                    )}
+                                                </>
+                                            }
+
+                                        </select>
+                                    </div>
+                                    :
+                                    null
+                            }
                         </>
                         :
                         <div>Loading</div>

@@ -12,7 +12,7 @@ const AdminNavbar = () => {
 
     const {userName} = useAppSelector(state => state.auth)
     const location = useLocation()
-    console.log(location)
+   // console.log(location)
 
     return (
         <div className={'flex flex-col'}>
@@ -45,7 +45,7 @@ const AdminNavbar = () => {
                         </div>
                         <div className={'h-[1px] w-full bg-gray-400 px-4'}></div>
                     </Link>
-                    <Link to={'/admin/check-order'} className={location.pathname === '/admin/check-order' ? 'text-blue-500' : ''}>
+                    <Link to={'/admin/check-orders'} className={location.pathname === '/admin/check-orders' ? 'text-blue-500' : ''}>
                         <div className={`flex items-center gap-2`}>
                             <BsFileEarmarkCheckFill size={18} />
                             <span className={'hover:text-[18px] transition-all duration-300 ease-in-out'}>Check Orders</span>
