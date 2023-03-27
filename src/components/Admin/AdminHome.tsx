@@ -23,32 +23,32 @@ const AdminHome = () => {
     const [ordersNumber, setOrdersNumber] = useState(0)
     const {data, loading} = useFetchCollection('orders')
 
-  //  const productsCollection = useFetchCollection('products')
-  //  let test = productsCollection.data
-  //  console.log(test)
+    const productsCollection = useFetchCollection('products')
+
 
     const {ordersTotalPrice} = useAppSelector(state => state.order)
 
     console.log(data)
 
 
-    const fetchLengthProductsCollection = async () => {
+   /* const fetchLengthProductsCollection = async () => {
         const coll = collection(database, "products");
         const snapshot = await getCountFromServer(coll);
         setProductsNumber(snapshot.data().count)
-    }
+    }*/
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         fetchLengthProductsCollection()
-    }, [])
+    }, [])*/
 
     useEffect(() => {
-        dispatch(calculateTotalOrdersPrice(data))
 
+        dispatch(calculateTotalOrdersPrice(data))
+        setProductsNumber(productsCollection.data.length)
        // fetchLengthOrdersCollection()
         setOrdersNumber(data.length)
-    }, [data])
+    }, [data, productsCollection.data.length, dispatch])
 
     if (loading) {
         return <Loader />

@@ -3,6 +3,7 @@ import {Link, useLocation, useParams} from "react-router-dom";
 import useFetchDoc from "../../hooks/useFetchDoc";
 import OrderDetailItem from "../../components/OrderDetailItem";
 import {AiOutlineLeft} from "react-icons/ai";
+import ChangingOrderStatus from "../../components/Admin/orders/ChangingOrderStatus";
 
 const OrderDetailsPage = () => {
 
@@ -16,19 +17,7 @@ const OrderDetailsPage = () => {
         setOrderData(documentData)
     }, [documentData])
 
-    const existedStatus: string[] = [
-        'The order was created',
-        'Proceeded',
-        'On the way',
-        'Delivered'
-    ]
 
-    const [status, setStatus] = useState<any>()
-
-    const changeStatus = (e: any) => {
-        setStatus(e.target.value)
-        console.log(status)
-    }
 
     return (
         <section className={`w-full flex-auto`}>
@@ -106,27 +95,7 @@ const OrderDetailsPage = () => {
                             </div>
                             {
                                 location.pathname === `/admin/order-details/${params?.id}` ?
-                                    <div className={`pt-4`}>
-                                        <select required name={'category'} value={status} onChange={changeStatus}
-                                                className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none appearance-none cursor-pointer max-[970px]:w-full`}>
-                                            {loading ?
-                                                <option value={''} disabled>Loading...</option>
-                                                :
-                                                <>
-                                                    <option value={''} disabled>
-                                                        -- empty --
-                                                    </option>
-                                                    {existedStatus.map((status: any, index: number) =>
-                                                        <option key={index} value={status}>
-                                                            {status}
-                                                        </option>
-                                                    )}
-                                                </>
-                                            }
-
-                                        </select>
-                                    </div>
+                                    <ChangingOrderStatus loading={loading}/>
                                     :
                                     null
                             }
@@ -134,8 +103,6 @@ const OrderDetailsPage = () => {
                         :
                         <div>Loading</div>
                 }
-
-
             </div>
         </section>
     );
