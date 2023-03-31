@@ -11,6 +11,10 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {saveProducts} from "../../redux/slices/productSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
 import {log} from "util";
+import SearchInput from "../MiniComponents/SearchInput";
+import conditionalProducts from "../Products/conditionalProducts";
+import {searchProducts, setFilteredResults} from "../../redux/slices/filtersSlice";
+import Pagination from "../Pagination/Pagination";
 
 
 export interface IProduct {
@@ -28,6 +32,8 @@ const ListGoods = () => {
 
     const {data, loading} = useFetchCollection('products')
     const {products} = useAppSelector(state => state.product)
+    const { filteredResults } = useAppSelector(state => state.filters)
+    const [searchValue, setSearchValue] = useState('')
 
 
 
@@ -38,7 +44,34 @@ const ListGoods = () => {
 
     useEffect(() => {
         dispatch(saveProducts(data))
+        dispatch(setFilteredResults(data))
     }, [data, dispatch])
+
+    useEffect(() => {
+
+    }, [])
+
+    useEffect(() => {
+
+        dispatch(searchProducts({
+            products,
+            searchValue
+        }))
+
+    }, [searchValue, dispatch])
+
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [numberDisplayedProducts, setNumberDisplayedProducts] = useState(3)
+
+    const lastProductIndexOfCurrentPage = currentPage * numberDisplayedProducts
+    const firstProductIndexOfCurrentPage = lastProductIndexOfCurrentPage - numberDisplayedProducts
+
+    const productsResult = filteredResults.slice(firstProductIndexOfCurrentPage, lastProductIndexOfCurrentPage)
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [filteredResults])
 
   /*  useEffect(() => {
         const getProducts = () => {
@@ -124,7 +157,15 @@ const ListGoods = () => {
     return (
         <div className={'overflow-x-auto'}>
             <h2 className={'text-[40px] text-center font-bold'}>Product List</h2>
-            {products.length === 0 ?
+            <div className={`flex flex-col mb-2 gap-1`}>
+                <div className={`text-[18px]`}>
+                    <b>{filteredResults?.length}</b> products were found
+                </div>
+                <div className={'mb-1 w-[300px]'}>
+                    <SearchInput setSearchValue={setSearchValue} searchValue={searchValue} />
+                </div>
+            </div>
+            {productsResult.length === 0 ?
                 <div className={'text-[22px] font-medium'}>Products wasn't found</div>
                 :
                 <>
@@ -141,7 +182,7 @@ const ListGoods = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {products.map((product: IProduct, index: number) => (
+                        {productsResult.map((product: IProduct, index: number) => (
                             <tr key={product?.id} className={`${index%2 === 0 ? 'bg-gray-200' : 'bg-white'}`}>
                                 <td className={'align-middle text-center'}>{index + 1}</td>
                                 <td><img src={product?.imageURLs[0]} className={'w-[120px] p-4 object-contain h-[120px] '}
@@ -168,6 +209,8 @@ const ListGoods = () => {
                 </>
 
             }
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
+                        numberDisplayedProducts={numberDisplayedProducts} totalCountProducts={filteredResults.length}/>
         </div>
     );
 };

@@ -272,7 +272,7 @@ const AddGood = () => {
     return (
         <>
             <h2 className={'text-[40px] font-bold text-center'}>{params.id === 'add' ? 'Add New Good' : 'Edit Product'}</h2>
-            <form className={'shadow-xl p-8 mb-5'} onSubmit={createProduct}>
+            <form className={'shadow-xl p-8 mb-5 max-w-[1280px]'} onSubmit={createProduct}>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Name</span>
                     <input required name={'name'} type={'text'} placeholder={'Product Name'} value={name}

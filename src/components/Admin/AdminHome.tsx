@@ -9,6 +9,7 @@ import {database} from "../../firebaseConfig";
 import Loader from "../MiniComponents/Loader";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import { calculateTotalOrdersPrice } from '../../redux/slices/orderSlice';
+import AdminChart from "./orders/AdminChart";
 
 
 const productIcon = <BsCart3 size={22} color={'#4066ad'}/>
@@ -58,17 +59,18 @@ const AdminHome = () => {
         <div className={`w-full 
         flex flex-col justify-center items-center mx-auto`}>
             <h2 className={`text-[40px] font-bold text-left`}>Admin home page</h2>
-            <div className={`w-full mx-auto max-w-[612px]`}>
+            <div className={`w-full mx-auto max-w-[612px] mb-6`}>
                 <div className={`flex flex-wrap gap-3`}>
                     <AdminInfoBlock number={productsNumber} title={'Products'} icon={productIcon}
                                     extraStyles={'border-b-[3px] border-b-[#4066ad]'}/>
-                    <AdminInfoBlock number={ordersTotalPrice} title={'Income'} icon={moneyIcon}
+                    <AdminInfoBlock number={`${ordersTotalPrice}$`} title={'Income'} icon={moneyIcon}
                                     extraStyles={'border-b-[3px] border-b-[#5dad40]'}/>
                     <AdminInfoBlock number={ordersNumber} title={'Orders'} icon={orderIcon}
                                     extraStyles={'border-b-[3px] border-b-[#ad7140]'}/>
 
                 </div>
             </div>
+            <AdminChart orders={data} />
 
         </div>
     );

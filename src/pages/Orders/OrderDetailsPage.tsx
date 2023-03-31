@@ -95,7 +95,7 @@ const OrderDetailsPage = () => {
                             </div>
                             {
                                 location.pathname === `/admin/order-details/${params?.id}` ?
-                                    <ChangingOrderStatus loading={loading}/>
+                                    <ChangingOrderStatus loading={loading} id={params?.id} order={orderData}/>
                                     :
                                     null
                             }

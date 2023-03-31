@@ -19,6 +19,7 @@ export const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
+
         searchProducts: (state, action) => {
 
             const {products, searchValue} = action.payload
@@ -143,12 +144,15 @@ export const filtersSlice = createSlice({
             const {products, price} = action.payload
 
             state.filteredResults = products.filter((product: IProduct) => product.price <= price)
+        },
+        setFilteredResults: (state, action) => {
+            state.filteredResults = action.payload
         }
 
     }
 })
 
-export const {searchProducts, sortProductsBy, setProductsByCategory, setProductsByBrand, setProductsByPrice} = filtersSlice.actions
+export const {searchProducts, sortProductsBy, setProductsByCategory, setProductsByBrand, setProductsByPrice, setFilteredResults} = filtersSlice.actions
 
 export default filtersSlice.reducer
 

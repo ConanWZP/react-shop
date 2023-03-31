@@ -23,6 +23,7 @@
     "nodemon": "^2.0.21",
     "notiflix": "^3.2.6",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
