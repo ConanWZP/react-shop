@@ -29,6 +29,7 @@ import {auth, database} from "./firebaseConfig";
 import {doc, getDoc} from "firebase/firestore";
 import CreatingReviewPage from "./pages/CreatingReviewPage";
 import OrdersHistoryPageContainer from "./pages/Orders/OrdersHistoryPageContainer";
+import NotFound from "./pages/NotFound";
 
 
 const App = () => {
@@ -106,6 +107,7 @@ const App = () => {
                 <Route path={`/checkout-successfully`} element={<CheckoutSuccessfully />}/>
                 <Route path={`/order-details/:id`} element={<OrderDetailsPage />}/>
                 <Route path={`/creating-review/:id`} element={<CreatingReviewPage/>}/>
+                <Route path={`*`} element={<NotFound/>}/>
 
 
             </Routes>

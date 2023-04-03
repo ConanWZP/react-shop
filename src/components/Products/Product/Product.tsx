@@ -283,7 +283,7 @@ const Product = () => {
                                     </div>
                                 )
                                 :
-                                <div></div>
+                                <div>There are no reviews for this product yet</div>
                         }
                     </div>
                 </div>

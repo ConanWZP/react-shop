@@ -279,8 +279,8 @@ const AddGood = () => {
                            onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
-                <div className={'border-2 border-black p-2 rounded-[8px] mb-4'}>
-                    <div className={'flex flex-col'}>
+                <div className={'border-2 border-black p-2 rounded-[8px] mb-4 w-[50vw]'}>
+                    <div className={'flex flex-col w-full'}>
                         {uploadingFile === 0 ?
                             null
                             :
@@ -297,10 +297,10 @@ const AddGood = () => {
                             </div>
                         }
 
-                        <span className={'mb-1 text-[22px]'}>Image</span>
+                        <div className={'mb-1 text-[22px] w-full'}>Image</div>
                         <input required={params.id === 'add'} name={'imageFile'} type={'file'} placeholder={'Product Image'}
                                accept={'image/*'} multiple
-                               onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                               onChange={handleChange} className={`w-full rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none mb-2 max-[970px]:w-full`}/>
 
                         {
@@ -308,13 +308,13 @@ const AddGood = () => {
                                 null
                                 :
                                 <input required name={'imageFile'} type={'text'} value={image}
-                                       onChange={handleChange} disabled className={`w-[50vw] rounded-[10px] p-3 border-2 
+                                       onChange={handleChange} disabled className={`w-full rounded-[10px] p-3 border-2 
                                border-gray-300 text-[22px] focus:border-blue-500 outline-none mb-2 max-[970px]:w-full `}/>
                         }
 
                         {
                             imageURLsPrev?.length > 0 ?
-                                <div className={'grid grid-cols-3'}>
+                                <div className={'grid grid-cols-2 w-full'}>
                                     {imageURLsPrev.map((imageURL: string) =>
                                         <div key={imageURL} className={'w-full relative h-[220px] border border-black p-2 rounded-[10px]'}>
                                             <img className={'w-full object-contain h-full'} src={imageURL} alt={''} />
@@ -347,7 +347,7 @@ const AddGood = () => {
                     <div className={'relative'}>
                         <select required name={'category'} value={category} onChange={handleChange}
                                 className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none appearance-none cursor-pointer max-[970px]:w-full`}>
+                           focus:border-blue-500 outline-none rounded-r-none cursor-pointer max-[970px]:w-full`}>
                             {loading ?
                                 <option value={''} disabled>Loading...</option>
                                 :
@@ -364,7 +364,7 @@ const AddGood = () => {
                             }
 
                         </select>
-                        <AiOutlineArrowDown size={22} className={'absolute right-7 top-5'}/>
+                        {/*<AiOutlineArrowDown size={22} className={'absolute right-7 top-5'}/>*/}
                     </div>
 
                 </div>

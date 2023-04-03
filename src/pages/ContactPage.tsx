@@ -2,20 +2,24 @@ import React, {FormEvent, useRef} from 'react';
 import {AiFillInstagram, AiFillMail, AiFillPhone} from 'react-icons/ai';
 import {ImLocation2} from 'react-icons/im'
 import emailjs from '@emailjs/browser';
+import {toast} from "react-toastify";
 
 const ContactPage = () => {
 
     const form = useRef<any>();
 
-    const sendMessage = (e: FormEvent) => {
+    const sendMessage = (e: any) => {
         e.preventDefault()
 
-        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+        emailjs.sendForm('service_shsa205', 'template_3esdfcb ', form.current, 'UzTeJnrM_7ukYXPiw')
             .then((result) => {
                 console.log(result.text);
+                toast.success('Message has been successfully sent')
             }, (error) => {
                 console.log(error.text);
+                toast.error(error.text)
             });
+         e.target.reset()
 
     }
 
