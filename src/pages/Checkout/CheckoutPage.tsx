@@ -34,8 +34,10 @@ const CheckoutPage = () => {
 
 
     useEffect(() => {
+
+        // http://localhost:4242/create-payment-intent
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:4242/create-payment-intent", {
+        fetch("https://react-shop-backend-t93s.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

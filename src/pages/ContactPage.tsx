@@ -11,7 +11,7 @@ const ContactPage = () => {
     const sendMessage = (e: any) => {
         e.preventDefault()
 
-        emailjs.sendForm('service_shsa205', 'template_3esdfcb ', form.current, 'UzTeJnrM_7ukYXPiw')
+        emailjs.sendForm(`${process.env.REACT_APP_EMAILJS_SERVICE_ID}`, 'template_a5hxinq', form.current, 'UzTeJnrM_7ukYXPiw')
             .then((result) => {
                 console.log(result.text);
                 toast.success('Message has been successfully sent')
