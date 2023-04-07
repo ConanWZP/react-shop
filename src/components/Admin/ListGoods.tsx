@@ -157,7 +157,7 @@ const ListGoods = () => {
     return (
         <div className={'overflow-x-auto'}>
             <h2 className={'text-[40px] text-center font-bold'}>Product List</h2>
-            <div className={`flex flex-col mb-2 gap-1`}>
+            <div className={`flex flex-col mb-2 gap-1 px-2`}>
                 <div className={`text-[18px]`}>
                     <b>{filteredResults?.length}</b> products were found
                 </div>

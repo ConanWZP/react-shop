@@ -22,11 +22,11 @@ const OrderDetailsPage = () => {
     return (
         <section className={`w-full flex-auto`}>
             <div className={`max-w-[1280px] mx-auto flex flex-col pb-6 
-            ${location.pathname === `/admin/order-details/${params?.id}` ? '' : 'pt-24'}`}>
+            ${location.pathname === `/admin/order-details/${params?.id}` ? '' : 'pt-20'}`}>
                 {
                     orderData ?
                         <>
-                            <div className={'mb-10'}>
+                            <div className={'mb-10 px-1'}>
                                 <h2 className={`text-[32px] font-bold`}>Order details</h2>
 
                                 <Link to={location.pathname === `/admin/order-details/${params?.id}` ?
@@ -41,7 +41,7 @@ const OrderDetailsPage = () => {
                                 </Link>
 
 
-                                <div className={`text-[18px]`}>
+                                <div className={`text-[18px] max-[600px]:text-[16px]`}>
                                     <div>
                                         <span className={`font-medium`}>Order ID: </span>
                                         <span>{orderData.id}</span>
@@ -66,27 +66,27 @@ const OrderDetailsPage = () => {
                                 </div>
                             </div>
 
-                            <div className={`text-[20px] font-[600]`}>
+                            <div className={`text-[20px] font-[600] max-[600px]:text-[16px]`}>
                                 <div className={`flex w-full border-t border-slate-300 py-3.5 justify-between`}>
 
-                                    <div className={`w-[35%] flex justify-center flex-col items-center`}>
+                                    <div className={`w-[45%] flex justify-center flex-col items-center max-[420px]:w-[40%]`}>
                                         <div>Product</div>
                                     </div>
 
-                                    <div className={`flex items-center justify-center w-[25%]`}>
+                                    <div className={`flex items-center justify-center w-[15%]`}>
                                         Quantity
                                     </div>
 
-                                    <div className={`flex flex-col items-center justify-center w-[20%] gap-2`}>
+                                    <div className={`flex flex-col items-center justify-center w-[20%] gap-2 max-[420px]:w-[25%]`}>
                                         Price
                                     </div>
-                                    <div className={`flex items-center justify-center w-[20%] `}>
+                                    <div className={`flex items-center justify-center w-[20%]`}>
                                         Action
                                     </div>
 
                                 </div>
                             </div>
-                            <div>
+                            <div className={`max-[600px]:text-[14px]`}>
                                 {
                                     orderData.orderItems.map((orderItem: any, index: number) =>
                                         <OrderDetailItem key={orderItem.id} orderItem={orderItem} index={index}/>

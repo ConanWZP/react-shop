@@ -51,8 +51,13 @@ const PaymentForm = () => {
 
     const saveOrder = async () => {
         const date = new Date();
-        const currentDate = date.toDateString()
-        const time = date.toLocaleTimeString();
+        const currentDay = date.getDate() < 9 ? 0 + '' + date.getDate() : date.getDate()
+        const currentMonth =   Number(date.getMonth() + 1)  < 9 ? 0 + '' + Number(date.getMonth() + 1) : Number(date.getMonth() + 1)
+        const currentYear = date.getFullYear()
+        const currentDate = currentDay + '.' + currentMonth + '.' + currentYear
+      //  console.log(currentDate)
+        const time = date.getHours() + ':' + date.getMinutes();
+      //  console.log(time)
 
 
         const orderData = {

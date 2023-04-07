@@ -61,21 +61,20 @@ const Cart = () => {
     }
 
     return (
-        <div className={'flex-auto max-w-[1080px] mx-auto w-[90%] my-32'}>
+        <div className={'flex-auto max-w-[1080px] mx-auto w-full my-32 px-2'}>
             {
                 items.length > 0 ?
                     <div>
-
-                        <div className={`flex justify-between items-center`}>
-                            <div className={`flex items-center gap-3`}>
-                                <BsCart2 size={40}/>
-                                <div className={`text-[32px] font-medium`}>Cart</div>
+                        <div className={`flex justify-between items-center `}>
+                            <div className={`flex items-center gap-3 max-[520px]:gap-2`}>
+                                <BsCart2 className={`text-[40px] max-[520px]:text-[32px]`}/>
+                                <div className={`text-[32px] font-medium max-[520px]:text-[24px]`}>Cart</div>
                             </div>
                             <div onClick={() => clearAllCart()}
-                                 className={`flex items-center gap-3 text-slate-500 hover:cursor-pointer 
+                                 className={`flex items-center gap-3 max-[520px]:gap-2 text-slate-500 hover:cursor-pointer 
                             transition-all duration-300 ease-in-out hover:text-black`}>
-                                <RiDeleteBin5Line size={40}/>
-                                <div className={`text-[32px] font-medium`}>Clear cart</div>
+                                <RiDeleteBin5Line className={`text-[40px] max-[520px]:text-[32px]`}/>
+                                <div className={`text-[32px] font-medium max-[520px]:text-[24px]`}>Clear cart</div>
                             </div>
                         </div>
 
@@ -87,7 +86,7 @@ const Cart = () => {
                             }
                         </div>
 
-                        <div className={`mt-12 text-[22px]`}>
+                        <div className={`mt-12 text-[22px] max-[520px]:text-[18px]`}>
                             <div className={`flex justify-between`}>
                                 <span>
                                     Total products:
@@ -95,21 +94,21 @@ const Cart = () => {
                                 </span>
                                 <span>
                                     Total price:
-                                    <b> {itemsValue} $</b>
+                                    <b> {itemsValue}$</b>
                                 </span>
                             </div>
                             <div className={`flex justify-between mt-8`}>
                                 <Link to={'/'} className={`py-4 px-8 border border-slate-400 transition-all duration-300 ease-in-out
                                 rounded-r-full rounded-l-full flex items-center text-slate-500 
-                                hover:bg-black hover:text-white hover:border-black`}>
-                                    <AiOutlineLeft size={30}/>
+                                hover:bg-black hover:text-white hover:border-black max-[520px]:px-2 max-[520px]:py-0.5 max-[520px]:text-[20px]`}>
+                                    <AiOutlineLeft className={`text-[30px] max-[520px]:text-[24px]`}/>
                                     <span>Back to home</span>
                                 </Link>
                                 <div>
                                     <button onClick={() => checkout()}
                                         className={`py-4 px-8 bg-green-500 transition-all duration-300 ease-in-out
                                 rounded-r-full rounded-l-full flex items-center text-white
-                                hover:bg-green-600`}>
+                                hover:bg-green-600 max-[520px]:px-2 max-[520px]:py-0.5 max-[520px]:text-[20px]`}>
                                         <span>Buy now</span>
                                     </button>
                                 </div>

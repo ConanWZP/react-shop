@@ -49,7 +49,7 @@ const Pagination: FC<PaginationProps> = ({
 
 
     return (
-        <ul className={`flex justify-center items-center text-[20px] gap-2`}>
+        <ul className={`flex justify-center items-center text-[20px] gap-2 mb-2`}>
             <li onClick={() => choosePrevPage()}
                 className={`border border-slate-400 p-1 bg-white cursor-pointer flex
             items-center min-w-[120px] justify-center rounded-l-full hover:shadow-lg transition-all duration-300 ease-in-out

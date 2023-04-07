@@ -61,9 +61,16 @@ const CreatingReviewPage = () => {
                     productData ?
                         <>
                             <h2 className={`text-[32px] font-bold`}>Rate the product</h2>
-                            <div className={`flex flex-col`}>
-                                <span>{productData?.name}</span>
-                                <img src={productData?.imageURLs[0]} className={`w-[200px] h-[200px] object-contain`}/>
+                            <div className={`flex flex-col items-center`}>
+                                <div className={`text-[22px] font-[600] mb-2`}>{productData?.name}</div>
+                                <div className={`flex flex-wrap bg-white w-full items-center justify-center gap-2 p-1`}>
+                                    {
+                                        productData?.imageURLs.map((imageURL: string, index: number) => (
+                                            <img key={index} src={imageURL} className={`w-[200px] h-[200px] object-contain`}/>
+                                        ))
+                                    }
+                                </div>
+
                             </div>
                             <div className={`shadow-xl bg-white px-2 py-3 rounded-[10px]`}>
                                 <form onSubmit={handleSubmitReview}>
@@ -86,7 +93,7 @@ const CreatingReviewPage = () => {
                                     </div>
                                     <div className={`text-center`}>
                                         <button type={'submit'} className={`px-5 py-2 bg-green-500 text-white font-medium 
-                                    text-[22px] rounded-[10px]  transition-all duration-300 ease-in-out 
+                                    text-[22px] rounded-[10px] transition-all duration-300 ease-in-out 
                                     hover:bg-green-600 active:bg-green-700`}>
                                             Create a review
                                         </button>

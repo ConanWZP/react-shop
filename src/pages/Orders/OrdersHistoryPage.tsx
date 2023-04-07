@@ -57,32 +57,32 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
                     orders.length > 0 ?
                         <>
 
-                            <div className={`flex w-full font-[600] text-[20px] `}>
+                            <div className={`flex w-full font-[600] text-[20px] max-[480px]:text-[16px]`}>
 
-                                <div className={`w-[10%] flex items-center justify-center`}>
+                                <div className={`w-[10%] flex items-center justify-center max-[900px]:hidden`}>
                                     Number
                                 </div>
 
-                                <div className={`w-[15%] flex justify-center flex-col items-center`}>
+                                <div className={`w-[15%] flex justify-center flex-col items-center max-[900px]:w-[17%] max-[480px]:w-[19%]`}>
                                     Date
 
                                 </div>
 
-                                <div className={`flex items-center justify-center w-[35%]`}>
+                                <div className={`flex items-center justify-center w-[35%] max-[900px]:w-[41%] max-[480px]:w-[48%]`}>
                                     Order ID
                                 </div>
 
-                                <div className={`flex flex-col items-center justify-center w-[20%] gap-2`}>
+                                <div className={`flex flex-col items-center justify-center w-[20%] gap-2 max-[480px]:w-[10%]`}>
                                     Price
                                 </div>
-                                <div className={`flex items-center justify-center w-[20%]`}>
+                                <div className={`flex items-center justify-center w-[20%] max-[900px]:w-[22%]  text-center`}>
                                     Order status
                                 </div>
 
                             </div>
 
 
-                            <div>
+                            <div className={`max-[480px]:text-[14px] max-[380px]:text-[12px]`}>
                                 {
                                     orders.map((order, index) =>
                                         <OrderItem key={order.id} order={order} index={index}/>
