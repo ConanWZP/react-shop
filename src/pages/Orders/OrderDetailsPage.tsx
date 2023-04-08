@@ -4,6 +4,7 @@ import useFetchDoc from "../../hooks/useFetchDoc";
 import OrderDetailItem from "../../components/OrderDetailItem";
 import {AiOutlineLeft} from "react-icons/ai";
 import ChangingOrderStatus from "../../components/Admin/orders/ChangingOrderStatus";
+import Loader from "../../components/MiniComponents/Loader";
 
 const OrderDetailsPage = () => {
 
@@ -101,7 +102,7 @@ const OrderDetailsPage = () => {
                             }
                         </>
                         :
-                        <div>Loading</div>
+                        <Loader />
                 }
             </div>
         </section>

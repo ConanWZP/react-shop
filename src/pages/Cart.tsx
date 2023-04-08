@@ -61,11 +61,11 @@ const Cart = () => {
     }
 
     return (
-        <div className={'flex-auto max-w-[1080px] mx-auto w-full my-32 px-2'}>
+        <div className={'flex-auto max-w-[1080px] mx-auto w-full py-32 px-2 max-[620px]:px-0.5 max-[520px]:px-0 max-[900px]:py-20'}>
             {
                 items.length > 0 ?
                     <div>
-                        <div className={`flex justify-between items-center `}>
+                        <div className={`flex justify-between items-center max-[520px]:px-0.5`}>
                             <div className={`flex items-center gap-3 max-[520px]:gap-2`}>
                                 <BsCart2 className={`text-[40px] max-[520px]:text-[32px]`}/>
                                 <div className={`text-[32px] font-medium max-[520px]:text-[24px]`}>Cart</div>
@@ -86,7 +86,7 @@ const Cart = () => {
                             }
                         </div>
 
-                        <div className={`mt-12 text-[22px] max-[520px]:text-[18px]`}>
+                        <div className={`mt-12 text-[22px] max-[520px]:text-[18px] max-[520px]:px-0.5`}>
                             <div className={`flex justify-between`}>
                                 <span>
                                     Total products:
@@ -117,7 +117,7 @@ const Cart = () => {
 
                     </div>
                     :
-                    <div className={`text-center font-bold mt-8 text-[40px]`}>The cart is empty </div>
+                    <div className={`text-center font-bold mt-8 text-[40px] max-[520px]:px-0.5`}>The cart is empty </div>
             }
 
         </div>

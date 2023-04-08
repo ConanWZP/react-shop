@@ -6,7 +6,7 @@ const CheckoutInfo = () => {
     const {items, itemsNumber, itemsValue} = useAppSelector(state => state.cart)
 
     return (
-        <div className={`shadow-xl p-2 bg-gray-100 rounded text-[18px] max-h-[600px] overflow-auto`}>
+        <div className={`shadow-xl p-2 bg-gray-100 rounded text-[18px] max-h-[600px] overflow-auto max-[920px]:max-h-full`}>
             <h2>Checkout Info</h2>
 
             {

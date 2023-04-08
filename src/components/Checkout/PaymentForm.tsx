@@ -130,12 +130,12 @@ const PaymentForm = () => {
 
     return (
         <section className={`w-full bg-gray-50 flex-auto`}>
-            <div className={`mx-auto max-w-[1280px] px-5 pt-24`}>
+            <div className={`mx-auto max-w-[1280px] px-5 pt-24 max-[620px]:px-2`}>
                 <h2 className={`text-[40px] font-bold`}>Checkout</h2>
-                <div className={`flex gap-3 justify-between`}>
+                <div className={`flex gap-3 justify-between max-[920px]:flex-col-reverse`}>
                     <CheckoutInfo/>
                     <form onSubmit={handleSubmit}>
-                        <div className={`shadow-xl p-2 max-w-[800px]`}>
+                        <div className={`shadow-xl p-2 max-w-[800px] mx-auto`}>
                             <h3>Payment info</h3>
                             <LinkAuthenticationElement
                                 id="link-authentication-element"
