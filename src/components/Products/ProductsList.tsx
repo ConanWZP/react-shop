@@ -20,7 +20,8 @@ interface IProductsListProps {
     // setCurrentBrand: (e: string) => void,
     currentBrand: string,
     setCurrentPrice: (e: any) => void,
-    currentPrice: any
+    currentPrice: any,
+    productListRef: any
 
 }
 
@@ -28,7 +29,7 @@ const ProductsList: FC<IProductsListProps> = ({
                                                   products, sortValue,
                                                   setSortValue, setSearchValue,
                                                   searchValue, currentCategory,
-                                                  currentBrand, setCurrentPrice, currentPrice
+                                                  currentBrand, setCurrentPrice, currentPrice, productListRef
                                               }) => {
 
     const dispatch = useAppDispatch()
@@ -107,7 +108,7 @@ const ProductsList: FC<IProductsListProps> = ({
                 <div className={'mb-1'}>
                     <span className={'font-bold'}>Sort by: </span>
                     <select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
-                            className={`w-[10vw] rounded-[5px] p-1 border-2 border-gray-300
+                            className={`w-full rounded-[5px] p-1 border-2 border-gray-300
                            focus:border-blue-500 outline-none appearance-none cursor-pointer`}>
                         <option value="last">Latest</option>
                         <option value="low-price">Lowest Price</option>
