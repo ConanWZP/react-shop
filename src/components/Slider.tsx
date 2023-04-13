@@ -67,7 +67,7 @@ const Slider:FC<SliderProps> = ({scrollToList}) => {
 
 
     return (
-        <div className={`w-full overflow-hidden relative bg-blue-200 h-[calc(100vh_-_0px)]`}>
+        <div className={`w-full overflow-hidden relative bg-blue-200 h-[calc(100vh_-_0px)] ${styles.extraZIndex}`}>
             <AiOutlineArrowLeft className={`border-2 border-orange-600 rounded-full w-12 h-12 cursor-pointer 
             bg-transparent absolute top-1/2 left-2 text-white z-20 max-[470px]:w-10 max-[470px]:h-10
             transition-all duration-200 ease-in-out ${styles.removeHover}`} onClick={swipePrevious}/>
@@ -79,7 +79,7 @@ const Slider:FC<SliderProps> = ({scrollToList}) => {
             {slidesData.map((slide, index) => (
                 <div key={index} className={currentSlide === index ?
                     `absolute top-0 left-0 w-full h-full transition-all duration-500 easy-in-out ${styles.current} `
-                    : 'absolute top-0 left-0 w-full h-full opacity-0 translate-x-[-50%] transition-all duration-500 easy-in-out'}>
+                    : `absolute top-0 left-0 w-full h-full opacity-0 translate-x-[-50%] transition-all duration-500 easy-in-out`}>
 
                     {
                         currentSlide === index ?

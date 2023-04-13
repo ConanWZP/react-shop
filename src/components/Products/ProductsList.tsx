@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {BsGridFill} from 'react-icons/bs';
+import {BsGridFill, BsSearch} from 'react-icons/bs';
 import {FaThList} from 'react-icons/fa';
 import SearchInput from "../MiniComponents/SearchInput";
 import {IProduct} from "../Admin/ListGoods";
@@ -8,6 +8,8 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {searchProducts, sortProductsBy} from '../../redux/slices/filtersSlice';
 import conditionalProducts from "./conditionalProducts";
 import Pagination from "../Pagination/Pagination";
+import styles from './productsList.module.scss'
+import {AiFillFilter, AiOutlineSortAscending} from 'react-icons/ai';
 
 interface IProductsListProps {
     products: IProduct[],
@@ -21,15 +23,25 @@ interface IProductsListProps {
     currentBrand: string,
     setCurrentPrice: (e: any) => void,
     currentPrice: any,
-    productListRef: any
+    productListRef: any,
+    setHideFilters: (e: boolean) => void,
+    hideFilters: boolean
 
 }
 
 const ProductsList: FC<IProductsListProps> = ({
-                                                  products, sortValue,
-                                                  setSortValue, setSearchValue,
-                                                  searchValue, currentCategory,
-                                                  currentBrand, setCurrentPrice, currentPrice, productListRef
+                                                  products,
+                                                  sortValue,
+                                                  setSortValue,
+                                                  setSearchValue,
+                                                  searchValue,
+                                                  currentCategory,
+                                                  currentBrand,
+                                                  setCurrentPrice,
+                                                  currentPrice,
+                                                  productListRef,
+                                                  setHideFilters,
+                                                  hideFilters
                                               }) => {
 
     const dispatch = useAppDispatch()
@@ -39,6 +51,9 @@ const ProductsList: FC<IProductsListProps> = ({
     // const {maxPrice} = useAppSelector(state => state.product)
 
     const [isGrid, setIsGrid] = useState(true)
+    const [openedSorts, setOpenedSorts] = useState(false)
+    const [openedSearch, setOpenedSearch] = useState(false)
+
     const [currentPage, setCurrentPage] = useState(1)
     const [numberDisplayedProducts, setNumberDisplayedProducts] = useState(3)
 
@@ -101,15 +116,15 @@ const ProductsList: FC<IProductsListProps> = ({
                     </div>
                 </div>
 
-                <div className={'mb-1'}>
+                <div className={'mb-1 max-[970px]:hidden'}>
                     <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}/>
                 </div>
 
-                <div className={'mb-1'}>
-                    <span className={'font-bold'}>Sort by: </span>
+                <div className={'mb-1 flex items-center gap-1 max-[970px]:hidden'}>
+                    <div className={'font-bold '}>Sort by:</div>
                     <select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
-                            className={`w-full rounded-[5px] p-1 border-2 border-gray-300
-                           focus:border-blue-500 outline-none appearance-none cursor-pointer`}>
+                            className={` rounded-[5px] p-1 border-2 border-gray-300
+                           focus:border-blue-500 outline-none cursor-pointer`}>
                         <option value="last">Latest</option>
                         <option value="low-price">Lowest Price</option>
                         <option value="high-price">Highest Price</option>
@@ -135,6 +150,87 @@ const ProductsList: FC<IProductsListProps> = ({
             </div>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
                         numberDisplayedProducts={numberDisplayedProducts} totalCountProducts={filteredResults.length}/>
+
+
+            {/*{
+                openedSorts ?
+                    <div className={`bg-white fixed bottom-0 left-0 w-1/3 h-[200px]`}>
+                        <div className={'mb-1 flex flex-col items-center gap-1'}>
+                            <div className={'font-bold '}>Sort by:</div>
+                            <select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
+                                    className={` rounded-[5px] p-1 border-2 border-gray-300
+                           focus:border-blue-500 outline-none cursor-pointer`}>
+                                <option value="last">Latest</option>
+                                <option value="low-price">Lowest Price</option>
+                                <option value="high-price">Highest Price</option>
+                                <option value="a-z">A - Z</option>
+                                <option value="z-a">Z - A</option>
+                            </select>
+                        </div>
+                    </div>
+                    :
+                    null
+            }*/}
+            {
+                openedSorts ?
+                    <div className={`bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400`}>
+                        <div className={'mb-1 flex flex-col items-center gap-1'}>
+                            <div className={'font-bold '}>Sort by:</div>
+                            {/*<select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
+                                    className={` rounded-[5px] p-1 border-2 border-gray-300
+                           focus:border-blue-500 outline-none cursor-pointer`}>*/}
+                                <div  onClick={() => setSortValue('last')} className={`cursor-pointer`}>Latest</div>
+                                <div  onClick={() => setSortValue("low-price" )} className={`cursor-pointer`}>Lowest Price</div>
+                                <div  onClick={() => setSortValue("high-price" )} className={`cursor-pointer`}>Highest Price</div>
+                                <div  onClick={() => setSortValue("a-z" )} className={`cursor-pointer`}>A - Z</div>
+                                <div onClick={() => setSortValue("z-a" )} className={`cursor-pointer pb-2`}>Z - A</div>
+                            {/*</select>*/}
+                        </div>
+                    </div>
+                    :
+                    null
+            }
+            {
+                openedSearch ?
+                    <div className={`bg-white fixed bottom-0 left-0 w-full h-full ${openedSearch ? 'overflow-hidden' : ''}`}>
+                        <div className={'mb-1 pt-32'}>
+                            <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}/>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
+
+
+            <div className={`hidden max-[970px]:flex h-16 bg-white w-full fixed bottom-0 left-0 ${styles.shadow}`}>
+                <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}
+                     onClick={() => setOpenedSorts(!openedSorts)}>
+                    <div className={`flex flex-col items-center`}>
+                        <AiOutlineSortAscending className={`text-[28px] text-gray-400`}/>
+                        <div className={`text-[20px] text-gray-400`}>
+                            Sort
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}
+                     onClick={() => setOpenedSearch(!openedSearch)}>
+                    <div className={`flex flex-col items-center`}>
+                        <BsSearch className={`text-[28px] text-gray-400`}/>
+                        <div className={`text-[20px] text-gray-400`}>Search</div>
+                    </div>
+                </div>
+                <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}
+                     onClick={() => setHideFilters(!hideFilters)}>
+                    <div className={`flex flex-col items-center`}>
+                        <AiFillFilter className={`text-[28px] text-gray-400`}/>
+                        <div className={`text-[20px] text-gray-400`}>Filters</div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     );
 };

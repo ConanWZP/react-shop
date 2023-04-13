@@ -10,7 +10,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     const scrollToList = () => {
-        productListRef.current?.scrollIntoView({behavior: 'smooth'})
+        productListRef.current?.scrollIntoView({behavior: 'smooth', inline: 'start'})
     }
 
 /*

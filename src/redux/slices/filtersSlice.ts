@@ -59,7 +59,7 @@ export const filtersSlice = createSlice({
                     return {
                        // filteredByBrand: lowPriceProducts,
                         filteredResults: lowPriceProducts.sort((a: any, b: any) => {
-                            console.log(a.price, b.price)
+                         //   console.log(a.price, b.price)
                             return a.price - b.price
                         })
                     }
@@ -69,7 +69,7 @@ export const filtersSlice = createSlice({
 
                     return {
                         filteredResults: highPriceProducts.sort((a: any, b: any) => {
-                            console.log(a, b)
+                          //  console.log(a, b)
                             return b.price - a.price
                         })
                     }
@@ -79,7 +79,7 @@ export const filtersSlice = createSlice({
 
                     return {
                         filteredResults: aZPriceProducts.sort((a: any, b: any) => {
-                            console.log(a, b)
+                          //  console.log(a, b)
                             return a.name.localeCompare(b.name)
                         })
                     }

@@ -68,14 +68,14 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
     return (
         <section className={'w-full bg-gray-50 min-h-[calc(100vh_-_128px)]'}>
-            <div className={'max-w-[1280px] mx-auto flex relative pt-16'} >
+            <div className={'max-w-[1280px] mx-auto flex relative pt-16'} ref={productListRef}>
                 <aside
                     className={hideFilters ?
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
-                        max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-10 pl-2`
+                        max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-20 pl-2`
                         :
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
-                        max-[970px]:absolute max-[970px]:h-[calc(100%-_32px)] max-[970px]:z-10 left-0 pl-2`}>
+                        max-[970px]:absolute max-[970px]:h-[calc(100%-_32px)] max-[970px]:z-20 left-0 pl-2`}>
                     {
                         loading ?
                             null
@@ -92,7 +92,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                             />
                     }
                 </aside>
-                <div className={'w-4/5 pl-2 max-[970px]:w-full'}  ref={productListRef}>
+                <div className={'w-4/5 px-1 max-[970px]:w-full'}  >
                     {
                         loading ?
                             <div className={'grid grid-cols-3 gap-3'}>
@@ -110,14 +110,18 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                                           currentCategory={currentCategory}
                                           currentBrand={currentBrand}
                                           setCurrentPrice={setCurrentPrice}
-                                          currentPrice={currentPrice} />
+                                          currentPrice={currentPrice}
+                                          setHideFilters={setHideFilters}
+                                          hideFilters={hideFilters}
+
+                            />
                     }
-                    <div onClick={() => setHideFilters(!hideFilters)}
+                    {/*<div onClick={() => setHideFilters(!hideFilters)}
                         className={`hidden justify-center items-center absolute right-0 top-14 
                         cursor-pointer max-[970px]:flex`}>
                         <FaCogs size={`20`} className={`text-green-500`}/>
                         <span>{hideFilters ? `Show Filters` : `Hide Filters`}</span>
-                    </div>
+                    </div>*/}
 
                 </div>
             </div>
