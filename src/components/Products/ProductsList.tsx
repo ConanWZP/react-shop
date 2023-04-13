@@ -9,7 +9,7 @@ import {searchProducts, sortProductsBy} from '../../redux/slices/filtersSlice';
 import conditionalProducts from "./conditionalProducts";
 import Pagination from "../Pagination/Pagination";
 import styles from './productsList.module.scss'
-import {AiFillFilter, AiOutlineSortAscending} from 'react-icons/ai';
+import {AiFillFilter, AiOutlineClose, AiOutlineSortAscending} from 'react-icons/ai';
 
 interface IProductsListProps {
     products: IProduct[],
@@ -61,6 +61,13 @@ const ProductsList: FC<IProductsListProps> = ({
     const firstProductIndexOfCurrentPage = lastProductIndexOfCurrentPage - numberDisplayedProducts
 
     const productsResult = filteredResults.slice(firstProductIndexOfCurrentPage, lastProductIndexOfCurrentPage)
+
+
+    if (openedSearch) {
+        document.body.classList.add(`${styles.locked}`)
+    } else {
+        document.body.classList.remove(`${styles.locked}`)
+    }
 
     useEffect(() => {
         setCurrentPage(1)
@@ -123,7 +130,7 @@ const ProductsList: FC<IProductsListProps> = ({
                 <div className={'mb-1 flex items-center gap-1 max-[970px]:hidden'}>
                     <div className={'font-bold '}>Sort by:</div>
                     <select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
-                            className={` rounded-[5px] p-1 border-2 border-gray-300
+                            className={`rounded-[5px] p-1 border-2 border-gray-300
                            focus:border-blue-500 outline-none cursor-pointer`}>
                         <option value="last">Latest</option>
                         <option value="low-price">Lowest Price</option>
@@ -173,17 +180,20 @@ const ProductsList: FC<IProductsListProps> = ({
             }*/}
             {
                 openedSorts ?
-                    <div className={`bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400`}>
+                    <div
+                        className={`min-[970px]:hidden bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400`}>
                         <div className={'mb-1 flex flex-col items-center gap-1'}>
                             <div className={'font-bold '}>Sort by:</div>
                             {/*<select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
                                     className={` rounded-[5px] p-1 border-2 border-gray-300
                            focus:border-blue-500 outline-none cursor-pointer`}>*/}
-                                <div  onClick={() => setSortValue('last')} className={`cursor-pointer`}>Latest</div>
-                                <div  onClick={() => setSortValue("low-price" )} className={`cursor-pointer`}>Lowest Price</div>
-                                <div  onClick={() => setSortValue("high-price" )} className={`cursor-pointer`}>Highest Price</div>
-                                <div  onClick={() => setSortValue("a-z" )} className={`cursor-pointer`}>A - Z</div>
-                                <div onClick={() => setSortValue("z-a" )} className={`cursor-pointer pb-2`}>Z - A</div>
+                            <div onClick={() => setSortValue('last')} className={`cursor-pointer`}>Latest</div>
+                            <div onClick={() => setSortValue("low-price")} className={`cursor-pointer`}>Lowest Price
+                            </div>
+                            <div onClick={() => setSortValue("high-price")} className={`cursor-pointer`}>Highest Price
+                            </div>
+                            <div onClick={() => setSortValue("a-z")} className={`cursor-pointer`}>A - Z</div>
+                            <div onClick={() => setSortValue("z-a")} className={`cursor-pointer pb-2`}>Z - A</div>
                             {/*</select>*/}
                         </div>
                     </div>
@@ -192,9 +202,18 @@ const ProductsList: FC<IProductsListProps> = ({
             }
             {
                 openedSearch ?
-                    <div className={`bg-white fixed bottom-0 left-0 w-full h-full ${openedSearch ? 'overflow-hidden' : ''}`}>
-                        <div className={'mb-1 pt-32'}>
-                            <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}/>
+                    <div
+                        className={`min-[970px]:hidden bg-white fixed bottom-0 left-0 w-full h-full 
+                         ${openedSearch ? 'overflow-hidden' : ''}`}>
+                        <div className={`relative h-full w-full`}>
+                            <div className={'absolute bottom-1/2 left-0 w-full'}>
+                                <div className={`flex justify-end mb-1`}>
+                                    <AiOutlineClose size={28} className={'cursor-pointer text-black'}
+                                                    onClick={() => setOpenedSearch(false)}/>
+                                </div>
+                                <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}
+                                             openedSearch={openedSearch} setOpenedSearch={setOpenedSearch}/>
+                            </div>
                         </div>
                     </div>
                     :
@@ -210,7 +229,6 @@ const ProductsList: FC<IProductsListProps> = ({
                         <div className={`text-[20px] text-gray-400`}>
                             Sort
                         </div>
-
 
 
                     </div>

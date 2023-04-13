@@ -3,10 +3,13 @@ import { BsSearch } from 'react-icons/bs';
 
 interface SearchInputProps {
     setSearchValue: (e: string) => void,
-    searchValue: string
+    searchValue: string,
+    openedSearch?: boolean,
+    setOpenedSearch?: (e: boolean) => void
+
 }
 
-const SearchInput:FC<SearchInputProps> = ({setSearchValue, searchValue}) => {
+const SearchInput:FC<SearchInputProps> = ({setSearchValue, searchValue, openedSearch, setOpenedSearch}) => {
     return (
         <div className={'relative flex-1'}>
             <BsSearch className={'absolute right-2 top-[14px]'} />
@@ -16,6 +19,7 @@ const SearchInput:FC<SearchInputProps> = ({setSearchValue, searchValue}) => {
                 placeholder="Search"
                    value={searchValue}
                    onChange={(e) => setSearchValue(e.target.value)}
+                   onSubmit={() => setOpenedSearch ? setOpenedSearch(false) : null}
             />
             
         </div>
