@@ -203,8 +203,7 @@ const ProductsList: FC<IProductsListProps> = ({
             {
                 openedSearch ?
                     <div
-                        className={`min-[970px]:hidden bg-white fixed bottom-0 left-0 w-full h-full 
-                         ${openedSearch ? 'overflow-hidden' : ''}`}>
+                        className={`min-[970px]:hidden bg-white fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30  `}>
                         <div className={`relative h-full w-full`}>
                             <div className={'absolute bottom-1/2 left-0 w-full'}>
                                 <div className={`flex justify-end mb-1`}>

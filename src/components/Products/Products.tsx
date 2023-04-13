@@ -8,6 +8,7 @@ import SkeletonLoader from "../MiniComponents/SkeletonLoader";
 import conditionalProducts from "./conditionalProducts";
 import {IProduct} from "../Admin/ListGoods";
 import { FaCogs } from 'react-icons/fa';
+import styles from './products.module.scss';
 
 
 interface ProductsProps {
@@ -63,6 +64,11 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
     }, [dispatch, products, currentBrand, currentCategory, searchValue])
 
 
+    if (!hideFilters) {
+        document.body.classList.add(`${styles.locked}`)
+    } else {
+        document.body.classList.remove(`${styles.locked}`)
+    }
 
     // min-h-[calc(100vh_-_196px)]
 
@@ -74,8 +80,8 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
                         max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-20 pl-2`
                         :
-                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
-                        max-[970px]:absolute max-[970px]:h-[calc(100%-_32px)] max-[970px]:z-20 left-0 pl-2`}>
+                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-full max-[970px]:bg-gray-50 
+                        max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 pl-2 flex flex-col justify-center`}>
                     {
                         loading ?
                             null
