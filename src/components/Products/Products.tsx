@@ -9,6 +9,7 @@ import conditionalProducts from "./conditionalProducts";
 import {IProduct} from "../Admin/ListGoods";
 import { FaCogs } from 'react-icons/fa';
 import styles from './products.module.scss';
+import {AiOutlineClose} from "react-icons/ai";
 
 
 interface ProductsProps {
@@ -81,7 +82,17 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                         max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-20 pl-2`
                         :
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-full max-[970px]:bg-gray-50 
-                        max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 pl-2 flex flex-col justify-center`}>
+                        max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 px-1 flex flex-col justify-center`}>
+                    <>
+                        {
+                            hideFilters ?
+                                null
+                                :
+                                <div className={`flex justify-end pb-8`}>
+                                    <AiOutlineClose size={28} className={'cursor-pointer text-black'}
+                                                    onClick={() => setHideFilters(true)}/>
+                                </div>
+                        }
                     {
                         loading ?
                             null
@@ -97,6 +108,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                                              currentPrice={currentPrice}
                             />
                     }
+                    </>
                 </aside>
                 <div className={'w-4/5 px-1 max-[970px]:w-full'}  >
                     {
