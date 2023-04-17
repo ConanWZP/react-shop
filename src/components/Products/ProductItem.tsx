@@ -41,9 +41,19 @@ const ProductItem: FC<ProductItemProps> = ({product, isGrid}) => {
                 {isGrid ?
                     null
                     :
-                    <div className={`whitespace-wrap mt-4 ${!isGrid ? 'text-[14px]' : ''}`}>
-                        {product.description.length > 120 ? `${product.description.slice(0, 120)}...` : product.description}
-                    </div>
+                    <>
+                        <div className={`whitespace-wrap min-[601px]:hidden mt-4 `}>
+                            {product.description.length > 80 ? `${product.description.slice(0, 80)}...` : product.description}
+                        </div>
+                        <div className={`whitespace-wrap min-[971px]:hidden max-[600px]:hidden mt-4 `}>
+                            {product.description.length > 120 ? `${product.description.slice(0, 120)}...` : product.description}
+                        </div>
+                        <div className={`whitespace-wrap mt-4 max-[970px]:hidden `}>
+                            {product.description.length > 170 ? `${product.description.slice(0, 170)}...` : product.description}
+                        </div>
+
+                    </>
+
                 }
 
 

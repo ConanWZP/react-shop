@@ -169,7 +169,7 @@ const Product = () => {
     }
 
     return (
-        <section className={'flex-auto bg-gray-50 pt-32'}>
+        <section className={'flex-auto bg-gray-50 pt-20 px-2'}>
 
             <div className={'max-w-[1280px] mx-auto pt-5'}>
                 <h2 className={`font-bold text-2xl mb-3`}>{productData?.name}</h2>
@@ -189,21 +189,24 @@ const Product = () => {
                 {/* </Link>*/}
                 <div className={`bg-white rounded-tl-[5px] border border-slate-200 p-2
                 rounded-tr-[5px] mb-8 rounded-b-[15px] flex justify-between shadow-xl`}>
-                    <div className={'p-2 flex gap-10'}>
+                    <div className={'p-2 flex gap-6 w-1/2 max-[1280px]:gap-2'}>
                         <div className={'flex flex-col'}>
                             {
                                 productData?.imageURLs.map((imageURL: string, index: number) => (
                                     <img key={index} src={imageURL} onMouseOver={() => changeBool(true, index)}
                                          onClick={() => showImage(true)}
                                         /*onMouseLeave={() => changeBool(false, index)}*/
-                                         className={`w-[100px] h-[100px] object-contain border-l-[3px] mb-2 cursor-zoom-in pl-5 ${index === extraInd ? 'border-green-400' : ''}`}
+                                         className={`w-[100px] h-[100px] max-[1280px]:w-[80px] max-[1280px]:h-[80px]
+                                          object-contain border-l-[3px] mb-2 cursor-zoom-in pl-5 
+                                          ${index === extraInd ? 'border-green-400' : ''}`}
                                          alt="Load..."/>
                                 ))
                             }
                         </div>
-                        <div className={`p-3 transition-opacity duration-300 ease-in ${addClass ? 'opacity-0' : ''}`}>
+                        <div className={`p-3 transition-opacity duration-300 ease-in max-[1280px]:p-1 ${addClass ? 'opacity-0' : ''}`}>
                             <img src={productData?.imageURLs[curInd]} alt="Load..." onClick={() => showImage(true)}
-                                 className={`w-[450px] h-[450px] object-contain cursor-zoom-in`}/>
+                                 className={`w-[450px] h-[450px] object-contain cursor-zoom-in 
+                                 max-[1280px]:w-[350px] max-[1280px]:h-[350px]`}/>
                         </div>
 
                     </div>
@@ -264,7 +267,8 @@ const Product = () => {
                             reviewData.length > 0 ?
                                 reviewData.map((review, index) =>
                                     <div key={index} className={`mt-14`}>
-                                        <div className={`flex justify-between border-slate-200 border-t-2 pt-2 items-center`}>
+                                        <div
+                                            className={`flex justify-between border-slate-200 border-t-2 pt-2 items-center`}>
                                             <span className={`text-[22px]`}>
                                                 <b>Created by: {review.userName}</b>
                                             </span>
