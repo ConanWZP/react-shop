@@ -85,13 +85,13 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                         max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 px-1 flex flex-col justify-center`}>
                     <>
                         {
-                            hideFilters ?
+                           /* hideFilters ?
                                 null
                                 :
                                 <div className={`flex justify-end pb-8`}>
                                     <AiOutlineClose size={28} className={'cursor-pointer text-black'}
                                                     onClick={() => setHideFilters(true)}/>
-                                </div>
+                                </div>*/
                         }
                     {
                         loading ?
@@ -110,6 +110,15 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                     }
                     </>
                 </aside>
+                {
+                   /* hideFilters ?
+                        null
+                        :*/
+                        <div className={`fixed top-16 right-1 z-40 pt-2  ${hideFilters ? 'invisible ' : 'transition-all visible delay-300 duration-300 ease-in-out'}   `}>
+                            <AiOutlineClose size={28} className={'cursor-pointer text-black'}
+                                            onClick={() => setHideFilters(true)}/>
+                        </div>
+                }
                 <div className={'w-4/5 px-1 max-[970px]:w-full'}  >
                     {
                         loading ?

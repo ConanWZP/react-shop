@@ -108,9 +108,9 @@ const ProductsList: FC<IProductsListProps> = ({
 
     return (
         <div className={'w-full'} id={'product'}>
-            <div className={'w-full border-b-2 border-slate-400 flex justify-between items-center mb-6'}>
+            <div className={'w-full border-b-2 border-slate-400 flex justify-between items-center mb-6 max-[970px]:justify-center'}>
 
-                <div className={'flex gap-3 mb-1 items-center max-[720px]:flex-col-reverse'}>
+                <div className={'flex gap-3 mb-1 items-center '}>
                     <div className={`flex gap-3 items-center`}>
                         <FaThList size={22} className={`cursor-pointer ${!isGrid ? 'text-green-500' : ''}`}
                                   onClick={() => setIsGrid(false)}/>
@@ -143,7 +143,7 @@ const ProductsList: FC<IProductsListProps> = ({
 
 
             <div
-                className={isGrid ? `grid grid-cols-3 gap-2 mb-4 max-[720px]:grid-cols-2` : `flex flex-col gap-4 mb-4`}>
+                className={isGrid ? `grid grid-cols-3 gap-2 mb-4 max-[720px]:grid-cols-2 min-h-[400px]` : `flex flex-col gap-4 mb-4`}>
 
 
                 {
@@ -203,13 +203,20 @@ const ProductsList: FC<IProductsListProps> = ({
             {
                 openedSearch ?
                     <div
-                        className={`min-[970px]:hidden bg-white fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30  `}>
+                        className={`min-[970px]:hidden bg-gray-100 fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30  `}>
                         <div className={`relative h-full w-full`}>
+                            <div className={`absolute top-1/4 left-0 text-center text-[22px] font-bold flex justify-center w-full`}>
+                                Enter a category/brand/name
+                            </div>
+                            <div className={`absolute top-16 right-1 `}>
+                                <AiOutlineClose size={28} className={'cursor-pointer text-black'}
+                                                onClick={() => setOpenedSearch(false)}/>
+                            </div>
                             <div className={'absolute bottom-1/2 left-0 w-full'}>
-                                <div className={`flex justify-end mb-1`}>
+                                {/*<div className={`flex justify-end mb-1`}>
                                     <AiOutlineClose size={28} className={'cursor-pointer text-black'}
                                                     onClick={() => setOpenedSearch(false)}/>
-                                </div>
+                                </div>*/}
                                 <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}
                                              openedSearch={openedSearch} setOpenedSearch={setOpenedSearch}/>
                             </div>
