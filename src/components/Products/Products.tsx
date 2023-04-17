@@ -119,7 +119,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                                             onClick={() => setHideFilters(true)}/>
                         </div>
                 }
-                <div className={'w-4/5 px-1 max-[970px]:w-full'}  >
+                <div className={'w-4/5 px-1 max-[970px]:w-full max-[720px]:px-0.5'}  >
                     {
                         loading ?
                             <div className={'grid grid-cols-3 gap-3'}>

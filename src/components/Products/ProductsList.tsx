@@ -143,7 +143,8 @@ const ProductsList: FC<IProductsListProps> = ({
 
 
             <div
-                className={isGrid ? `grid grid-cols-3 gap-2 mb-4 max-[720px]:grid-cols-2 min-h-[400px]` : `flex flex-col gap-4 mb-4`}>
+                className={isGrid ? `grid grid-cols-3 gap-2 mb-4 max-[720px]:grid-cols-2 min-h-[400px]` :
+                    `flex flex-col gap-4 mb-4 max-[800px]:gap-3`}>
 
 
                 {
