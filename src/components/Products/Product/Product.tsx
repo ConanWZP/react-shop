@@ -169,53 +169,54 @@ const Product = () => {
     }
 
     return (
-        <section className={'flex-auto bg-gray-50 pt-20 px-2'}>
+        <section className={'flex-auto bg-gray-50 pt-20 px-2 max-[600px]:px-1'}>
 
             <div className={'max-w-[1280px] mx-auto pt-5'}>
-                <h2 className={`font-bold text-2xl mb-3`}>{productData?.name}</h2>
+                <h2 className={`font-bold text-2xl mb-3 max-[420px]:text-[22px]`}>{productData?.name}</h2>
                 {/*<Link to={'/#product-list'}>*/}
                 <div>
 
                     <button onClick={() => navigate(-1)}
                             className={`mb-6 py-1.5 px-5 bg-blue-500 transition-all duration-300 ease-in-out
                                 rounded-r-full rounded-l-full inline-flex items-center text-white 
-                                hover:bg-blue-600 gap-1`}>
-                        <BiArrowBack color={'white'} size={22}/>
-                        <span className={`text-[22px] text-white`}>Back to products page</span>
+                                hover:bg-blue-600 gap-1 max-[420px]:px-3 max-[420px]:py-1`}>
+                        <BiArrowBack color={'white'} className={`text-[22px] max-[420px]:text-[20px]`}/>
+                        <span className={`text-[22px] text-white max-[420px]:text-[20px]`}>Back to products page</span>
                     </button>
 
 
                 </div>
                 {/* </Link>*/}
-                <div className={`bg-white rounded-tl-[5px] border border-slate-200 p-2
-                rounded-tr-[5px] mb-8 rounded-b-[15px] flex justify-between shadow-xl`}>
-                    <div className={'p-2 flex gap-6 w-1/2 max-[1280px]:gap-2'}>
-                        <div className={'flex flex-col'}>
+                <div className={`bg-white rounded-tl-[5px] border border-slate-200 p-2 max-[600px]:p-1
+                rounded-tr-[5px] mb-8 rounded-b-[15px] flex justify-between shadow-xl max-[970px]:flex-col`}>
+                    <div className={'p-2 flex gap-6 w-1/2 max-[1280px]:gap-2 max-[970px]:w-full max-[970px]:flex-col-reverse max-[520px]:p-0.5 '}>
+                        <div className={'flex flex-col max-[970px]:flex-row  max-[970px]:overflow-x-scroll max-[970px]:mx-auto'}>
                             {
                                 productData?.imageURLs.map((imageURL: string, index: number) => (
                                     <img key={index} src={imageURL} onMouseOver={() => changeBool(true, index)}
                                          onClick={() => showImage(true)}
                                         /*onMouseLeave={() => changeBool(false, index)}*/
-                                         className={`w-[100px] h-[100px] max-[1280px]:w-[80px] max-[1280px]:h-[80px]
-                                          object-contain border-l-[3px] mb-2 cursor-zoom-in pl-5 
+                                         className={`w-[100px] h-[100px] max-[1280px]:w-[80px] max-[1280px]:h-[80px] min-[601px]:w-[120px] min-[601px]:h-[120px]
+                                          object-contain border-l-[3px] mb-2 cursor-zoom-in pl-5 max-[970px]:pb-5 max-[970px]:pl-1 max-[970px]:border-l-0 max-[970px]:border-b-[3px] max-[970px]:mr-2 
                                           ${index === extraInd ? 'border-green-400' : ''}`}
                                          alt="Load..."/>
                                 ))
                             }
                         </div>
-                        <div className={`p-3 transition-opacity duration-300 ease-in max-[1280px]:p-1 ${addClass ? 'opacity-0' : ''}`}>
+                        <div className={`p-3 transition-opacity duration-300 ease-in max-[1280px]:p-1 
+                        max-[520px]:p-0 max-[520px]:pb-1 ${addClass ? 'opacity-0' : ''}`}>
                             <img src={productData?.imageURLs[curInd]} alt="Load..." onClick={() => showImage(true)}
                                  className={`w-[450px] h-[450px] object-contain cursor-zoom-in 
-                                 max-[1280px]:w-[350px] max-[1280px]:h-[350px]`}/>
+                                 max-[1280px]:w-[350px] max-[1280px]:h-[350px] max-[970px]:mx-auto min-[601px]:w-[450px] min-[601px]:h-[450px] max-[420px]:w-[280px] max-[420px]:h-[280px]`}/>
                         </div>
 
                     </div>
-                    <div className={'flex flex-col w-1/2 gap-3 pr-2'}>
+                    <div className={'flex flex-col w-1/2 gap-3 pr-2 max-[970px]:w-full max-[970px]:pr-0'}>
                         <span className={'text-[22px] font-medium'}>Brand: {productData?.brand}</span>
                         <p className={``}>{productData?.description}</p>
-                        <div className={'flex items-center gap-2 justify-end '}>
+                        <div className={'flex items-center gap-2 justify-end max-[600px]:justify-center max-[500px]:gap-1'}>
 
-                            <div className={`text-[22px] font-medium flex flex-col gap-4`}>
+                            <div className={`text-[22px] font-medium flex flex-col gap-4 max-[500px]:text-[18px]`}>
                                 {
                                     currentItem ?
                                         <div>
@@ -232,16 +233,16 @@ const Product = () => {
                             <div className={`flex flex-col items-center`}>
                                 {
                                     currentItem ?
-                                        <div className={`flex text-[24px] gap-2 mb-2`}>
+                                        <div className={`flex text-[24px] gap-2 mb-2 max-[500px]:text-[18px] items-center max-[500px]:gap-0.5`}>
                                             <button onClick={() => decreaseCurrentItem(currentItem)}
                                                     className={`bg-green-500 rounded-full p-2 
-                                    transition-all duration-300 easy-in-out text-white`}>
+                                    transition-all duration-300 easy-in-out text-white max-[500px]:p-1`}>
                                                 <AiOutlineMinus/>
                                             </button>
                                             <span>{currentItem.count}</span>
                                             <button onClick={() => addItemToCart(productData)}
                                                     className={`bg-green-500 rounded-full p-2 text-white
-                                    transition-all duration-300 easy-in-out hover:bg-green-600`}>
+                                    transition-all duration-300 easy-in-out hover:bg-green-600 max-[500px]:p-1`}>
                                                 <AiOutlinePlus/>
                                             </button>
                                             in cart
@@ -252,7 +253,7 @@ const Product = () => {
 
                                 <button onClick={() => addItemToCart(productData)}
                                         className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
-                                transition-all duration-300 ease-in-out hover:bg-green-600 active:bg-green-700`}>
+                                transition-all duration-300 ease-in-out hover:bg-green-600 active:bg-green-700 max-[500px]:text-[18px] max-[500px]:px-2.5 max-[500px]:py-1`}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -260,8 +261,8 @@ const Product = () => {
                         </div>
                     </div>
                 </div>
-                <div className={`bg-white mb-8 rounded-[15px] p-3 shadow-xl border border-slate-200`}>
-                    <h2 className={`text-[28px] font-bold`}>Product reviews</h2>
+                <div className={`bg-white mb-8 rounded-[15px] p-3 shadow-xl border border-slate-200 max-[600px]:p-1`}>
+                    <h2 className={`text-[28px] font-bold  max-[600px]:text-[22px]`}>Product reviews</h2>
                     <div>
                         {
                             reviewData.length > 0 ?
@@ -269,7 +270,7 @@ const Product = () => {
                                     <div key={index} className={`mt-14`}>
                                         <div
                                             className={`flex justify-between border-slate-200 border-t-2 pt-2 items-center`}>
-                                            <span className={`text-[22px]`}>
+                                            <span className={`text-[22px]  max-[600px]:text-[18px]`}>
                                                 <b>Created by: {review.userName}</b>
                                             </span>
                                             <span className={`text-gray-500`}>
@@ -278,7 +279,7 @@ const Product = () => {
                                         </div>
 
                                         <StarsRating value={review.rate} disabled/>
-                                        <div className={`flex flex-col gap-2 text-[18px]`}>
+                                        <div className={`flex flex-col gap-2 text-[18px] max-[600px]:text-[16px]`}>
                                             <b>Comment:</b>
                                             <p>{review.reviewText}</p>
                                         </div>
