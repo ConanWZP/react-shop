@@ -52,14 +52,24 @@ const AdminChart:FC<AdminChartProps> = ({orders}) => {
     }
 
 
+
+
     const created = filtering(status1)
     const inProcessing = filtering(status2)
     const onTheWay = filtering(status3)
     const delivered = filtering(status4)
 
+    const replacedStatusArray = [
+        'Created',
+        'In processing',
+        'On the way',
+        'Delivered'
+    ]
+
+    console.log(created)
 
     const data = {
-        labels: statusArray,
+        labels: replacedStatusArray,
         datasets: [
             {
                 label: 'Order quantity',

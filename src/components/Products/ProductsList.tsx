@@ -102,6 +102,16 @@ const ProductsList: FC<IProductsListProps> = ({
         }))
     }, [sortValue, dispatch])
 
+    const closeOrOpenFilters = () => {
+        setHideFilters(!hideFilters)
+        setOpenedSearch(false)
+    }
+    const closeOrOpenSearch = () => {
+        setOpenedSearch(!openedSearch)
+        console.log(hideFilters)
+        setHideFilters(true)
+    }
+
     if (products.length === 0) {
         return <div>Nothing weren't found</div>
     }
@@ -241,14 +251,14 @@ const ProductsList: FC<IProductsListProps> = ({
                     </div>
                 </div>
                 <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}
-                     onClick={() => setOpenedSearch(!openedSearch)}>
+                     onClick={closeOrOpenSearch}>
                     <div className={`flex flex-col items-center`}>
                         <BsSearch className={`text-[28px] text-gray-400`}/>
                         <div className={`text-[20px] text-gray-400`}>Search</div>
                     </div>
                 </div>
                 <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}
-                     onClick={() => setHideFilters(!hideFilters)}>
+                     onClick={closeOrOpenFilters}>
                     <div className={`flex flex-col items-center`}>
                         <AiFillFilter className={`text-[28px] text-gray-400`}/>
                         <div className={`text-[20px] text-gray-400`}>Filters</div>

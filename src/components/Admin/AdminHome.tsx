@@ -58,9 +58,9 @@ const AdminHome = () => {
     return (
         <div className={`w-full 
         flex flex-col justify-center items-center mx-auto`}>
-            <h2 className={`text-[40px] font-bold text-left`}>Admin home page</h2>
+            <h2 className={`text-[40px] font-bold text-left max-[500px]:text-[32px]`}>Admin home page</h2>
             <div className={`w-full mx-auto max-w-[612px] mb-6`}>
-                <div className={`flex flex-wrap gap-3`}>
+                <div className={`flex flex-wrap gap-3 max-[630px]:flex-nowrap max-[630px]:flex-col max-[630px]:items-center`}>
                     <AdminInfoBlock number={productsNumber} title={'Products'} icon={productIcon}
                                     extraStyles={'border-b-[3px] border-b-[#4066ad]'}/>
                     <AdminInfoBlock number={`${ordersTotalPrice}$`} title={'Income'} icon={moneyIcon}

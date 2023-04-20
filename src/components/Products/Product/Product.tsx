@@ -282,8 +282,6 @@ const Product = () => {
                                             <b>Comment:</b>
                                             <p>{review.reviewText}</p>
                                         </div>
-
-
                                     </div>
                                 )
                                 :

@@ -29,7 +29,8 @@ const AdminPage = () => {
                         max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-[calc(100%_-_64px)] max-[970px]:z-10 pl-2 max-[600px]:w-1/2 `
                 :
                 `w-1/4 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-100 overflow-auto
-                        max-[970px]:absolute max-[970px]:h-[calc(100%_-_64px)] max-[970px]:z-10 left-0 pl-2 max-[600px]:w-1/2`}>
+                        max-[970px]:absolute max-[970px]:h-[calc(100%_-_64px)] max-[970px]:z-10 left-0 pl-2 
+                        max-[600px]:w-1/2 max-[600px]:pl-1`}>
                 <AdminNavbar />
             </div>
             <div onClick={() => setHideAdminNavbar(!hideAdminNavbar)}

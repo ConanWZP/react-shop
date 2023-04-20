@@ -156,7 +156,7 @@ const ListGoods = () => {
 
     return (
         <div className={'overflow-x-auto'}>
-            <h2 className={'text-[40px] text-center font-bold'}>Product List</h2>
+            <h2 className={'text-[40px] max-[500px]:text-[32px] text-center font-bold'}>Product List</h2>
             <div className={`flex flex-col mb-2 gap-1 px-2`}>
                 <div className={`text-[18px]`}>
                     <b>{filteredResults?.length}</b> products were found
@@ -171,7 +171,7 @@ const ListGoods = () => {
                 <>
 
                     <table className={'w-full border-collapse text-xl mb-10'}>
-                        <thead className={'border-t-2 border-b-2 border-blue-500'}>
+                        <thead className={'border-t-2 border-b-2 border-blue-500 '}>
                         <tr className={'border-b border-gray-300'}>
                             <th className={'border border-gray-300 px-3'}>I\D</th>
                             <th className={'border border-gray-300 px-3'}>Image</th>

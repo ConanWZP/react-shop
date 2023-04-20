@@ -21,7 +21,7 @@ const AdminNavbar = () => {
                 <span className={'text-[22px] font-bold'}>{userName}</span>
             </div>
             {/*<hr className={'h-[1px] bg-black w-full border-none'}/>*/}
-            <div className={'pl-3 pt-2 pr-1'}>
+            <div className={'pl-3 pt-2 pr-1 max-[600px]:pl-1.5 max-[600px]:pr-0.5'}>
                 <div className={'text-[24px] text-gray-500 font-medium mb-2'}>Navigation</div>
                 <div className={'text-center px-2 flex flex-col gap-4'}>
                     <Link to={'/admin/home'} className={location.pathname === '/admin/home' ? 'text-blue-500' : ''}>

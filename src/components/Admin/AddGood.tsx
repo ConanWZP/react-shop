@@ -271,15 +271,17 @@ const AddGood = () => {
 
     return (
         <>
-            <h2 className={'text-[40px] font-bold text-center'}>{params.id === 'add' ? 'Add New Good' : 'Edit Product'}</h2>
-            <form className={'shadow-xl p-8 mb-5 max-w-[1280px]'} onSubmit={createProduct}>
+            <h2 className={'text-[40px] font-bold text-center max-[500px]:text-[32px]'}>
+                {params.id === 'add' ? 'Add New Good' : 'Edit Product'}
+            </h2>
+            <form className={'shadow-xl p-8 mb-5 max-w-[1280px] max-[650px]:p-2'} onSubmit={createProduct}>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Name</span>
                     <input required name={'name'} type={'text'} placeholder={'Product Name'} value={name}
                            onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
-                <div className={'border-2 border-black p-2 rounded-[8px] mb-4 w-[50vw]'}>
+                <div className={'border-2 border-black p-2 rounded-[8px] mb-4 w-[50vw] max-[970px]:w-full'}>
                     <div className={'flex flex-col w-full'}>
                         {uploadingFile === 0 ?
                             null
@@ -337,7 +339,7 @@ const AddGood = () => {
                     <div className={'relative '}>
                         <input required name={'price'} type={'number'} placeholder={'Product Price'} value={price}
                                onChange={handleChange} className={`w-[50%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
-                           focus:border-blue-500 outline-none pr-10`}/>
+                           focus:border-blue-500 outline-none pr-10 max-[600px]:w-[53%]`}/>
                         <div className={'text-[22px] absolute top-[14px] left-[46%] '}>$</div>
                     </div>
 

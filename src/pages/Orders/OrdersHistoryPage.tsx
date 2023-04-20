@@ -45,7 +45,7 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
     return (
         <section className={`w-full flex-auto`}>
             <div className={`max-w-[1280px] mx-auto ${location.pathname === `/admin/check-orders` ? '' : 'pt-16'}`}>
-                <h2 className={`text-[40px] font-bold mb-4 text-center`}>
+                <h2 className={`text-[40px] max-[500px]:text-[32px] font-bold mb-4 text-center`}>
                     {
                         location.pathname === `/admin/check-orders` ?
                             'All orders'
