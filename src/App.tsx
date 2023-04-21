@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -30,6 +30,7 @@ import {doc, getDoc} from "firebase/firestore";
 import CreatingReviewPage from "./pages/CreatingReviewPage";
 import OrdersHistoryPageContainer from "./pages/Orders/OrdersHistoryPageContainer";
 import NotFound from "./pages/NotFound";
+import styles from "./components/Products/productsList.module.scss";
 
 
 const App = () => {
@@ -75,6 +76,9 @@ const App = () => {
             //setLoading(false)
         })
     }, [])
+
+
+
 
 
     if (loading) {

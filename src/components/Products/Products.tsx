@@ -71,6 +71,12 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
         document.body.classList.remove(`${styles.locked}`)
     }
 
+    useEffect(() => {
+        return () => {
+            document.body.classList.remove(`${styles.locked}`)
+        }
+    }, [])
+
     // min-h-[calc(100vh_-_196px)]
 
     return (
