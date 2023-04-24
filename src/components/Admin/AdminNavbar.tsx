@@ -4,20 +4,20 @@ import {MdDashboard} from 'react-icons/md'
 import {FaClipboardList} from 'react-icons/fa'
 import {AiFillFileAdd} from 'react-icons/ai'
 import {BsFileEarmarkCheckFill} from 'react-icons/bs'
-import avatar from '../../assets/img/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent (1).png'
+import avatarBlank from '../../assets/img/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent (1).png'
 import {useAppSelector} from "../../hooks/customHooks";
 import { BiCategoryAlt } from 'react-icons/bi';
 
 const AdminNavbar = () => {
 
-    const {userName} = useAppSelector(state => state.auth)
+    const {userName, avatar} = useAppSelector(state => state.auth)
     const location = useLocation()
    // console.log(location)
 
     return (
         <div className={'flex flex-col'}>
             <div className={'w-full flex flex-col items-center pt-2 mb-3'}>
-                <img className={'rounded-full w-1/2 mb-1'} src={avatar} alt=""/>
+                <img className={'rounded-full w-1/2 mb-1'} src={avatar === '' ? avatarBlank : avatar} alt=""/>
                 <span className={'text-[22px] font-bold'}>{userName}</span>
             </div>
             {/*<hr className={'h-[1px] bg-black w-full border-none'}/>*/}

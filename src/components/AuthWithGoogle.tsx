@@ -31,7 +31,8 @@ const AuthWithGoogle = () => {
                     uid: result.user.uid,
                     name: user.displayName,
                     email: user.email,
-                    createdAt: Timestamp.fromDate(new Date())
+                    createdAt: Timestamp.fromDate(new Date()),
+                    avatar: ''
                 })
 
                 toast.success('You signed up')
@@ -43,7 +44,8 @@ const AuthWithGoogle = () => {
                 email: user.email,
                 userName: user.displayName,
                 userID: result.user.uid,
-                isAuth: true
+                isAuth: true,
+                avatar: ''
             }))
             redirectToCart()
 

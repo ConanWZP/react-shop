@@ -58,7 +58,8 @@ const App = () => {
                             email: docData.data().email,
                             userName: docData.data().name,
                             userID: docData.data().uid,
-                            isAuth: true
+                            isAuth: true,
+                            avatar: docData.data().avatar
                         }))
 
                         dispatch(setAuthLoading(false))

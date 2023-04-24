@@ -66,7 +66,8 @@ const Register = () => {
                 uid: result.user.uid,
                 name,
                 email,
-                createdAt: Timestamp.fromDate(new Date())
+                createdAt: Timestamp.fromDate(new Date()),
+                avatar: ''
             })
 
 
@@ -74,7 +75,8 @@ const Register = () => {
                 email,
                 userName: name,
                 userID: result.user.uid,
-                isAuth: true
+                isAuth: true,
+                avatar: ''
             }))
 
             toast.success('You signed up')

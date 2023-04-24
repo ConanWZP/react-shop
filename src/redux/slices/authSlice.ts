@@ -11,6 +11,7 @@ interface IAuthSlice {
     userName: string | null,
     userID: string | null,
     loading: boolean,
+    avatar: string
 
 }
 
@@ -21,6 +22,7 @@ const initialState: IAuthSlice = {
     userID: null,
     userName: null,
     loading: true,
+    avatar: ''
 
 }
 
@@ -71,11 +73,12 @@ export const authSlice = createSlice({
     reducers: {
         setCurrentUser: (state, action) => {
             console.log(action.payload)
-            const {email, userName, userID, isAuth} = action.payload
+            const {email, userName, userID, isAuth, avatar} = action.payload
             state.isAuth = isAuth
             state.email = email
             state.userName = userName
             state.userID = userID
+            state.avatar = avatar
         },
         setAuthLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
