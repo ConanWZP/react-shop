@@ -144,8 +144,8 @@ const Header = () => {
         <header className={'w-full fixed z-50 text-white bg-[#406bad]'}>
             <div className={'flex items-center justify-between h-[64px] w-full p-4 mx-auto text-[18px] '}>
                 <Logo/>
-                <nav className={`w-3/4 flex justify-between max-[970px]:block max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0 max-[970px]:w-1/2 max-[970px]:h-[100vh] 
-                max-[970px]:bg-[#406bad] max-[970px]:z-50 max-[970px]:transform max-[970px]:transition max-[970px]:duration-300 max-[970px]:px-[15px] pt-[6px]
+                <nav className={`w-3/4 flex justify-between max-[970px]:block max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0 max-[970px]:w-2/3 max-[970px]:h-[100vh] 
+                max-[970px]:bg-[#406bad] max-[970px]:z-50 max-[970px]:transform max-[970px]:transition max-[970px]:duration-300 max-[970px]:px-[15px] pt-[6px] max-[500px]:px-2
                 ${menuIsShow ? 'max-[970px]:transform max-[970px]:translate-x-0' : 'max-[970px]:transform max-[970px]:translate-x-[-200%]'}`}>
 
                     <div className={`max-[970px]:absolute max-[970px]:top-0 max-[970px]:right-0 max-[970px]:w-full max-[970px]:h-[100vh] max-[970px]:bg-[#00000080] max-[970px]:transform max-[970px]:translate-x-0
@@ -155,7 +155,7 @@ const Header = () => {
 
                     <div className={'flex justify-between gap-[12px] max-[970px]:flex-col max-[970px]:mb-[8px]'}
                          onClick={closeMenu}>
-                        <div className={'min-[769px]:hidden flex items-center justify-between'}>
+                        <div className={'min-[971px]:hidden flex items-center justify-between'}>
                             <Logo/>
                             <AiOutlineClose size={28} className={'cursor-pointer'} onClick={closeMenu}/>
                         </div>

@@ -189,10 +189,12 @@ const ProductsList: FC<IProductsListProps> = ({
                     :
                     null
             }*/}
-            {
-                openedSorts ?
+           {/* {
+                openedSorts ?*/}
                     <div
-                        className={`min-[970px]:hidden bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400`}>
+                        className={openedSorts ?
+                            `min-[970px]:hidden bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400 transition-all duration-300 ease-in-out`
+                    : `min-[970px]:hidden bg-gray-100 fixed bottom-[-100%] left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400 transition-all duration-300 ease-in-out`}>
                         <div className={'mb-1 flex flex-col items-center gap-1'}>
                             <div className={'font-bold '}>Sort by:</div>
                             {/*<select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
@@ -208,13 +210,15 @@ const ProductsList: FC<IProductsListProps> = ({
                             {/*</select>*/}
                         </div>
                     </div>
-                    :
+                 {/*   :
                     null
-            }
-            {
-                openedSearch ?
+            }*/}
+            {/*{
+                openedSearch ?*/}
                     <div
-                        className={`min-[970px]:hidden bg-gray-100 fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30  `}>
+                        className={openedSearch ?
+                            `min-[970px]:hidden bg-gray-100 fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30 transition-all duration-300 ease-in-out`
+                            : `min-[970px]:hidden bg-gray-100 fixed top-[-200%] left-0 w-full h-[calc(100%_-_64px)] z-30 transition-all duration-300 ease-in-out`}>
                         <div className={`relative h-full w-full`}>
                             <div className={`absolute top-1/4 left-0 text-center text-[22px] font-bold flex justify-center w-full`}>
                                 Enter a category/brand/name
@@ -233,9 +237,9 @@ const ProductsList: FC<IProductsListProps> = ({
                             </div>
                         </div>
                     </div>
-                    :
-                    null
-            }
+                    {/*:*/}
+            {/*        null
+            }*/}
 
 
             <div className={`hidden max-[970px]:flex h-16 bg-white w-full fixed bottom-0 left-0 ${styles.shadow}`}>

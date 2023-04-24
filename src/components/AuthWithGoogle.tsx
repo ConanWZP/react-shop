@@ -60,7 +60,7 @@ const AuthWithGoogle = () => {
         <button type={'button'} onClick={authWithGoogle}
                 className={'bg-red-500 p-[10px] rounded-[5px] w-full text-[26px] text-white ' +
                     'max-[960px]:p-[6px] flex items-center justify-center gap-[5px] hover:bg-red-600 ' +
-                    'active:bg-red-700 shadow-md hover:shadow-lg active:shadow-lg transition duration-300 ease-in-out'}>
+                    'active:bg-red-700 shadow-md hover:shadow-lg active:shadow-lg transition duration-300 ease-in-out max-[430px]:text-[22px]'}>
             <FcGoogle className={'bg-white rounded-[50%] d'}/>
             Continue with Google
         </button>

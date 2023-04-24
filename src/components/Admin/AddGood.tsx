@@ -382,7 +382,7 @@ const AddGood = () => {
                               onChange={handleChange} rows={8} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
-                <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 
+                <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 max-[650px]:w-full
                 transition-all duration-300 ease-in-out`}>{params.id === 'add' ? 'Add Product' : 'Edit Product'}
                 </button>
             </form>

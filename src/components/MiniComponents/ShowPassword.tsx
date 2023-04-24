@@ -8,7 +8,7 @@ interface ShowPasswordProps {
 
 const ShowPassword:FC<ShowPasswordProps> = ({passwordIsShow, setPasswordIsShow}) => {
     return (
-        <div onClick={() => setPasswordIsShow(!passwordIsShow)} className={'cursor-pointer absolute right-4 top-[17px]'}>
+        <div onClick={() => setPasswordIsShow(!passwordIsShow)} className={'cursor-pointer absolute right-4 top-[17px] '}>
             {
                 passwordIsShow ?
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

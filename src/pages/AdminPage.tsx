@@ -70,7 +70,7 @@ const AdminPage = () => {
                 </div>
 
             </div>
-            <div className={'flex mx-auto flex-col pt-5 w-3/4 pb-40 max-[970px]:w-full '}>
+            <div className={'flex mx-auto flex-col pt-5 w-3/4 pb-10 max-[970px]:w-full '}>
                 <Routes>
                     <Route path={'home'} element={<AdminHome/>}/>
                     <Route path={'list-goods'} element={<ListGoods/>}/>

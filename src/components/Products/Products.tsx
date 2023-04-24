@@ -84,8 +84,9 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
             <div className={'max-w-[1280px] mx-auto flex relative pt-16'} ref={productListRef}>
                 <aside
                     className={hideFilters ?
-                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-1/3 max-[970px]:bg-gray-50 
-                        max-[970px]:absolute max-[970px]:left-[-200%] max-[768px]:h-full max-[970px]:z-20 pl-2`
+                        `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-full max-[970px]:bg-gray-50 
+                        max-[970px]:fixed top-0 max-[970px]:left-[-200%]  max-[970px]:z-20 pl-2
+                         max-[970px]:h-[calc(100%-_64px)] max-[970px]:flex max-[970px]:flex-col max-[970px]:justify-center`
                         :
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-full max-[970px]:bg-gray-50 
                         max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 px-1 flex flex-col justify-center`}>
