@@ -274,14 +274,14 @@ const AddGood = () => {
             <h2 className={'text-[40px] font-bold text-center max-[500px]:text-[32px]'}>
                 {params.id === 'add' ? 'Add New Good' : 'Edit Product'}
             </h2>
-            <form className={'shadow-xl p-8 mb-5 max-w-[1280px] max-[650px]:p-2'} onSubmit={createProduct}>
+            <form className={'shadow-xl p-8 mb-5 max-w-[1280px] w-full max-[650px]:p-2 mx-auto'} onSubmit={createProduct}>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Name</span>
                     <input required name={'name'} type={'text'} placeholder={'Product Name'} value={name}
-                           onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                           onChange={handleChange} className={`w-[100%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
-                <div className={'border-2 border-black p-2 rounded-[8px] mb-4 w-[50vw] max-[970px]:w-full'}>
+                <div className={'border-2 border-black p-2 rounded-[8px] mb-4 w-[100%] max-[970px]:w-full'}>
                     <div className={'flex flex-col w-full'}>
                         {uploadingFile === 0 ?
                             null
@@ -348,7 +348,7 @@ const AddGood = () => {
                     <span className={'mb-1 text-[22px]'}>Category</span>
                     <div className={'relative'}>
                         <select required name={'category'} value={category} onChange={handleChange}
-                                className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                                className={`w-[100%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none rounded-r-none cursor-pointer max-[970px]:w-full`}>
                             {loading ?
                                 <option value={''} disabled>Loading...</option>
@@ -373,13 +373,13 @@ const AddGood = () => {
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Brand</span>
                     <input required name={'brand'} type={'text'} placeholder={'Product Brand'} value={brand}
-                           onChange={handleChange} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                           onChange={handleChange} className={`w-[100%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
                 <div className={'flex flex-col mb-4'}>
                     <span className={'mb-1 text-[22px]'}>Description</span>
                     <textarea required name={'description'} placeholder={'Description'} value={description}
-                              onChange={handleChange} rows={8} className={`w-[50vw] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
+                              onChange={handleChange} rows={8} className={`w-[100%] rounded-[10px] p-3 border-2 border-gray-300 text-[22px]
                            focus:border-blue-500 outline-none max-[970px]:w-full`}/>
                 </div>
                 <button className={`bg-blue-500 rounded text-[24px] text-white px-6 py-2 hover:bg-blue-600 max-[650px]:w-full

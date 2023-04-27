@@ -13,7 +13,7 @@ const CreatingReviewPage = () => {
     const [rate, setRate] = useState<any>(0)
     const [reviewText, setReviewText] = useState('')
 
-    const {userID, userName} = useAppSelector(state => state.auth)
+    const {userID, userName, avatar} = useAppSelector(state => state.auth)
 
     const params = useParams()
 

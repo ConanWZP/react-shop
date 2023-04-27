@@ -35,7 +35,7 @@ const ProductItem: FC<ProductItemProps> = ({product, isGrid}) => {
                       className={'hover:text-blue-500 transition-all duration-200 ease-in-out'}>
                     <span className={`font-bold text-[22px] max-[580px]:text-[16px] 
                     ${!isGrid ? 'max-[780px]:text-[18px]' : ''} `}>
-                        {product.name}
+                        {product.name.length > 35 ? `${product.name.slice(0, 35)}...` : product.name}
                     </span>
                 </Link>
                 {isGrid ?

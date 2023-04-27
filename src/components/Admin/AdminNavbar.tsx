@@ -17,7 +17,7 @@ const AdminNavbar = () => {
     return (
         <div className={'flex flex-col'}>
             <div className={'w-full flex flex-col items-center pt-2 mb-3'}>
-                <img className={'rounded-full w-1/2 mb-1'} src={avatar === '' ? avatarBlank : avatar} alt=""/>
+                <img className={'rounded-full w-[200px] h-[200px] object-cover mb-1'} src={avatar === '' ? avatarBlank : avatar} alt=""/>
                 <span className={'text-[22px] font-bold'}>{userName}</span>
             </div>
             {/*<hr className={'h-[1px] bg-black w-full border-none'}/>*/}

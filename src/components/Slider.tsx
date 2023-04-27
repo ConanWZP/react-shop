@@ -86,13 +86,13 @@ const Slider:FC<SliderProps> = ({scrollToList}) => {
                             <>
                                 <img src={slide.image} className={'h-full w-full'} alt={''} />
                                 <div className={styles.content}>
-                                    <h2 className={'text-white mb-4 text-[72px] max-[470px]:text-[56px] max-[400px]:text-[48px]'}>{slide.title}</h2>
-                                    <p className={'text-white mb-4'}>{slide.description}</p>
-                                    <hr className={'text-white mb-4 h-1 w-full'} />
+                                    <h2 className={'text-white mb-4 text-[72px] max-[720px]:text-[54px] max-[400px]:text-[48px]'}>{slide.title}</h2>
+                                    <p className={'text-white mb-4 max-[720px]:mb-3'}>{slide.description}</p>
+                                    <hr className={'text-white mb-4 h-1 w-full max-[720px]:mb-3'} />
                                     <Link to={'/#product-list'} onClick={scrollToList}
                                              className={`bg-blue-500 px-[50px] py-[8px] rounded text-white 
                                              cursor-pointer text-[24px] hover:bg-blue-600 transition-all duration-300 ease-in-out
-                                             max-[470px]:text-[22px] max-[400px]:text-[20px]`}>Check</Link>
+                                             max-[470px]:text-[22px] max-[400px]:text-[20px] max-[720px]:px-[35px] max-[720px]:py-[6px]`}>Check</Link>
                                 </div>
 
                             </>

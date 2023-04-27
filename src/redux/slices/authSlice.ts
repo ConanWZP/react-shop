@@ -80,6 +80,9 @@ export const authSlice = createSlice({
             state.userID = userID
             state.avatar = avatar
         },
+        setChangeAvatar: (state, action) => {
+          state.avatar = action.payload
+        },
         setAuthLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
         },
@@ -87,5 +90,5 @@ export const authSlice = createSlice({
     },
 })
 
-export const { setCurrentUser, setAuthLoading } = authSlice.actions
+export const { setCurrentUser, setChangeAvatar, setAuthLoading } = authSlice.actions
 export default authSlice.reducer

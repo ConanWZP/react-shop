@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {doc, getDoc} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs} from "firebase/firestore";
 import {database} from "../../../firebaseConfig";
 import Loader from "../../MiniComponents/Loader";
 import {toast} from "react-toastify";
@@ -20,6 +20,9 @@ import Notiflix from "notiflix";
 import useFetchDoc from "../../../hooks/useFetchDoc";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import StarsRating from "react-star-rate";
+import {log} from "util";
+import avatarBlank
+    from "../../../assets/img/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent (1).png";
 
 const Product = () => {
 
@@ -137,12 +140,71 @@ const Product = () => {
     const [reviewData, setReviewData] = useState<any[]>([])
     const {data} = useFetchCollection('reviews', 'productID', '==', params?.id)
 
+    const [avatars, setAvatars] = useState<any>()
+
+
+    let usersIDFromReviews = data.map((review: any) => review.userID)
+    //console.log(array)
+
+
+    let usersDataFromUsers: any[] = []
+
+
+    let modifiedUsersDataFromUsers: any[] = []
+    /*let changeData = data*/
+
+
 
     useEffect(() => {
-        setReviewData(data)
+        const gettingUsers = async () => {
+            /*const querySnapshot = await getDocs(collection(database, "users"));
+            querySnapshot.forEach((doc) => {
+                for (let i = 0; i < array.length; i++) {
+                    if (doc.id === array[i])
+                        extraArray.push(doc.data())
+                }
+
+            });*/
+
+
+            // Создаем массив с информацией о пользователях, которые оставили отзывы
+            for (let i = 0; i < usersIDFromReviews.length; i++) {
+               const reviewer = await getDoc(doc(database, 'users', usersIDFromReviews[i]))
+                if (reviewer.exists()) {
+                    usersDataFromUsers.push(reviewer.data())
+                }
+            }
+            // в массиве отзывов для каждого отзыва добавляем поле с аватаркой пользователя
+            modifiedUsersDataFromUsers = data.map((el: any) => {
+                for (let i = 0; i < usersDataFromUsers.length; i++) {
+                    if (el.userID === usersDataFromUsers[i].uid) {
+                        return {
+                            ...el,
+                            ava: usersDataFromUsers[i].avatar
+                        }
+                    }
+                }
+            })
+
+
+            setReviewData(modifiedUsersDataFromUsers)
+
+
+
+        }
+        gettingUsers()
+        //console.log(changeData)
+
     }, [data])
 
-    console.log(reviewData)
+    //console.log(changeData)
+
+    /*useEffect(() => {
+        setReviewData(data)
+
+    }, [data])*/
+
+   // console.log(reviewData)
 
     if (loading) {
         return <Loader/>
@@ -270,9 +332,10 @@ const Product = () => {
                                     <div key={index} className={`mt-14`}>
                                         <div
                                             className={`flex justify-between border-slate-200 border-t-2 pt-2 items-center`}>
-                                            <span className={`text-[22px]  max-[600px]:text-[18px]`}>
+                                            <div className={`text-[22px] max-[600px]:text-[18px]`}>
+                                                <img className={`w-[100px] h-[100px] rounded-full`} src={review.ava === '' ? avatarBlank : review.ava} alt=""/>
                                                 <b>Created by: {review.userName}</b>
-                                            </span>
+                                            </div>
                                             <span className={`text-gray-500`}>
                                                 <b>{review.reviewDate}</b>
                                             </span>

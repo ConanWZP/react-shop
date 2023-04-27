@@ -12,7 +12,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import AdminPage from "./pages/AdminPage";
 import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
 

@@ -183,9 +183,9 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({
 
 
     return (
-        <div>
+        <div className={`overflow-y-auto pt-16`}>
             <h2 className={`text-[22px] font-medium`}>Categories</h2>
-            <div className={`mb-2 flex flex-col items-start`}>
+            <div className={`mb-2 flex flex-col items-start max-h-[400px] overflow-y-auto`}>
                 {
                     categoriesList.map((category, index) => (
                         <button key={index} type={'button'} onClick={() => chooseCategory(category)}

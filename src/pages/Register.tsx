@@ -45,6 +45,7 @@ const Register = () => {
         e.preventDefault()
         if (password !== cPassword) {
             toast.error(`Passwords ain't same`)
+            return
         }
         setFormData({...formData, loading: true})
         try {

@@ -44,7 +44,7 @@ const CreateCategory = () => {
     return (
         <div className={`px-2`}>
             <h2 className={'text-[40px] font-bold text-center max-[500px]:text-[32px] mb-2'}>Create Category</h2>
-            <form className={'shadow-xl p-4 rounded-[10px] flex flex-col max-w-[1280px] max-[600px]:p-2'} onSubmit={handleSubmit}>
+            <form className={'shadow-xl p-4 rounded-[10px] flex flex-col max-w-[1280px] mx-auto max-[600px]:p-2'} onSubmit={handleSubmit}>
                 <div className={'text-[22px] mb-1'}>Category Name:</div>
                 <div className={`mx-auto w-full flex flex-col`}>
                     <input type="text" placeholder={'Example: Phones'} value={categoryName}

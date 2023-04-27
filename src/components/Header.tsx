@@ -11,7 +11,6 @@ import {doc, getDoc} from "firebase/firestore";
 import {calculateTotalCountOfProducts} from "../redux/slices/cartSlice";
 
 
-
 interface CartProps {
     border: boolean,
     closeMenu?: () => void
@@ -72,7 +71,6 @@ const Header = () => {
     const {userName, email} = useAppSelector(state => state.auth)
     const [loading, setLoading] = useState(false)
     const dispatch = useAppDispatch()
-
 
 
     const changeMenuStatus = () => {
@@ -146,12 +144,13 @@ const Header = () => {
                 <Logo/>
                 <nav className={`w-3/4 flex justify-between max-[970px]:block max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0 max-[970px]:w-2/3 max-[970px]:h-[100vh] 
                 max-[970px]:bg-[#406bad] max-[970px]:z-50 max-[970px]:transform max-[970px]:transition max-[970px]:duration-300 max-[970px]:px-[15px] pt-[6px] max-[500px]:px-2
-                ${menuIsShow ? 'max-[970px]:transform max-[970px]:translate-x-0' : 'max-[970px]:transform max-[970px]:translate-x-[-200%]'}`}>
+                ${menuIsShow ? 'max-[970px]:transform max-[970px]:translate-x-0 ' : 'max-[970px]:transform max-[970px]:translate-x-[-200%]'}`}>
 
                     <div className={`max-[970px]:absolute max-[970px]:top-0 max-[970px]:right-0 max-[970px]:w-full max-[970px]:h-[100vh] max-[970px]:bg-[#00000080] max-[970px]:transform max-[970px]:translate-x-0
                     max-[970px]:transition max-[970px]:duration-300 ${menuIsShow ? `max-[970px]:translate-x-[100%] ` : ''}`}
                          onClick={closeMenu}>
                     </div>
+
 
                     <div className={'flex justify-between gap-[12px] max-[970px]:flex-col max-[970px]:mb-[8px]'}
                          onClick={closeMenu}>
@@ -163,7 +162,8 @@ const Header = () => {
                             email === 'yaroslav2281337@gmail.com' ?
                                 <Link to={'/admin/home'} className={'text-center'}>
                                     <button className={`bg-blue-500 px-2 py-[2px] rounded transition-all duration-300 
-                            ease-in-out`}>Admin</button>
+                            ease-in-out`}>Admin
+                                    </button>
                                 </Link>
                                 :
                                 null
@@ -202,7 +202,8 @@ const Header = () => {
                                     <NavLink to={'/register'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
-                                                 'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Sign up</NavLink>
+                                                 'max-[970px]:border-b border-slate-400 max-[970px]:mr-0 hover:text-[1.3rem]'}>Sign
+                                        up</NavLink>
                                 </>
 
                             }

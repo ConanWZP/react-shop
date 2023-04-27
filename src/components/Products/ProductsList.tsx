@@ -55,7 +55,7 @@ const ProductsList: FC<IProductsListProps> = ({
     const [openedSearch, setOpenedSearch] = useState(false)
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [numberDisplayedProducts, setNumberDisplayedProducts] = useState(3)
+    const [numberDisplayedProducts, setNumberDisplayedProducts] = useState(6)
 
     const lastProductIndexOfCurrentPage = currentPage * numberDisplayedProducts
     const firstProductIndexOfCurrentPage = lastProductIndexOfCurrentPage - numberDisplayedProducts
