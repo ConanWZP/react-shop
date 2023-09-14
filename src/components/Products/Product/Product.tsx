@@ -40,6 +40,8 @@ const Product = () => {
     const [addClass, setAddClass] = useState(false)
 
     const changeBool = async (bol: boolean, ind: number) => {
+
+        // setBool - лишнее
         setBool(bol)
         setExtraInd(ind)
 
@@ -56,14 +58,14 @@ const Product = () => {
         }, 350)
     }, 300)
 
-    const extrFunc = (ind: number) => {
+   /* const extrFunc = (ind: number) => {
         setAddClass(true)
         setTimeout(() => {
             setAddClass(false)
             setCurInd(ind)
 
         }, 350)
-    }
+    }*/
 
     useEffect(() => {
         showImage(false)
