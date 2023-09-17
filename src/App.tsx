@@ -32,17 +32,18 @@ import OrdersHistoryPageContainer from "./pages/Orders/OrdersHistoryPageContaine
 import NotFound from "./pages/NotFound";
 import styles from "./components/Products/productsList.module.scss";
 
+interface IUserDocData {
+    avatar: string,
+    createdAt: unknown,
+    email: string,
+    name: string,
+    uid: string
 
+}
 const App = () => {
 
     const {email, loading} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
-
-    /*useEffect(() => {
-
-        dispatch(changeStateOnAuth())
-    }, [])*/
-
 
     useEffect(() => {
         dispatch(setAuthLoading(true))
@@ -52,16 +53,16 @@ const App = () => {
                 const getData = async () => {
                     const docRef = doc(database, 'users', user.uid)
                     const docData = await getDoc(docRef)
-                    if (docData.exists()) {
-                        console.log(docData.data())
-                        dispatch(setCurrentUser({
-                            email: docData.data().email,
-                            userName: docData.data().name,
-                            userID: docData.data().uid,
-                            isAuth: true,
-                            avatar: docData.data().avatar
-                        }))
 
+                    if (docData.exists()) {
+                        const {createdAt, email, uid, avatar, name} = docData.data() as IUserDocData
+                        dispatch(setCurrentUser({
+                            email: email,
+                            userName: name,
+                            userID: uid,
+                            isAuth: true,
+                            avatar: avatar
+                        }))
                         dispatch(setAuthLoading(false))
                     }
 
@@ -70,15 +71,12 @@ const App = () => {
             } else {
                 console.log('no user')
                 console.log(user)
-
                 dispatch(setAuthLoading(false))
-                //setUserName(null)
             }
-            //setLoading(false)
         })
     }, [])
 
-
+    const admins = ['yaroslav2281337@gmail.com', 'admin@shopper.com']
 
 
 
@@ -89,7 +87,6 @@ const App = () => {
     return (
         <BrowserRouter>
             <Header/>
-            {/*<HeaderTest />*/}
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/contact'} element={<ContactPage/>}/>
@@ -101,7 +98,7 @@ const App = () => {
                 <Route path={'/profile'} element={<Profile/>}/>
 
                 <Route path={'/admin/*'} element={
-                    email === 'yaroslav2281337@gmail.com' ?
+                    admins.includes(email as string) ?
                         <AdminPage/>
                         : <DenyAccess/>
                 }/>

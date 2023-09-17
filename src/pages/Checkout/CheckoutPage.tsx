@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {calculateTotalCountOfProducts, calculateTotalPrice} from "../../redux/slices/cartSlice";
 import PaymentForm from "../../components/Checkout/PaymentForm";
 
-/*const stripePromise = loadStripe("pk_test_51MmsuvD2KA41zJ2N1wKCniEDfSOhjF7uFPMW0GCCZsW9iPVAF2MYo4ygdhHWKLDYsrFD9Nqhuj04raCXvHGgBBYa00Dl7YkuCy");*/
+
 
 
 

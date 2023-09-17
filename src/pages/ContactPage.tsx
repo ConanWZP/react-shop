@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef} from 'react';
+import React, {useRef} from 'react';
 import {AiFillInstagram, AiFillMail, AiFillPhone} from 'react-icons/ai';
 import {ImLocation2} from 'react-icons/im'
 import emailjs from '@emailjs/browser';

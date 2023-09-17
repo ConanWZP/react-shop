@@ -6,7 +6,6 @@ import StarsRating from 'react-star-rate';
 import {addDoc, collection, Timestamp} from "firebase/firestore";
 import {database} from "../firebaseConfig";
 import {toast} from "react-toastify";
-import {clearCart} from "../redux/slices/cartSlice";
 
 const CreatingReviewPage = () => {
 

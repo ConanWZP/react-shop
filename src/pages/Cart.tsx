@@ -119,7 +119,6 @@ const Cart = () => {
                     :
                     <div className={`text-center font-bold mt-8 text-[40px] max-[520px]:px-0.5`}>The cart is empty </div>
             }
-
         </div>
     );
 };

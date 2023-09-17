@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {BsGridFill, BsSearch} from 'react-icons/bs';
 import {FaThList} from 'react-icons/fa';
 import SearchInput from "../MiniComponents/SearchInput";
-import {IProduct} from "../Admin/ListGoods";
+import {IProduct} from "../../types";
 import ProductItem from "./ProductItem";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {searchProducts, sortProductsBy} from '../../redux/slices/filtersSlice';
@@ -17,9 +17,7 @@ interface IProductsListProps {
     searchValue: string,
     setSortValue: (e: string) => void,
     sortValue: string,
-    //setCurrentCategory: (e: string) => void,
     currentCategory: string,
-    // setCurrentBrand: (e: string) => void,
     currentBrand: string,
     setCurrentPrice: (e: any) => void,
     currentPrice: any,
@@ -77,12 +75,8 @@ const ProductsList: FC<IProductsListProps> = ({
     useEffect(() => {
 
         let filteredByPriceProducts: any[]
-
-        //   if (searchValue !== '') {
         filteredByPriceProducts = products.filter((product) => product.price <= currentPrice)
-        //  } else {
-        //     filteredByPriceProducts = products
-        // }
+
 
 
         const {productsArray} = conditionalProducts(filteredByPriceProducts, currentBrand, currentCategory)
@@ -168,38 +162,13 @@ const ProductsList: FC<IProductsListProps> = ({
             </div>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
                         numberDisplayedProducts={numberDisplayedProducts} totalCountProducts={filteredResults.length}/>
-
-
-            {/*{
-                openedSorts ?
-                    <div className={`bg-white fixed bottom-0 left-0 w-1/3 h-[200px]`}>
-                        <div className={'mb-1 flex flex-col items-center gap-1'}>
-                            <div className={'font-bold '}>Sort by:</div>
-                            <select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
-                                    className={` rounded-[5px] p-1 border-2 border-gray-300
-                           focus:border-blue-500 outline-none cursor-pointer`}>
-                                <option value="last">Latest</option>
-                                <option value="low-price">Lowest Price</option>
-                                <option value="high-price">Highest Price</option>
-                                <option value="a-z">A - Z</option>
-                                <option value="z-a">Z - A</option>
-                            </select>
-                        </div>
-                    </div>
-                    :
-                    null
-            }*/}
-           {/* {
-                openedSorts ?*/}
                     <div
                         className={openedSorts ?
                             `min-[970px]:hidden bg-gray-100 fixed bottom-16 left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400 transition-all duration-300 ease-in-out`
                     : `min-[970px]:hidden bg-gray-100 fixed bottom-[-100%] left-0 w-1/3 rounded-t border border-t-slate-400 border-r-slate-400 transition-all duration-300 ease-in-out`}>
                         <div className={'mb-1 flex flex-col items-center gap-1'}>
                             <div className={'font-bold '}>Sort by:</div>
-                            {/*<select value={sortValue} onChange={(e) => setSortValue(e.target.value)}
-                                    className={` rounded-[5px] p-1 border-2 border-gray-300
-                           focus:border-blue-500 outline-none cursor-pointer`}>*/}
+
                             <div onClick={() => setSortValue('last')} className={`cursor-pointer`}>Latest</div>
                             <div onClick={() => setSortValue("low-price")} className={`cursor-pointer`}>Lowest Price
                             </div>
@@ -207,14 +176,10 @@ const ProductsList: FC<IProductsListProps> = ({
                             </div>
                             <div onClick={() => setSortValue("a-z")} className={`cursor-pointer`}>A - Z</div>
                             <div onClick={() => setSortValue("z-a")} className={`cursor-pointer pb-2`}>Z - A</div>
-                            {/*</select>*/}
+
                         </div>
                     </div>
-                 {/*   :
-                    null
-            }*/}
-            {/*{
-                openedSearch ?*/}
+
                     <div
                         className={openedSearch ?
                             `min-[970px]:hidden bg-gray-100 fixed top-0 left-0 w-full h-[calc(100%_-_64px)] z-30 transition-all duration-300 ease-in-out`
@@ -228,18 +193,12 @@ const ProductsList: FC<IProductsListProps> = ({
                                                 onClick={() => setOpenedSearch(false)}/>
                             </div>
                             <div className={'absolute bottom-1/2 left-0 w-full'}>
-                                {/*<div className={`flex justify-end mb-1`}>
-                                    <AiOutlineClose size={28} className={'cursor-pointer text-black'}
-                                                    onClick={() => setOpenedSearch(false)}/>
-                                </div>*/}
                                 <SearchInput setSearchValue={setSearchValue} searchValue={searchValue}
                                              openedSearch={openedSearch} setOpenedSearch={setOpenedSearch}/>
                             </div>
                         </div>
                     </div>
-                    {/*:*/}
-            {/*        null
-            }*/}
+
 
 
             <div className={`hidden max-[970px]:flex h-16 bg-white w-full fixed bottom-0 left-0 ${styles.shadow}`}>

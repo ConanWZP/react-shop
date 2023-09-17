@@ -8,7 +8,6 @@ import Loader from "../components/MiniComponents/Loader";
 import {toast} from "react-toastify";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from "../firebaseConfig";
-import {useAppSelector} from "../hooks/customHooks";
 import {useRedirectToCart} from "../hooks/useRedirectToCart";
 
 const Login = () => {

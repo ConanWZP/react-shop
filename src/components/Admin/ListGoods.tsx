@@ -15,18 +15,10 @@ import SearchInput from "../MiniComponents/SearchInput";
 import conditionalProducts from "../Products/conditionalProducts";
 import {searchProducts, setFilteredResults} from "../../redux/slices/filtersSlice";
 import Pagination from "../Pagination/Pagination";
+import {IProduct} from '../../types'
 
 
-export interface IProduct {
-    brand: string,
-    category: string,
-    createdAt: any,
-    description: string,
-    id: string,
-    imageURLs: string[],
-    name: string,
-    price: number
-}
+
 
 const ListGoods = () => {
 

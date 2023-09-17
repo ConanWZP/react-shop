@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {collection, doc, getDoc, getDocs} from "firebase/firestore";
+import {useNavigate, useParams} from "react-router-dom";
+import {doc, getDoc} from "firebase/firestore";
 import {database} from "../../../firebaseConfig";
 import Loader from "../../MiniComponents/Loader";
-import {toast} from "react-toastify";
 import {BiArrowBack} from 'react-icons/bi';
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
-import {AiOutlineClose, AiOutlineLeft, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
+import {AiOutlineClose, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import {useDebounce} from "../../../hooks/useDebounce";
-import {IProduct} from "../../Admin/ListGoods";
+import {IProduct} from "../../../types";
 import {
     addProductToCart,
     cartItem,
@@ -20,7 +19,6 @@ import Notiflix from "notiflix";
 import useFetchDoc from "../../../hooks/useFetchDoc";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import StarsRating from "react-star-rate";
-import {log} from "util";
 import avatarBlank
     from "../../../assets/img/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent (1).png";
 

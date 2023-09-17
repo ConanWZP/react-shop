@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {IProduct} from "../Admin/ListGoods";
+import {IProduct} from "../../types";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/customHooks";
 import {addProductToCart} from "../../redux/slices/cartSlice";

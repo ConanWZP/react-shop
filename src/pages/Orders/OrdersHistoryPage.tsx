@@ -1,9 +1,5 @@
 import React, {FC, useEffect} from 'react';
-import useFetchCollection from "../../hooks/useFetchCollection";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
-import {setOrdersHistory} from '../../redux/slices/orderSlice';
-import {cartItem} from "../../redux/slices/cartSlice";
-import CartItem from "../../components/CartItem";
 import OrderItem from '../../components/OrderItem';
 import {Link, useLocation} from "react-router-dom";
 import Loader from "../../components/MiniComponents/Loader";
@@ -23,15 +19,12 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
     const location = useLocation()
 
 
-    // const {data, loading} = useFetchCollection('orders', 'userID', '==', userID)
 
     useEffect(() => {
-        //  dispatch(setOrdersHistory(data))
         dispatch(setOrders(data))
     }, [dispatch, data])
 
 
-    //const {ordersHistory} = useAppSelector(state => state.order)
 
     if (!userID) {
         return <Link to={'/login'}>Sign into your account</Link>
@@ -56,7 +49,6 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
                 {
                     orders.length > 0 ?
                         <>
-
                             <div className={`flex w-full font-[600] text-[20px] max-[480px]:text-[16px]`}>
 
                                 <div className={`w-[10%] flex items-center justify-center max-[900px]:hidden`}>
@@ -78,9 +70,7 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
                                 <div className={`flex items-center justify-center w-[20%] max-[900px]:w-[22%]  text-center`}>
                                     Order status
                                 </div>
-
                             </div>
-
 
                             <div className={`max-[480px]:text-[14px] max-[380px]:text-[12px]`}>
                                 {
@@ -90,7 +80,6 @@ const OrdersHistoryPage: FC<OrdersHistoryPageProps> = ({data, loading, setOrders
                                 }
                             </div>
                         </>
-
                         :
                         <div>empty</div>
                 }

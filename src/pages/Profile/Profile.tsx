@@ -11,7 +11,7 @@ import style from './profile.module.scss'
 import {deleteObject, getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {setChangeAvatar} from '../../redux/slices/authSlice';
 import Notiflix from "notiflix";
-import {clearCart} from "../../redux/slices/cartSlice";
+
 
 const Profile = () => {
 
@@ -22,10 +22,7 @@ const Profile = () => {
     const [image, setImage] = useState<any>()
     const inputRef = useRef<any>()
 
-    /* const showImageState = (e: any) => {
-         setImage(e.target.files[0])
-         console.log(e.target.files[0])
-     }*/
+
 
     useEffect(() => {
         console.log(image)

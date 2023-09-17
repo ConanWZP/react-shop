@@ -83,7 +83,6 @@ const Register = () => {
             toast.success('You signed up')
 
             redirectToCart()
-           // useRedirectToCart('/cart', '/cart')
 
 
         } catch (e: any) {

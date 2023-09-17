@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProduct} from "../../components/Admin/ListGoods";
+import {IProduct} from "../../types";
 
 
 export interface ProductSlice {

@@ -1,29 +1,48 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProduct} from "../../components/Admin/ListGoods";
+import {IProduct} from "../../types";
+
+type payloadSearch = {
+    products: IProduct[],
+    searchValue: string
+}
+
+type payloadSort = {
+    products: IProduct[],
+    sortValue: string
+}
+
+type payloadCategory = {
+    products: IProduct[],
+    category: string
+}
+
+type payloadBrand = {
+    products: IProduct[],
+    brand: string
+}
+
+type payloadPrice = {
+    products: IProduct[],
+    price: number
+}
 
 interface IFiltersSlice {
-    filteredResults: any[],
-   // filteredByCategory: any[],
-   // filteredByBrand: any[]
+    filteredResults: IProduct[],
 }
+
 
 const initialState: IFiltersSlice = {
     filteredResults: [],
-   // filteredByCategory: [],
-  //  filteredByBrand: []
 }
 
-// product.name.toLowerCase().includes(searchValue.toLowerCase())
 
 export const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
 
-        searchProducts: (state, action) => {
-
+        searchProducts: (state, action: PayloadAction<payloadSearch>) => {
             const {products, searchValue} = action.payload
-           // const searchValue = extraDispatchArg
 
             state.filteredResults = products.filter((product: IProduct) => {
                 return (
@@ -36,13 +55,9 @@ export const filtersSlice = createSlice({
             })
 
         },
-        sortProductsBy: (state: any, action: PayloadAction<any>) => {
+        sortProductsBy: (state: any, action: PayloadAction<payloadSort>) => {
             const {products, sortValue} = action.payload
 
-
-            // latest - is default, because fetching data from firebase making with property - createdAt, desc
-          //  state.filteredByCategory = products
-              //  state.filteredByBrand = products
             switch (sortValue) {
 
                 case 'last':
@@ -57,9 +72,7 @@ export const filtersSlice = createSlice({
 
                     let lowPriceProducts = [...products]
                     return {
-                       // filteredByBrand: lowPriceProducts,
                         filteredResults: lowPriceProducts.sort((a: any, b: any) => {
-                         //   console.log(a.price, b.price)
                             return a.price - b.price
                         })
                     }
@@ -69,7 +82,6 @@ export const filtersSlice = createSlice({
 
                     return {
                         filteredResults: highPriceProducts.sort((a: any, b: any) => {
-                          //  console.log(a, b)
                             return b.price - a.price
                         })
                     }
@@ -79,7 +91,6 @@ export const filtersSlice = createSlice({
 
                     return {
                         filteredResults: aZPriceProducts.sort((a: any, b: any) => {
-                          //  console.log(a, b)
                             return a.name.localeCompare(b.name)
                         })
                     }
@@ -99,50 +110,39 @@ export const filtersSlice = createSlice({
             }
 
         },
-        setProductsByCategory: (state: any, action) => {
+        setProductsByCategory: (state, action: PayloadAction<payloadCategory>) => {
             const {products, category} = action.payload
 
-            console.log(products)
-            console.log(category)
             switch (category) {
                 case 'All':
                     return {
                         filteredResults: products,
-                     //   filteredByCategory: products
                     }
                 case category:
                     return {
-                      //  filteredByCategory: products.filter((product: IProduct) => product.category === category),
                         filteredResults: products.filter((product: IProduct) => product.category === category)
                     }
                 default: return state
             }
         },
-        setProductsByBrand: (state: any, action) => {
+        setProductsByBrand: (state, action:PayloadAction<payloadBrand>) => {
 
             const {products, brand} = action.payload
-            console.log(products)
-            console.log(brand, '  brand')
             switch (brand) {
                 case 'All':
 
                     return {
                         filteredResults: products,
-                       // filteredByBrand: products,
-                      //  filteredByCategory: products
                     }
                 case brand:
                     return {
-                      //  filteredByCategory: products,
                         filteredResults: products.filter((product: IProduct) => product.brand === brand),
-                       // filteredByBrand: products.filter((product: IProduct) => product.brand === brand)
                     }
                 default: return state
             }
         },
-        setProductsByPrice: (state, action) => {
+        setProductsByPrice: (state, action: PayloadAction<payloadPrice>) => {
             const {products, price} = action.payload
-
             state.filteredResults = products.filter((product: IProduct) => product.price <= price)
         },
         setFilteredResults: (state, action) => {
@@ -152,7 +152,9 @@ export const filtersSlice = createSlice({
     }
 })
 
-export const {searchProducts, sortProductsBy, setProductsByCategory, setProductsByBrand, setProductsByPrice, setFilteredResults} = filtersSlice.actions
+export const {searchProducts, sortProductsBy,
+    setProductsByCategory, setProductsByBrand,
+    setProductsByPrice, setFilteredResults} = filtersSlice.actions
 
 export default filtersSlice.reducer
 

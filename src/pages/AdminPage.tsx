@@ -7,23 +7,15 @@ import AddGood from "../components/Admin/AddGood";
 import CheckOrders from "../components/Admin/CheckOrders";
 import CreateCategory from "../components/Admin/CreateCategory";
 import {FaCogs} from "react-icons/fa";
-import useFetchCollection from "../hooks/useFetchCollection";
-import {useAppDispatch} from "../hooks/customHooks";
 import AdminOrderDetails from "../components/Admin/orders/AdminOrderDetails";
 import styles from "../components/Products/productsList.module.scss";
-import {AiFillFilter, AiOutlineSortAscending} from "react-icons/ai";
-import {BsSearch} from "react-icons/bs";
+
 
 const AdminPage = () => {
 
     const [hideAdminNavbar, setHideAdminNavbar] = useState(true)
 
-    /*const dispatch = useAppDispatch()
-    const {data, loading} = useFetchCollection('products')
 
-    useEffect(() => {
-
-    }, [data])*/
 
     if (!hideAdminNavbar) {
         document.body.classList.add(`${styles.locked}`)
@@ -53,12 +45,7 @@ const AdminPage = () => {
                         max-[600px]:w-full max-[600px]:pl-1 max-[970px]:pb-4`}>
                 <AdminNavbar />
             </div>
-            {/*<div onClick={() => setHideAdminNavbar(!hideAdminNavbar)}
-                 className={`hidden justify-center items-center absolute right-1 top-16 
-                        cursor-pointer max-[970px]:flex`}>
-                <FaCogs size={`20`} className={`text-green-500`}/>
-                <span>{hideAdminNavbar ? `Show Admin Navbar` : `Hide Admin Navbar`}</span>
-            </div>*/}
+
             <div className={`hidden max-[970px]:flex h-16 bg-white w-full fixed bottom-0 left-0 z-10 ${styles.shadow}`}>
 
                 <div className={`w-full h-full flex flex-col justify-center cursor-pointer`}

@@ -6,8 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {savePriceRange, saveProducts} from "../../redux/slices/productSlice";
 import SkeletonLoader from "../MiniComponents/SkeletonLoader";
 import conditionalProducts from "./conditionalProducts";
-import {IProduct} from "../Admin/ListGoods";
-import { FaCogs } from 'react-icons/fa';
+import {IProduct} from "../../types";
 import styles from './products.module.scss';
 import {AiOutlineClose} from "react-icons/ai";
 
@@ -25,23 +24,18 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
     const [sortValue, setSortValue] = useState('last')
     const [currentCategory, setCurrentCategory] = useState('All')
     const [currentBrand, setCurrentBrand] = useState('All')
-    const [currentPrice, setCurrentPrice] = useState<any>(200)
-    const {filteredResults} = useAppSelector(state => state.filters)
+    const [currentPrice, setCurrentPrice] = useState(200)
 
     const [hideFilters, setHideFilters] = useState(true)
 
 
     useEffect(() => {
         dispatch(saveProducts(data))
-
-
-
     }, [data, dispatch])
 
     useEffect(() => {
 
-        let filteredBySearchValueProducts: any[] = []
-      // let  filteredByPriceProducts =  products.filter((product) => product.price <= currentPrice)
+        let filteredBySearchValueProducts: IProduct[]
 
         if (searchValue !== '') {
             filteredBySearchValueProducts = products.filter((product: IProduct) => {
@@ -91,15 +85,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                         `w-1/5 transition-all duration-300 ease-in-out max-[970px]:w-full max-[970px]:bg-gray-50 
                         max-[970px]:fixed max-[970px]:h-[calc(100%-_64px)] max-[970px]:z-20 top-0 left-0 px-1 flex flex-col justify-center`}>
                     <>
-                        {
-                           /* hideFilters ?
-                                null
-                                :
-                                <div className={`flex justify-end pb-8`}>
-                                    <AiOutlineClose size={28} className={'cursor-pointer text-black'}
-                                                    onClick={() => setHideFilters(true)}/>
-                                </div>*/
-                        }
+
                     {
                         loading ?
                             null
@@ -118,9 +104,6 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
                     </>
                 </aside>
                 {
-                   /* hideFilters ?
-                        null
-                        :*/
                         <div className={`fixed top-16 right-1 z-40 pt-2  ${hideFilters ? 'invisible ' : 'transition-all visible delay-300 duration-300 ease-in-out'}   `}>
                             <AiOutlineClose size={28} className={'cursor-pointer text-black'}
                                             onClick={() => setHideFilters(true)}/>
@@ -150,12 +133,7 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
                             />
                     }
-                    {/*<div onClick={() => setHideFilters(!hideFilters)}
-                        className={`hidden justify-center items-center absolute right-0 top-14 
-                        cursor-pointer max-[970px]:flex`}>
-                        <FaCogs size={`20`} className={`text-green-500`}/>
-                        <span>{hideFilters ? `Show Filters` : `Hide Filters`}</span>
-                    </div>*/}
+
 
                 </div>
             </div>

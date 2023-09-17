@@ -2,12 +2,11 @@ import React, {FC, useEffect, useState} from 'react';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
 import {BiCart, BiMenu} from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
-import {onAuthStateChanged, signOut} from 'firebase/auth';
-import {auth, database} from "../firebaseConfig";
+import {signOut} from 'firebase/auth';
+import {auth} from "../firebaseConfig";
 import {toast} from "react-toastify";
 import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
-import {setAuthLoading, setCurrentUser} from "../redux/slices/authSlice";
-import {doc, getDoc} from "firebase/firestore";
+import {setCurrentUser} from "../redux/slices/authSlice";
 import {calculateTotalCountOfProducts} from "../redux/slices/cartSlice";
 
 
@@ -64,10 +63,9 @@ interface NavLinkState {
 
 const Header = () => {
 
-
+    const admins = ['yaroslav2281337@gmail.com', 'admin@shopper.com']
     const navigate = useNavigate()
     const [menuIsShow, setMenuIsShow] = useState(false)
-    // const [userName, setUserName] = useState<any>(null)
     const {userName, email} = useAppSelector(state => state.auth)
     const [loading, setLoading] = useState(false)
     const dispatch = useAppDispatch()
@@ -91,7 +89,8 @@ const Header = () => {
                 email: null,
                 userName: null,
                 userID: null,
-                isAuth: false
+                isAuth: false,
+                avatar: ''
             }))
             toast.success('You signed out')
             navigate('/')
@@ -100,43 +99,6 @@ const Header = () => {
         }
     }
 
-
-    /*useEffect(() => {
-        setLoading(true)
-        dispatch(setAuthLoading(true))
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-
-                const getData = async () => {
-                    const docRef = doc(database, 'users', user.uid)
-                    const docData = await getDoc(docRef)
-                    if (docData.exists()) {
-                        console.log(docData.data())
-                        dispatch(setCurrentUser({
-                            email: docData.data().email,
-                            userName: docData.data().name,
-                            userID: docData.data().uid,
-                            isAuth: true
-                        }))
-                        setLoading(false)
-                        dispatch(setAuthLoading(false))
-                    }
-
-                }
-                getData()
-
-            } else {
-                console.log('no user')
-                console.log(user)
-                setLoading(false)
-                dispatch(setAuthLoading(false))
-                //setUserName(null)
-            }
-
-
-            //setLoading(false)
-        })
-    }, [dispatch])*/
 
     return (
         <header className={'w-full fixed z-50 text-white bg-[#406bad]'}>
@@ -159,7 +121,7 @@ const Header = () => {
                             <AiOutlineClose size={28} className={'cursor-pointer'} onClick={closeMenu}/>
                         </div>
                         {
-                            email === 'yaroslav2281337@gmail.com' ?
+                            admins.includes(email as string) ?
                                 <Link to={'/admin/home'} className={'text-center'}>
                                     <button className={`bg-blue-500 px-2 py-[2px] rounded transition-all duration-300 
                             ease-in-out`}>Admin
@@ -207,7 +169,6 @@ const Header = () => {
                                 </>
 
                             }
-
                                     <NavLink to={'/orders-history'}
                                              className={(state) => linkIsActive(state) + ' ' +
                                                  'mr-3 hover:text-green-400 transition-all duration-300 ease-in-out ' +
@@ -219,15 +180,10 @@ const Header = () => {
                                         : null
 
                                     }
-
-
-                        </span>
+                            </span>
                         }
-
                         <CartComponent border={true} closeMenu={closeMenu} linkIsActive={linkIsActive}/>
                     </div>
-
-
                 </nav>
 
                 <div className={'hidden max-[970px]:flex max-[970px]:items-center gap-2'}>
