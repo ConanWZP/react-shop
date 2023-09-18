@@ -99,7 +99,7 @@ const Product = () => {
     const currentItem = items.find((item) => item.id === productData?.id)
 
 
-    const addItemToCart = (item: IProduct) => {
+    const addItemToCart = (item: cartItem) => {
         dispatch(addProductToCart(item))
     }
 
@@ -140,31 +140,16 @@ const Product = () => {
     const [reviewData, setReviewData] = useState<any[]>([])
     const {data} = useFetchCollection('reviews', 'productID', '==', params?.id)
 
-    const [avatars, setAvatars] = useState<any>()
-
-
     let usersIDFromReviews = data.map((review: any) => review.userID)
-    //console.log(array)
-
 
     let usersDataFromUsers: any[] = []
 
 
     let modifiedUsersDataFromUsers: any[] = []
-    /*let changeData = data*/
-
 
 
     useEffect(() => {
         const gettingUsers = async () => {
-            /*const querySnapshot = await getDocs(collection(database, "users"));
-            querySnapshot.forEach((doc) => {
-                for (let i = 0; i < array.length; i++) {
-                    if (doc.id === array[i])
-                        extraArray.push(doc.data())
-                }
-
-            });*/
 
 
             // Создаем массив с информацией о пользователях, которые оставили отзывы
@@ -186,25 +171,13 @@ const Product = () => {
                 }
             })
 
-
             setReviewData(modifiedUsersDataFromUsers)
-
-
 
         }
         gettingUsers()
-        //console.log(changeData)
+
 
     }, [data])
-
-    //console.log(changeData)
-
-    /*useEffect(() => {
-        setReviewData(data)
-
-    }, [data])*/
-
-   // console.log(reviewData)
 
     if (loading) {
         return <Loader/>

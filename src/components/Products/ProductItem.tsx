@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {IProduct} from "../../types";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/customHooks";
-import {addProductToCart} from "../../redux/slices/cartSlice";
+import {addProductToCart, cartItem} from "../../redux/slices/cartSlice";
 
 interface ProductItemProps {
     product: IProduct,
@@ -13,7 +13,7 @@ const ProductItem: FC<ProductItemProps> = ({product, isGrid}) => {
 
     const dispatch = useAppDispatch()
 
-    const addItemToCart = (item: IProduct) => {
+    const addItemToCart = (item: cartItem) => {
         dispatch(addProductToCart(item))
     }
 
@@ -62,7 +62,7 @@ const ProductItem: FC<ProductItemProps> = ({product, isGrid}) => {
             ${!isGrid ? 'w-[20%] max-[700px]:w-[70%]  max-[700px]:justify-between max-[700px]:mx-auto max-[700px]:flex min-[701px]:flex-col' 
                 : 'flex-col'} `}>
                 <p className={'text-[24px] font-medium mb-1'}>{product.price}$</p>
-                <button onClick={() => addItemToCart(product)}
+                <button onClick={() => addItemToCart(product as cartItem)}
                         className={`px-5 py-2 bg-green-500 text-white font-medium text-[22px] rounded-[10px] 
                 transition-all duration-300 ease-in-out hover:bg-green-600 active:bg-green-700 max-[600px]:px-2 max-[600px]:py-1 
                 ${!isGrid ? 'max-[1070px]:px-2' : ''}`}>

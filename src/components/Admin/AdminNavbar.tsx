@@ -12,7 +12,6 @@ const AdminNavbar = () => {
 
     const {userName, avatar} = useAppSelector(state => state.auth)
     const location = useLocation()
-   // console.log(location)
 
     return (
         <div className={'flex flex-col'}>

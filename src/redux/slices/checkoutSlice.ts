@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 type billingDataType = {
     country: string,
@@ -39,7 +39,7 @@ export const checkoutSlice = createSlice({
     name: 'checkoutSlice',
     initialState,
     reducers: {
-        setBillingData: (state, action) => {
+        setBillingData: (state, action: PayloadAction<billingDataType>) => {
             console.log(action.payload)
             state.billingData = action.payload
         },

@@ -1,7 +1,6 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import {addDoc, collection, doc, getDoc, getDocs, query, Timestamp, updateDoc} from "firebase/firestore";
 import {auth, database, storage} from "../../firebaseConfig";
-import {AiOutlineArrowDown} from 'react-icons/ai';
 import {v4 as uuidv4} from 'uuid'
 import {deleteObject, getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 import {toast} from "react-toastify";
@@ -14,7 +13,6 @@ import  './AddGood.module.scss'
 const AddGood = () => {
 
     const params = useParams()
-    console.log(params)
     const navigate = useNavigate()
     const [product, setProduct] = useState<any>({
         name: '',
@@ -67,7 +65,6 @@ const AddGood = () => {
                 const getProductData = async (id: string) => {
                    let docData = await getDoc(doc(database, 'products', id))
                     if (docData.exists()) {
-                        console.log(docData.data())
                         setProduct({
                             name: docData.data().name,
                             price: docData.data().price,
@@ -106,7 +103,6 @@ const AddGood = () => {
     }
 
     const deleteImage = (image: string) => {
-        console.log(image)
         let newAr = imageURLsPrev.filter((imageURL: string) => {
             if(imageURL !== image) {
                 return true
@@ -118,12 +114,6 @@ const AddGood = () => {
             ...product,
             imageURLsPrev: newAr
         })
-
-        console.log(deletedImages)
-
-        //console.log(newAr)
-
-
     }
 
     const createProduct = async (e: FormEvent) => {
@@ -132,8 +122,6 @@ const AddGood = () => {
         setCreatingProduct(true)
 
         try {
-
-            //let testIngArray = ['1f', '2d']
 
             if (images.length + imageURLsPrev.length > 6) {
                 setCreatingProduct(false)
@@ -146,7 +134,6 @@ const AddGood = () => {
                 toast.error('Minimum 1 image')
                 return
             }
-
 
             const collectImage = async (image: any) => {
                 return new Promise((resolve, reject) => {

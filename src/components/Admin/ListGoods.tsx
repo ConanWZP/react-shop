@@ -1,4 +1,4 @@
-import {collection, deleteDoc, doc, onSnapshot, orderBy, query} from 'firebase/firestore';
+import {deleteDoc, doc} from 'firebase/firestore';
 import React, {useEffect, useState} from 'react';
 import {AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import {toast} from "react-toastify";
@@ -10,9 +10,7 @@ import Notiflix from 'notiflix';
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import {saveProducts} from "../../redux/slices/productSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
-import {log} from "util";
 import SearchInput from "../MiniComponents/SearchInput";
-import conditionalProducts from "../Products/conditionalProducts";
 import {searchProducts, setFilteredResults} from "../../redux/slices/filtersSlice";
 import Pagination from "../Pagination/Pagination";
 import {IProduct} from '../../types'
@@ -27,11 +25,6 @@ const ListGoods = () => {
     const { filteredResults } = useAppSelector(state => state.filters)
     const [searchValue, setSearchValue] = useState('')
 
-
-
-
-  //  const [products, setProducts] = useState<any>([])
-  //  const [loading, setLoading] = useState(false)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -64,44 +57,6 @@ const ListGoods = () => {
     useEffect(() => {
         setCurrentPage(1)
     }, [filteredResults])
-
-  /*  useEffect(() => {
-        const getProducts = () => {
-            setLoading(true)
-
-            try {
-
-                const q = query(collection(database, 'products'), orderBy('createdAt', 'desc'));
-                onSnapshot(q, async (querySnapshot) => {
-                    // const cities = [];
-                    console.log(querySnapshot)
-                    const goods = querySnapshot.docs.map((doc) => {
-                            return {
-                                id: doc.id,
-                                ...doc.data()
-                            }
-                        }
-                    )
-                    console.log(goods)
-                    setProducts(goods)
-                    setLoading(false)
-                    dispatch(saveProducts(goods))
-
-
-                    /!*await querySnapshot.forEach((doc) => {
-                        products.push(doc.data().name);
-                    });*!/
-                    // console.log("Current cities in CA: ", cities.join(", "));
-                });
-
-
-            } catch (e: any) {
-                toast.error(e.message)
-                setLoading(false)
-            }
-        }
-        getProducts()
-    }, [])*/
 
     const confirmRemove = (id: string, imageURLs: string[]) => {
         Notiflix.Confirm.show(

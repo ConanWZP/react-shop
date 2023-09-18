@@ -145,8 +145,6 @@ const ProductsFilters: FC<ProductsFiltersProps> = ({
 
 
 
-
-
     return (
         <div className={`overflow-y-auto pt-16`}>
             <h2 className={`text-[22px] font-medium`}>Categories</h2>

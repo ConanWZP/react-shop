@@ -209,8 +209,6 @@ const ProductsList: FC<IProductsListProps> = ({
                         <div className={`text-[20px] text-gray-400`}>
                             Sort
                         </div>
-
-
                     </div>
                 </div>
                 <div className={`w-1/3 h-full flex flex-col justify-center cursor-pointer`}

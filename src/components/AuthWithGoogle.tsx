@@ -4,14 +4,12 @@ import React from 'react';
 import {FcGoogle} from "react-icons/fc";
 import {auth, database} from "../firebaseConfig";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 import {setCurrentUser} from "../redux/slices/authSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/customHooks";
 import {useRedirectToCart} from "../hooks/useRedirectToCart";
 
 const AuthWithGoogle = () => {
 
-    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
 

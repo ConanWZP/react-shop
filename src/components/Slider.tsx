@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import styles from './slider.module.scss'
 
 interface SliderProps {
@@ -99,8 +99,6 @@ const Slider:FC<SliderProps> = ({scrollToList}) => {
                             :
                             null
                     }
-
-
                 </div>
             ))}
         </div>

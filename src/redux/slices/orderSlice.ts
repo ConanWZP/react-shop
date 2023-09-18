@@ -36,5 +36,6 @@ export const orderSlice = createSlice({
     }
 })
 
-export const { setOrdersHistory, calculateTotalOrdersPrice, setOrdersHistoryAdmin } = orderSlice.actions
+export const { setOrdersHistory, calculateTotalOrdersPrice,
+    setOrdersHistoryAdmin } = orderSlice.actions
 export default orderSlice.reducer

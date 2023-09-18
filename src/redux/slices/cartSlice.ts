@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {toast} from "react-toastify";
 
 
@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addProductToCart: (state, action) => {
+        addProductToCart: (state, action: PayloadAction<cartItem>) => {
             const findItem = state.items.find((item) => item.id === action.payload.id)
             if (findItem && findItem.count) {
                 findItem.count++
@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
             }
             localStorage.setItem('cartItems', JSON.stringify(state.items))
         },
-        decreaseProductInCart: (state, action) => {
+        decreaseProductInCart: (state, action: PayloadAction<cartItem>) => {
             const findItem = state.items.find((item) => item.id === action.payload.id)
             if (findItem) {
                 findItem.count--
@@ -61,7 +61,7 @@ export const cartSlice = createSlice({
             }
             localStorage.setItem('cartItems', JSON.stringify(state.items))
         },
-        removeProductFromCart: (state, action) => {
+        removeProductFromCart: (state, action:PayloadAction<cartItem>) => {
             state.items = state.items.filter((item) => item.id !== action.payload.id)
             toast.success(`${action.payload.name} was removed from cart`, {
                 position: 'top-right'

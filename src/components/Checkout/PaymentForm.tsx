@@ -6,7 +6,6 @@ import {
     useElements
 } from "@stripe/react-stripe-js";
 import CheckoutInfo from "./CheckoutInfo";
-import Loader from "../MiniComponents/Loader";
 import {toast} from "react-toastify";
 import * as stripeJs from "@stripe/stripe-js";
 import {addDoc, collection, Timestamp} from "firebase/firestore";

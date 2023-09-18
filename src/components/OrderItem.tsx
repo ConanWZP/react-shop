@@ -12,7 +12,6 @@ const OrderItem:FC<OrderItemProps> = ({order, index}) => {
     const location = useLocation()
     const navigate = useNavigate()
 
-   // console.log(location)
     const redirectToOrder = (id: string) => {
 
         if (location.pathname === '/admin/check-orders') {

@@ -4,8 +4,6 @@ import {GrMoney} from 'react-icons/gr'
 import {IoCartOutline} from 'react-icons/io5';
 import AdminInfoBlock from "../MiniComponents/AdminInfoBlock";
 import useFetchCollection from "../../hooks/useFetchCollection";
-import { collection, getCountFromServer } from 'firebase/firestore';
-import {database} from "../../firebaseConfig";
 import Loader from "../MiniComponents/Loader";
 import {useAppDispatch, useAppSelector} from "../../hooks/customHooks";
 import { calculateTotalOrdersPrice } from '../../redux/slices/orderSlice';
@@ -28,20 +26,6 @@ const AdminHome = () => {
 
 
     const {ordersTotalPrice} = useAppSelector(state => state.order)
-
-    console.log(data)
-
-
-   /* const fetchLengthProductsCollection = async () => {
-        const coll = collection(database, "products");
-        const snapshot = await getCountFromServer(coll);
-        setProductsNumber(snapshot.data().count)
-    }*/
-
-
-    /*useEffect(() => {
-        fetchLengthProductsCollection()
-    }, [])*/
 
     useEffect(() => {
 

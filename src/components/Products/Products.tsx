@@ -133,8 +133,6 @@ const Products:FC<ProductsProps> = ({productListRef}) => {
 
                             />
                     }
-
-
                 </div>
             </div>
         </section>

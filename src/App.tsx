@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ContactPage from "./pages/ContactPage";
-import OrdersHistoryPage from "./pages/Orders/OrdersHistoryPage";
 import Cart from "./pages/Cart";
-import HeaderTest from "./components/headerTest/HeaderTest";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -15,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Profile from "./pages/Profile/Profile";
 import AdminPage from "./pages/AdminPage";
 import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
-
 import Loader from "./components/MiniComponents/Loader";
 import DenyAccess from "./components/Admin/DenyAccess";
 import Product from "./components/Products/Product/Product";
@@ -30,7 +27,7 @@ import {doc, getDoc} from "firebase/firestore";
 import CreatingReviewPage from "./pages/CreatingReviewPage";
 import OrdersHistoryPageContainer from "./pages/Orders/OrdersHistoryPageContainer";
 import NotFound from "./pages/NotFound";
-import styles from "./components/Products/productsList.module.scss";
+
 
 interface IUserDocData {
     avatar: string,
